@@ -44,10 +44,9 @@ def print_issues(issues):
         # print(f"Due date: {issue.fields.customfield_10451}")
 
 
-def build_summary(issues, type, summary, project):
-    status = summary[type]["label"]
+def build_summary(issues, type, summary, summary_output, project):
     if not issues:
-        print(f"\nNo issues {status} for {project}.")
+        summary_output[type].append(f"  - {project}: no issues")
         return
 
     ids = []
@@ -56,7 +55,7 @@ def build_summary(issues, type, summary, project):
     ids.sort()
     summary[type]["issues"].extend(ids)
 
-    print(f"\nIssues {status} for {project} ({len(ids)}): {', '.join(ids)}")
+    summary_output[type].append(f"  - {project}: {len(ids)} issues ({', '.join(ids)})")
 
 
 def main():
@@ -71,11 +70,20 @@ def main():
         "created": {"label": f"opened since {since_date}", "issues": []},
         "closed": {"label": f"closed since {since_date}", "issues": []},
     }
+    summary_output = {
+        "backlog": ["Issues in backlog for:"],
+        "in-progress": ["Issues in progress for:"],
+        "created": [f"Issues created since {since_date} for:"],
+        "closed": [f"Issues closed since {since_date} for:"],
+    }
+    projects = ["l10n-requests", "l10n-vendor"]
+
+    ## Backlog
     backlog = search_issues(
         jira,
         f"project=l10n-requests AND status=Backlog ORDER BY created DESC",
     )
-    build_summary(backlog, "backlog", summary, "l10n-requests")
+    build_summary(backlog, "backlog", summary, summary_output, "l10n-requests")
     if args.verbose:
         print_issues(backlog)
 
@@ -84,17 +92,16 @@ def main():
         jira,
         f"project=l10n-vendor AND status in (Backlog, 'To Do') AND issuetype != Epic ORDER BY created DESC",
     )
-    build_summary(backlog, "backlog", summary, "l10n-vendors")
+    build_summary(backlog, "backlog", summary, summary_output, "l10n-vendors")
     if args.verbose:
         print_issues(backlog)
 
-    projects = ["l10n-requests", "l10n-vendor"]
     for project in projects:
         in_progress = search_issues(
             jira,
             f"project={project} AND status='In Progress' ORDER BY created DESC",
         )
-        build_summary(in_progress, "in-progress", summary, project)
+        build_summary(in_progress, "in-progress", summary, summary_output, project)
         if args.verbose:
             print_issues(in_progress)
 
@@ -103,7 +110,7 @@ def main():
             jira,
             f"project={project} AND created>={date_since} ORDER BY created DESC",
         )
-        build_summary(created, "created", summary, project)
+        build_summary(created, "created", summary, summary_output, project)
         if args.verbose:
             print_issues(created)
 
@@ -111,9 +118,13 @@ def main():
             jira,
             f"project={project} AND resolutiondate>={date_since} ORDER BY created DESC",
         )
-        build_summary(created, "closed", summary, project)
+        build_summary(created, "closed", summary, summary_output, project)
         if args.verbose:
             print_issues(closed)
+
+    for lines in summary_output.values():
+        print("")
+        print("\n".join(lines))
 
     print("\n--------\n")
     for category in summary.values():
