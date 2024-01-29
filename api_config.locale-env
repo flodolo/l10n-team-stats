@@ -4,5 +4,11 @@ GITHUB_TOKEN=XXX
 JIRA_TOKEN=XXX
 JIRA_EMAIL=XXX
 
+PHABRICATOR_TOKEN=XXX
+
 [URLS]
+# e.g. https://mozilla-hub.atlassian.net
 JIRA_SERVER=XXX
+
+# e.g. https://phabricator.services.mozilla.com/api
+PHABRICATOR_SERVER=XXX

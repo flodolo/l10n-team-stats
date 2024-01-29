@@ -6,9 +6,7 @@ from datetime import datetime, timedelta
 from functions import github_api_request, parse_arguments
 
 
-def query_pr_data(
-    start_date, repo, usernames, query, pr_stats, cursor=""
-):
+def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
     repo_query = query.replace("%REPO%", repo)
     if cursor != "":
         repo_query = repo_query.replace("%CURSOR%", f'after: "{cursor}"')
@@ -38,10 +36,8 @@ def query_pr_data(
 
     if r_data["pageInfo"]["hasNextPage"]:
         new_cursor = r_data["pageInfo"]["endCursor"]
-        #print(f"  Requesting new page (from {new_cursor})")
-        query_pr_data(
-            start_date, repo, usernames, query, pr_stats, new_cursor
-        )
+        # print(f"  Requesting new page (from {new_cursor})")
+        query_pr_data(start_date, repo, usernames, query, pr_stats, new_cursor)
 
 
 def get_pr_data(period_data, start_date, pr_stats):
@@ -94,7 +90,7 @@ def get_pr_data(period_data, start_date, pr_stats):
     repos.sort()
 
     for repo in repos:
-        #print(f"Requesting data for {repo}")
+        # print(f"Requesting data for {repo}")
         query_pr_data(start_date, repo, usernames, query_prs, pr_stats)
 
 

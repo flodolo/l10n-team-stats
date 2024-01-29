@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
+from github import Github
+from jira import JIRA
 import argparse
 import configparser
 import datetime
+import json
 import os
 import requests
+import urllib.parse as url_parse
+import urllib.request as url_request
 import urllib3
-from github import Github
-from jira import JIRA
 
 
 def ymd(value):
@@ -56,6 +59,12 @@ def read_config(key):
             config.get("URLS", "JIRA_SERVER"),
         )
 
+    if key == "phab":
+        return (
+            config.get("KEYS", "PHABRICATOR_TOKEN"),
+            config.get("URLS", "PHABRICATOR_SERVER"),
+        )
+
 
 def format_time(interval):
     if interval < 3600:
@@ -95,3 +104,39 @@ def get_jira_object():
         basic_auth=(jira_email, jira_token),
         server=jira_server,
     )
+
+
+def phab_query(method, data, after=None, **kwargs):
+    phab_token, server = read_config("phab")
+    server = server.rstrip("/")
+    req = url_request.Request(
+        f"{server}/{method}",
+        method="POST",
+        data=url_parse.urlencode(
+            {
+                "params": json.dumps(
+                    {
+                        **kwargs,
+                        "__conduit__": {"token": phab_token},
+                        "after": after,
+                    }
+                ),
+                "output": "json",
+                "__conduit__": True,
+            }
+        ).encode(),
+    )
+
+    with url_request.urlopen(req) as r:
+        res = json.load(r)
+    if res["error_code"] and res["error_info"]:
+        raise Exception(res["error_info"])
+
+    if res["result"]["cursor"]["after"] is not None:
+        # print(f'Fetching new page (from {res["result"]["cursor"]["after"]})')
+        conduit(method, data, res["result"]["cursor"]["after"], **kwargs)
+
+    if "results" in data:
+        data["results"].extend(res["result"]["data"])
+    else:
+        data["results"] = res["result"]["data"]
