@@ -6,6 +6,7 @@ import datetime
 import os
 import urllib3
 from github import Github
+from jira import JIRA
 
 
 def ymd(value):
@@ -47,6 +48,13 @@ def read_config(key):
     if key == "github":
         return config.get("KEYS", "GITHUB_TOKEN")
 
+    if key == "jira":
+        return (
+            config.get("KEYS", "JIRA_EMAIL"),
+            config.get("KEYS", "JIRA_TOKEN"),
+            config.get("URLS", "JIRA_SERVER"),
+        )
+
 
 def format_time(interval):
     if interval < 3600:
@@ -67,4 +75,12 @@ def get_github_object():
         retry=urllib3.util.retry.Retry(
             total=10, status_forcelist=(500, 502, 504), backoff_factor=0.3
         ),
+    )
+
+
+def get_jira_object():
+    jira_email, jira_token, jira_server = read_config(key="jira")
+    return JIRA(
+        basic_auth=(jira_email, jira_token),
+        server=jira_server,
     )
