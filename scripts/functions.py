@@ -4,6 +4,8 @@ import argparse
 import configparser
 import datetime
 import os
+import urllib3
+from github import Github
 
 
 def ymd(value):
@@ -44,3 +46,25 @@ def read_config(key):
     config.read(config_file)
     if key == "github":
         return config.get("KEYS", "GITHUB_TOKEN")
+
+
+def format_time(interval):
+    if interval < 3600:
+        interval = round(interval / 60)
+        return f"{interval} minutes"
+    elif interval < 86400:
+        interval = round(interval / 3600)
+        return f"{interval} hours"
+    else:
+        interval = round(interval / 86400)
+        return f"{interval} days"
+
+
+def get_github_object():
+    github_token = read_config(key="github")
+    return Github(
+        github_token,
+        retry=urllib3.util.retry.Retry(
+            total=10, status_forcelist=(500, 502, 504), backoff_factor=0.3
+        ),
+    )
