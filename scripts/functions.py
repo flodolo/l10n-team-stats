@@ -4,6 +4,7 @@ import argparse
 import configparser
 import datetime
 import os
+import requests
 import urllib3
 from github import Github
 from jira import JIRA
@@ -76,6 +77,16 @@ def get_github_object():
             total=10, status_forcelist=(500, 502, 504), backoff_factor=0.3
         ),
     )
+
+
+def github_api_request(query):
+    url = "https://api.github.com/graphql"
+    github_token = read_config(key="github")
+    json_query = {"query": query}
+    headers = {"Authorization": f"token {github_token}"}
+    r = requests.post(url=url, json=json_query, headers=headers)
+
+    return r
 
 
 def get_jira_object():
