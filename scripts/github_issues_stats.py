@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import urllib3
-from github import Github
-from functions import parse_arguments, read_config
+from functions import get_github_object, parse_arguments
 
 
 def main():
@@ -10,14 +8,7 @@ def main():
     date_since = args.since.strftime("%Y-%m-%d")
     repo = args.repo
 
-    github_token = read_config(key="github")
-
-    g = Github(
-        github_token,
-        retry=urllib3.util.retry.Retry(
-            total=10, status_forcelist=(500, 502, 504), backoff_factor=0.3
-        ),
-    )
+    g = get_github_object()
 
     print(f"Analysis of repository: {repo}\n")
 
