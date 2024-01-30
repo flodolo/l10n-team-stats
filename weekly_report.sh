@@ -15,23 +15,48 @@ script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Pontoon stats
 echo -e "\n--------------\n"
 echo "Pontoon PR stats"
-python "${script_path}/scripts/github_prs_stats.py" --since $1 --repo mozilla/pontoon
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/github_prs_stats.py" --repo mozilla/pontoon
+else
+  python "${script_path}/scripts/github_prs_stats.py" --since $1 --repo mozilla/pontoon
+fi
 
 echo -e "\n--------------\n"
 echo "Pontoon issues stats"
-python "${script_path}/scripts/github_issues_stats.py" --since $1 --repo mozilla/pontoon
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/github_issues_stats.py" --repo mozilla/pontoon
+else
+  python "${script_path}/scripts/github_issues_stats.py" --since $1 --repo mozilla/pontoon
+fi
 
 # Jira stats
 echo -e "\n--------------\n"
 echo "Jira stats"
-python "${script_path}/scripts/jira_l10n_stats.py" --since $1
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/jira_l10n_stats.py"
+else
+  python "${script_path}/scripts/jira_l10n_stats.py" --since $1
+fi
 
 # Phabricator stats
 echo -e "\n--------------\n"
 echo "Phabricator stats"
-python "${script_path}/scripts/phabricator_l10n_activity.py" --since $1
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/phabricator_l10n_activity.py"
+else
+  python "${script_path}/scripts/phabricator_l10n_activity.py" --since $1
+fi
 
 # GitHub review stats
 echo -e "\n--------------\n"
 echo "GitHub EPM review stats"
-python "${script_path}/scripts/github_review_stats_weekly.py" --since $1
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/github_review_stats_weekly.py"
+else
+  python "${script_path}/scripts/github_review_stats_weekly.py" --since $1
+fi
+
+# Pontoon stats
+echo -e "\n--------------\n"
+echo "Pontoon stats"
+python "${script_path}/scripts/pontoon_completion_data.py"
