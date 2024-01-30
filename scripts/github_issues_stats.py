@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from functions import get_github_object, parse_arguments
+from functions import format_avg_time, get_github_object, parse_arguments
 
 
 def main():
@@ -21,6 +21,7 @@ def main():
         "P4": 0,
         "P5": 0,
     }
+
     open = g.search_issues(
         query=f"repo:{repo} is:issue is:open",
         sort="created",
@@ -51,9 +52,9 @@ def main():
                 label.name for label in issue.labels if label.name.startswith("P")
             ]
             label = labels[0] if len(labels) > 0 else "-"
-            issues[
-                f"#{issue.number}"
-            ] = f"  - #{issue.number} {created_at}: ({label}) {issue.title}"
+            issues[f"#{issue.number}"] = (
+                f"  - #{issue.number} {created_at}: ({label}) {issue.title}"
+            )
         issue_ids = list(issues.keys())
         print(
             f"Issues opened after {date_since} ({len(issue_ids)}): {', '.join(issue_ids)}"
@@ -69,19 +70,22 @@ def main():
     )
     if closed:
         issues = {}
+        age = 0
         for issue in closed:
             closed_at = issue.closed_at.strftime("%Y-%m-%d")
+            age += (issue.closed_at - issue.created_at).total_seconds()
             labels = [
                 label.name for label in issue.labels if label.name.startswith("P")
             ]
             label = labels[0] if len(labels) > 0 else "-"
-            issues[
-                f"#{issue.number}"
-            ] = f"  - #{issue.number} {closed_at}: ({label}) {issue.title}"
+            issues[f"#{issue.number}"] = (
+                f"  - #{issue.number} {closed_at}: ({label}) {issue.title}"
+            )
         issue_ids = list(issues.keys())
-        print(
-            f"Issues closed after {date_since} ({len(issue_ids)}): {', '.join(issue_ids)}"
-        )
+        count = len(issue_ids)
+        avg_age = round(age / count)
+        print(f"Issues closed after {date_since} ({count}): {', '.join(issue_ids)}")
+        print(f"Average age of closed issues: {format_avg_time(avg_age)}")
         if args.verbose:
             print("\n".join(issues.values()))
 

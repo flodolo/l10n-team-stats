@@ -78,6 +78,22 @@ def format_time(interval):
         return f"{interval} days"
 
 
+def format_avg_time(avg):
+    if avg < 3600:
+        # Up to 60 minutes
+        avg = f"{avg} minute" if avg == 1 else f"{avg} minutes"
+    elif avg < 172800:
+        # Up to 48 hours
+        avg = round(avg / 3600)
+        avg = f"{avg} hour" if avg == 1 else f"{avg} hours"
+    else:
+        # More than 48 hours
+        avg = round(avg / 3600 / 24)
+        avg = f"{avg} day" if avg == 1 else f"{avg} days"
+
+    return avg
+
+
 def get_github_object():
     github_token = read_config(key="github")
     return Github(

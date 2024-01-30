@@ -3,7 +3,7 @@
 from collections import defaultdict
 from datetime import datetime, timedelta
 
-from functions import github_api_request, parse_arguments
+from functions import format_avg_time, github_api_request, parse_arguments
 
 
 def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
@@ -94,22 +94,6 @@ def get_pr_data(period_data, start_date, pr_stats):
         query_pr_data(start_date, repo, usernames, query_prs, pr_stats)
 
 
-def avg_time(avg):
-    if avg < 60:
-        # Up to 60 minutes
-        avg = f"{avg} minute" if avg == 1 else f"{avg} minutes"
-    elif avg < 2880:
-        # Up to 48 hours
-        avg = round(avg / 60)
-        avg = f"{avg} hour" if avg == 1 else f"{avg} hours"
-    else:
-        # More than 48 hours
-        avg = round(avg / 60 / 24)
-        avg = f"{avg} day" if avg == 1 else f"{avg} days"
-
-    return avg
-
-
 def main():
     args = parse_arguments()
     start_date = args.since.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -175,17 +159,19 @@ def main():
 
         averages = []
         for repo, times in repos.items():
-            avg = round(sum(times) / len(times) / 60)
+            avg = round(sum(times) / len(times))
             averages.append(avg)
             count = (
                 repository_contributions[username][repo]
                 if repo in repository_contributions[username]
                 else 0
             )
-            details.append(f"- {repo}: {count} (avg review time: {avg_time(avg)})")
+            details.append(
+                f"- {repo}: {count} (avg review time: {format_avg_time(avg)})"
+            )
 
         avg_user = round(sum(averages) / len(averages)) if averages else 0
-        user_header += f" avg review time {avg_time(avg_user)})"
+        user_header += f" avg review time {format_avg_time(avg_user)})"
         print(user_header)
         print("\n".join(details))
 
@@ -196,9 +182,9 @@ def main():
             total_reviews += len(repo_data)
             total_time += sum(x for x in repo_data)
 
-    avg = round(total_time / total_reviews / 60)
+    avg = round(total_time / total_reviews)
     print(f"\nTotal reviews: {total_reviews}")
-    print(f"Average review time: {avg_time(avg)}")
+    print(f"Average review time: {format_avg_time(avg)}")
 
 
 if __name__ == "__main__":
