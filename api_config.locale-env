@@ -1,9 +1,13 @@
 [KEYS]
+# Generate a classic token from Settings-> Developer settings -> Personal access tokens
+# If using SSO, make sure to grant rights to organizations to have realistic stats
 GITHUB_TOKEN=XXX
 
+# Generate from Manage account, Security panel, API tokens
 JIRA_TOKEN=XXX
 JIRA_EMAIL=XXX
 
+# Generate from account settings, Conduit API Tokens (Standard API Token)
 PHABRICATOR_TOKEN=XXX
 
 [URLS]
