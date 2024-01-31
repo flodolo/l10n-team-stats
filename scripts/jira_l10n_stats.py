@@ -5,28 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import datetime
-from functions import get_jira_object, parse_arguments
-
-
-def search_issues(connection, query):
-    pagesize = 100
-    index = 0
-    issues = []
-    while True:
-        startAt = index * pagesize
-        # _issues = jira.search_issues('project=FXA and created > startOfDay(-5) order by id desc', startAt=startAt, maxResults=chunk)
-        _issues = connection.search_issues(
-            query,
-            startAt=startAt,
-            maxResults=pagesize,
-        )
-        if _issues:
-            issues.extend(_issues)
-            index += 1
-        else:
-            break
-
-    return issues
+from functions import get_jira_object, parse_arguments, search_jira_issues
 
 
 def print_issues(issues):
@@ -83,7 +62,7 @@ def main():
     projects = ["l10n-requests", "l10n-vendor"]
 
     ## Backlog
-    backlog = search_issues(
+    backlog = search_jira_issues(
         jira,
         f"project=l10n-requests AND status=Backlog ORDER BY created DESC",
     )
@@ -92,7 +71,7 @@ def main():
         print_issues(backlog)
 
     # l10n-vendors has open epics that are not pending work
-    backlog = search_issues(
+    backlog = search_jira_issues(
         jira,
         f"project=l10n-vendor AND status in (Backlog, 'To Do') AND issuetype != Epic ORDER BY created DESC",
     )
@@ -101,7 +80,7 @@ def main():
         print_issues(backlog)
 
     for project in projects:
-        in_progress = search_issues(
+        in_progress = search_jira_issues(
             jira,
             f"project={project} AND status='In Progress' ORDER BY created DESC",
         )
@@ -110,7 +89,7 @@ def main():
             print_issues(in_progress)
 
         date_since = args.since.strftime("%Y-%m-%d")
-        created = search_issues(
+        created = search_jira_issues(
             jira,
             f"project={project} AND created>={date_since} ORDER BY created DESC",
         )
@@ -118,7 +97,7 @@ def main():
         if args.verbose:
             print_issues(created)
 
-        closed = search_issues(
+        closed = search_jira_issues(
             jira,
             f"project={project} AND resolutiondate>={date_since} ORDER BY created DESC",
         )
