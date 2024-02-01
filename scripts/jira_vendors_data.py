@@ -52,14 +52,20 @@ def main():
                 cc = f"{cc}0"
             cc = f"CC{cc}"
 
+        invoiced = issue.fields.customfield_10814
+        if invoiced is None:
+            invoiced = 0
+
         try:
-            type = issue.fields.parent.fields.summary
+            type = issue.fields.parent.fields.summary.strip()
         except AttributeError:
             errors.insert(0, f"{issue_id}: no parent (epic) available")
             type = "-"
-        output.append(f"{issue.key},{date_created},{issue.fields.reporter},{cc},{type}")
+        output.append(
+            f"{issue.key},{date_created},{issue.fields.reporter},{cc},{type},{invoiced}"
+        )
 
-    output.append("Issue ID,Date,Reporter,Cost Center,Epic")
+    output.append("Issue ID,Date,Reporter,Cost Center,Epic,Invoiced")
     output.reverse()
 
     if errors:
