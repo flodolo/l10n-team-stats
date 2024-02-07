@@ -87,9 +87,10 @@ def main():
             )
         issue_ids = list(issues.keys())
         count = len(issue_ids)
-        avg_age = round(age / count)
+        avg_age = round(age / count) if count > 0 else 0
         print(f"Issues closed after {date_since} ({count}): {', '.join(issue_ids)}")
-        print(f"Average age of closed issues: {format_avg_time(avg_age)}")
+        if avg_age > 0:
+            print(f"Average age of closed issues: {format_avg_time(avg_age)}")
         if args.verbose:
             print("\n".join(issues.values()))
 

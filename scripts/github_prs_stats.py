@@ -58,9 +58,10 @@ def main():
                 print(f"Time to close: {format_time(time_to_close)}")
 
         count = len(prs)
-        avg_time = round(overall_time / count)
+        avg_time = round(overall_time / count) if count > 0 else 0
         print(f"Closed PRs since {date_since} ({count}): {', '.join(prs)}")
-        print(f"Average time to close: {format_time(avg_time)}")
+        if avg_time > 0:
+            print(f"Average time to close: {format_time(avg_time)}")
 
     ## Open pull requests
     open = g.search_issues(
@@ -83,9 +84,10 @@ def main():
                 print(f"Created: {created_at}")
                 print(f"Age: {format_time(pr_age)}")
         count = len(prs)
-        avg_age = round(age / count)
+        avg_age = round(age / count) if count > 0 else 0
         print(f"Open PRs as of {today.strftime('%Y-%m-%d')}: {count}")
-        print(f"Average age: {format_time(avg_age)}")
+        if avg_age > 0:
+            print(f"Average age: {format_time(avg_age)}")
 
 
 if __name__ == "__main__":

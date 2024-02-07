@@ -186,9 +186,10 @@ def main():
             total_reviews += len(repo_data)
             total_time += sum(x for x in repo_data)
 
-    avg = round(total_time / total_reviews)
+    avg = round(total_time / total_reviews) if total_reviews > 0 else 0
     print(f"\nTotal reviews: {total_reviews}")
-    print(f"Average review time: {format_avg_time(avg)}")
+    if avg > 0:
+        print(f"Average review time: {format_avg_time(avg)}")
 
 
 if __name__ == "__main__":
