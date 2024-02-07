@@ -6,7 +6,7 @@
 
 import datetime
 from collections import defaultdict
-from functions import parse_arguments, phab_query
+from functions import parse_arguments, phab_query, store_json_data
 
 
 def get_revisions(type, user, data, constraints):
@@ -36,7 +36,7 @@ def get_revisions(type, user, data, constraints):
         data[user][key][type].append(rev)
 
 
-def print_revisions(data, start_date, verbose):
+def print_revisions(data, record, start_date, verbose):
     rev_details = {}
     for user, user_data in data.items():
         rev_details[user] = {
@@ -61,6 +61,8 @@ def print_revisions(data, start_date, verbose):
 
         print(f"\nTotal authored: {authored}")
         print(f"Total reviewed: {reviewed}")
+        record["phab-authored"] = authored
+        record["phab-reviewed"] = reviewed
 
     if verbose:
         for user, user_data in rev_details.items():
@@ -99,6 +101,7 @@ def main():
     since = int(args.since.timestamp())
 
     users = get_user_phids()
+    record = {}
 
     recursivedict = lambda: defaultdict(recursivedict)
     data = recursivedict()
@@ -116,7 +119,8 @@ def main():
             dict(reviewerPHIDs=[u["phid"]], createdStart=since),
         )
 
-    print_revisions(data, args.since.strftime("%Y-%m-%d"), args.verbose)
+    print_revisions(data, record, args.since.strftime("%Y-%m-%d"), args.verbose)
+    store_json_data("epm-reviews", record, extend=True)
 
 
 if __name__ == "__main__":

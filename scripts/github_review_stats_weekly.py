@@ -7,7 +7,12 @@
 from collections import defaultdict
 from datetime import datetime, timedelta
 
-from functions import format_avg_time, github_api_request, parse_arguments
+from functions import (
+    format_avg_time,
+    github_api_request,
+    parse_arguments,
+    store_json_data,
+)
 
 
 def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
@@ -108,7 +113,7 @@ def main():
         "flodolo": "Flod",
         "peiying2": "Peiying",
     }
-
+    record = {}
     repository_contributions = defaultdict(lambda: defaultdict(dict))
 
     print(f"Requesting data since: {start_date.strftime('%Y-%m-%d')}")
@@ -187,9 +192,15 @@ def main():
             total_time += sum(x for x in repo_data)
 
     avg = round(total_time / total_reviews) if total_reviews > 0 else 0
+    record["github-reviews"] = total_reviews
+    # Store value in hours
+    record["github-avg-time-to-review"] = round(avg / 3600, 1)
+
     print(f"\nTotal reviews: {total_reviews}")
     if avg > 0:
         print(f"Average review time: {format_avg_time(avg)}")
+
+    store_json_data("epm-reviews", record, extend=True)
 
 
 if __name__ == "__main__":

@@ -5,7 +5,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import datetime
-from functions import get_jira_object, parse_arguments, search_jira_issues
+from functions import (
+    get_jira_object,
+    parse_arguments,
+    search_jira_issues,
+    store_json_data,
+)
 
 
 def print_issues(issues):
@@ -46,6 +51,7 @@ def main():
     since_date = args.since.strftime("%Y-%m-%d")
 
     jira = get_jira_object()
+    record = {}
 
     summary = {
         "backlog": {"label": "in backlog", "issues": []},
@@ -117,6 +123,10 @@ def main():
             print(f"No issues {status}.")
         else:
             print(f"Issues {status} ({len(ids)}): {', '.join(ids)}")
+
+    for k, v in summary.items():
+        record[k] = len(v["issues"])
+    store_json_data("jira-issues", record)
 
 
 if __name__ == "__main__":

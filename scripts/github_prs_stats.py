@@ -5,7 +5,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from datetime import datetime, timezone
-from functions import get_github_object, parse_arguments, format_time
+from functions import (
+    format_time,
+    get_github_object,
+    parse_arguments,
+    store_json_data,
+)
 
 
 def main():
@@ -14,6 +19,7 @@ def main():
     repo = args.repo
 
     g = get_github_object()
+    record = {}
 
     ## Opened pull requests
     opened = g.search_issues(
@@ -34,6 +40,7 @@ def main():
 
         count = len(prs)
         print(f"Opened PRs since {date_since} ({count}): {', '.join(prs)}")
+        record["opened"] = count
 
     ## Closed pull requests
     closed = g.search_issues(
@@ -60,6 +67,9 @@ def main():
         count = len(prs)
         avg_time = round(overall_time / count) if count > 0 else 0
         print(f"Closed PRs since {date_since} ({count}): {', '.join(prs)}")
+        record["closed"] = count
+        # Store value in hours
+        record["avg-time-to-close"] = round(avg_time / 3600, 1)
         if avg_time > 0:
             print(f"Average time to close: {format_time(avg_time)}")
 
@@ -85,9 +95,14 @@ def main():
                 print(f"Age: {format_time(pr_age)}")
         count = len(prs)
         avg_age = round(age / count) if count > 0 else 0
+        record["open"] = count
+        # Store value in hours
+        record["avg-age-open"] = round(avg_age / 3600, 1)
         print(f"Open PRs as of {today.strftime('%Y-%m-%d')}: {count}")
         if avg_age > 0:
             print(f"Average age: {format_time(avg_age)}")
+
+    store_json_data("pontoon-prs", record)
 
 
 if __name__ == "__main__":

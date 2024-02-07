@@ -69,6 +69,7 @@ def read_config(key):
 
 
 def format_time(interval):
+    # Unit of measurement is seconds
     if interval < 3600:
         interval = round(interval / 60)
         return f"{interval} minutes"
@@ -81,8 +82,10 @@ def format_time(interval):
 
 
 def format_avg_time(avg):
+    # Unit of measurement is seconds
     if avg < 3600:
         # Up to 60 minutes
+        avg = round(avg / 60)
         avg = f"{avg} minute" if avg == 1 else f"{avg} minutes"
     elif avg < 172800:
         # Up to 48 hours
@@ -143,6 +146,30 @@ def search_jira_issues(connection, query):
             break
 
     return issues
+
+
+def get_json_data(json_file):
+    if not os.path.isfile(json_file):
+        return {}
+    else:
+        with open(json_file) as f:
+            return json.load(f)
+
+
+def store_json_data(key, record, extend=False):
+    json_file = os.path.join(os.path.dirname(__file__), os.pardir, "data", "data.json")
+    json_data = get_json_data(json_file)
+    today = datetime.datetime.today().strftime("%Y-%m-%d")
+    if key not in json_data:
+        json_data[key] = {}
+    if extend:
+        previous_data = json_data[key].get(today, {})
+        record.update(previous_data)
+
+    json_data[key][today] = record
+
+    with open(json_file, "w+") as f:
+        f.write(json.dumps(json_data, indent=2, sort_keys=True))
 
 
 def phab_query(method, data, after=None, **kwargs):

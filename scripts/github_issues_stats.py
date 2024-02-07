@@ -4,7 +4,12 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from functions import format_avg_time, get_github_object, parse_arguments
+from functions import (
+    format_avg_time,
+    get_github_object,
+    parse_arguments,
+    store_json_data,
+)
 
 
 def main():
@@ -13,6 +18,7 @@ def main():
     repo = args.repo
 
     g = get_github_object()
+    record = {}
 
     print(f"Analysis of repository: {repo}\n")
 
@@ -41,6 +47,7 @@ def main():
         print("Overall statistics about open issues:")
         for k, v in stats.items():
             print(f"- {k}: {v}")
+            record[k] = v
 
     # Analyze PRs opened since the specified date
     opened = g.search_issues(
@@ -63,6 +70,7 @@ def main():
         print(
             f"Issues opened after {date_since} ({len(issue_ids)}): {', '.join(issue_ids)}"
         )
+        record["opened"] = len(issue_ids)
         if args.verbose:
             print("\n".join(issues.values()))
 
@@ -89,10 +97,15 @@ def main():
         count = len(issue_ids)
         avg_age = round(age / count) if count > 0 else 0
         print(f"Issues closed after {date_since} ({count}): {', '.join(issue_ids)}")
+        record["closed"] = count
+        # Store value in hours
+        record["avg-time-to-close"] = round(avg_age / 3600, 1)
         if avg_age > 0:
             print(f"Average age of closed issues: {format_avg_time(avg_age)}")
         if args.verbose:
             print("\n".join(issues.values()))
+
+    store_json_data("pontoon-issues", record)
 
 
 if __name__ == "__main__":
