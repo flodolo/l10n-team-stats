@@ -49,7 +49,7 @@ def read_config(key):
         os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)),
         "api_config.env",
     )
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config.read(config_file)
     if key == "github":
         return config.get("KEYS", "GITHUB_TOKEN")
@@ -66,6 +66,9 @@ def read_config(key):
             config.get("KEYS", "PHABRICATOR_TOKEN"),
             config.get("URLS", "PHABRICATOR_SERVER"),
         )
+
+    if key == "gdocs":
+        return dict(config.items("GDOCS"))
 
 
 def format_time(interval):
@@ -148,7 +151,12 @@ def search_jira_issues(connection, query):
     return issues
 
 
-def get_json_data(json_file):
+def get_json_file():
+    return os.path.join(os.path.dirname(__file__), os.pardir, "data", "data.json")
+
+
+def get_json_data():
+    json_file = get_json_file()
     if not os.path.isfile(json_file):
         return {}
     else:
@@ -156,20 +164,23 @@ def get_json_data(json_file):
             return json.load(f)
 
 
+def write_json_data(json_data):
+    json_file = get_json_file()
+    with open(json_file, "w+") as f:
+        f.write(json.dumps(json_data, indent=2, sort_keys=True))
+
+
 def store_json_data(key, record, extend=False):
-    json_file = os.path.join(os.path.dirname(__file__), os.pardir, "data", "data.json")
-    json_data = get_json_data(json_file)
+    json_data = get_json_data()
     today = datetime.datetime.today().strftime("%Y-%m-%d")
     if key not in json_data:
         json_data[key] = {}
     if extend:
         previous_data = json_data[key].get(today, {})
         record.update(previous_data)
-
     json_data[key][today] = record
 
-    with open(json_file, "w+") as f:
-        f.write(json.dumps(json_data, indent=2, sort_keys=True))
+    write_json_data(json_data)
 
 
 def phab_query(method, data, after=None, **kwargs):
