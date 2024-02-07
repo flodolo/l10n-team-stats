@@ -16,3 +16,17 @@ JIRA_SERVER=XXX
 
 # e.g. https://phabricator.services.mozilla.com/api
 PHABRICATOR_SERVER=XXX
+
+[GDOCS]
+# This is the part in the URL that looks like a # key. If your URL is:
+#   https://docs.google.com/spreadsheets/d/1ETExxxyyyzzzASLKJAIAFKJDLKSALKSJDFLAKoU/edit#gid=0
+# Then your key is:
+#   1ETExxxyyyzzzASLKJAIAFKJDLKSALKSJDFLAKoU
+SPREADSHEET_KEY=XXX
+
+# These are service account credentials from Google. See https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account
+GSPREAD_PROJECT_ID=XXX
+GSPREAD_PRIVATE_KEY_ID=XXX
+GSPREAD_PRIVATE_KEY=XXX
+GSPREAD_CLIENT_ID=XXX
+GSPREAD_CLIENT_EMAIL=XXX
