@@ -9,7 +9,6 @@ from functions import (
     get_json_data,
     read_config,
 )
-import sys
 
 columns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -19,6 +18,11 @@ def format_columns(sh, sheet_name, export):
     wks = sh.worksheet(sheet_name)
 
     print(f"Updating sheet: {sheet_name}")
+
+    # Autoresize doesn't seem to widen the columns enough. To work around it,
+    # add spaces after each column header.
+    export[0] = [f"{label}   " for label in export[0]]
+
     wks.update(export, "A1")
     wks.format(
         f"A1:{columns[num_columns - 1]}1",
@@ -72,11 +76,11 @@ def main():
     export.append(
         [
             "Date",
-            "New PRs",
-            "Closed PRs",
-            "Average Time to Close",
-            "Open PRs",
-            "Average Age",
+            "New",
+            "Closed",
+            "Average Time to Close (h)",
+            "Currently Open",
+            "Average Age (h)",
         ]
     )
     for day, day_data in data["pontoon-prs"].items():
@@ -96,9 +100,9 @@ def main():
     export.append(
         [
             "Date",
-            "New Issues",
-            "Closed Issues",
-            "Average Time to Close",
+            "New",
+            "Closed",
+            "Average Time to Close (h)",
             "P1",
             "P2",
             "P3",
@@ -128,15 +132,17 @@ def main():
     export.append(
         [
             "Date",
-            "Issues in Backlog",
-            "Issues In Progress",
-            "New issues",
+            "Blocked",
+            "Backlog",
+            "In Progress",
+            "New",
             "Closed issues",
         ]
     )
     for day, day_data in data["jira-issues"].items():
         _row = [
             day,
+            day_data["blocked"],
             day_data["backlog"],
             day_data["in-progress"],
             day_data["created"],
@@ -153,7 +159,7 @@ def main():
             "Phab Authored",
             "Phab Reviewed",
             "GitHub Reviewed",
-            "Avg Time to Review",
+            "Avg Time to Review (h)",
         ]
     )
     for day, day_data in data["epm-reviews"].items():

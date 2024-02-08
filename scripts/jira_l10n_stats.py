@@ -55,15 +55,17 @@ def main():
 
     summary = {
         "backlog": {"label": "in backlog", "issues": []},
-        "in-progress": {"label": "in progress", "issues": []},
-        "created": {"label": f"opened since {since_date}", "issues": []},
+        "blocked": {"label": "blocked", "issues": []},
         "closed": {"label": f"closed since {since_date}", "issues": []},
+        "created": {"label": f"opened since {since_date}", "issues": []},
+        "in-progress": {"label": "in progress", "issues": []},
     }
     summary_output = {
         "backlog": ["Issues in backlog for:"],
-        "in-progress": ["Issues in progress for:"],
-        "created": [f"Issues created since {since_date} for:"],
+        "blocked": ["Issues blocked for:"],
         "closed": [f"Issues closed since {since_date} for:"],
+        "created": [f"Issues created since {since_date} for:"],
+        "in-progress": ["Issues in progress for:"],
     }
     projects = ["l10n-requests", "l10n-vendor"]
 
@@ -84,6 +86,15 @@ def main():
     build_summary(backlog, "backlog", summary, summary_output, "l10n-vendors")
     if args.verbose:
         print_issues(backlog)
+
+    # l10n-requests has also a blocked status
+    blocked = search_jira_issues(
+        jira,
+        f"project=l10n-requests AND status ='Blocked' ORDER BY created DESC",
+    )
+    build_summary(blocked, "blocked", summary, summary_output, "l10n-requests")
+    if args.verbose:
+        print_issues(blocked)
 
     for project in projects:
         in_progress = search_jira_issues(
