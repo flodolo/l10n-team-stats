@@ -26,7 +26,9 @@ def get_revisions(type, user, data, constraints):
 
     for revision in revisions:
         fields = revision["fields"]
-        date_created = datetime.datetime.utcfromtimestamp(fields["dateCreated"])
+        date_created = datetime.datetime.fromtimestamp(
+            fields["dateCreated"], datetime.UTC
+        )
         key = date_created.strftime("%Y-%m")
         if type not in data[user][key]:
             data[user][key][type] = []

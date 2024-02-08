@@ -55,8 +55,3 @@ if [ $# -eq 0 ]; then
 else
   python "${script_path}/scripts/github_review_stats_weekly.py" --since $1
 fi
-
-# Pontoon stats
-echo -e "\n--------------\n"
-echo "Pontoon stats"
-python "${script_path}/scripts/pontoon_completion_data.py"
