@@ -2,10 +2,12 @@
   "epm-reviews": {
     "2024-02-09": {
       "github-avg-time-to-review": 32.0,
+      "github-pr-created": 6,
+      "github-repositories": 15,
       "github-reviews": 22,
       "phab-authored": 0,
       "phab-reviewed": 2
-    }
+    },
   },
   "jira-issues": {
     "2024-02-09": {

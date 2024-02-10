@@ -156,10 +156,12 @@ def main():
     export.append(
         [
             "Date",
-            "Phab Authored",
-            "Phab Reviewed",
-            "GitHub Reviewed",
-            "Avg Time to Review (h)",
+            "Phab\nAuthored",
+            "Phab\nReviewed",
+            "GitHub\nReviewed",
+            "Avg Review\nTime (h)",
+            "GitHub\nPR Opened",
+            "Active\nRepositories",
         ]
     )
     for day, day_data in data["epm-reviews"].items():
@@ -169,6 +171,8 @@ def main():
             day_data["phab-reviewed"],
             day_data["github-reviews"],
             day_data["github-avg-time-to-review"],
+            day_data["github-pr-created"],
+            day_data["github-repositories"],
         ]
         export.append(_row)
     format_columns(sh, "EPM Reviews", export)

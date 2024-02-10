@@ -105,7 +105,7 @@ def get_pr_data(period_data, start_date, pr_stats):
 
 def main():
     args = parse_arguments()
-    start_date = args.since.replace(hour=0, minute=0, second=0, microsecond=0)
+    start_date = args.since
 
     usernames = {
         "bcolsson": "Bryan",
@@ -114,7 +114,9 @@ def main():
         "peiying2": "Peiying",
     }
     record = {}
-    repository_contributions = defaultdict(lambda: defaultdict(dict))
+    repository_reviews = defaultdict(lambda: defaultdict(dict))
+    repository_new_prs = defaultdict(lambda: defaultdict(dict))
+    repositories = set()
 
     print(f"Requesting data since: {start_date.strftime('%Y-%m-%d')}")
     for username in usernames.keys():
@@ -132,6 +134,14 @@ def main():
                                     nameWithOwner
                                 }
                             }
+                            pullRequestContributionsByRepository(maxRepositories: 100) {
+                                contributions {
+                                    totalCount
+                                }
+                                repository {
+                                    nameWithOwner
+                                }
+                            }
                         }
                     }
                 }
@@ -139,28 +149,39 @@ def main():
             for placeholder, value in replacements.items():
                 query = query.replace(placeholder, value)
             r = github_api_request(query)
-            json_data = r.json()["data"]["user"]["contributionsCollection"][
-                "pullRequestReviewContributionsByRepository"
-            ]
-            total = 0
-            for contrib in json_data:
+            json_data = r.json()["data"]["user"]["contributionsCollection"]
+
+            # Get reviews
+            total_reviewed = 0
+            for contrib in json_data["pullRequestReviewContributionsByRepository"]:
                 repo_name = contrib["repository"]["nameWithOwner"]
+                repositories.add(repo_name)
                 count = contrib["contributions"]["totalCount"]
-                total += count
-                repository_contributions[username][repo_name] = count
-            repository_contributions[username]["total"] = total
+                total_reviewed += count
+                repository_reviews[username][repo_name] = count
+            repository_reviews[username]["total"] = total_reviewed
+
+            # Get PR opened
+            total_created = 0
+            for contrib in json_data["pullRequestContributionsByRepository"]:
+                repo_name = contrib["repository"]["nameWithOwner"]
+                repositories.add(repo_name)
+                count = contrib["contributions"]["totalCount"]
+                total_created += count
+                repository_new_prs[username][repo_name] = count
+            repository_new_prs[username]["total"] = total_created
         except Exception as e:
             print(e)
 
-    # Extract data on avg time to resolve
+    # Extract data on avg time to review
     pr_stats = defaultdict(dict)
-    get_pr_data(repository_contributions, start_date, pr_stats)
+    get_pr_data(repository_reviews, start_date, pr_stats)
 
     print("\n-----------\n")
     for username, name in usernames.items():
         repos = pr_stats[username]
         details = []
-        total_reviews = repository_contributions[username]["total"]
+        total_reviews = repository_reviews[username]["total"]
         user_header = f"\nUser: {name} ({len(repos)}"
         user_header += f" repository, " if len(repos) == 1 else f" repositories,"
         user_header += f" {total_reviews}"
@@ -171,8 +192,8 @@ def main():
             avg = round(sum(times) / len(times))
             averages.append(avg)
             count = (
-                repository_contributions[username][repo]
-                if repo in repository_contributions[username]
+                repository_reviews[username][repo]
+                if repo in repository_reviews[username]
                 else 0
             )
             details.append(
@@ -195,10 +216,18 @@ def main():
     record["github-reviews"] = total_reviews
     # Store value in hours
     record["github-avg-time-to-review"] = round(avg / 3600, 1)
+    record["github-repositories"] = len(repositories)
+
+    total_created = 0
+    for user_data in repository_new_prs.values():
+        total_created += user_data["total"]
+    record["github-pr-created"] = total_created
 
     print(f"\nTotal reviews: {total_reviews}")
     if avg > 0:
         print(f"Average review time: {format_avg_time(avg)}")
+    print(f"\nNumber of pull requests created: {total_created}")
+    print(f"\nNumber of repositories: {len(repositories)}")
 
     store_json_data("epm-reviews", record, extend=True)
 
