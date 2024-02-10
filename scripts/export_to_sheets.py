@@ -31,6 +31,9 @@ def format_columns(sh, sheet_name, export):
                 "rgbColor": {"red": 0.85, "green": 0.85, "blue": 0.85}
             },
             "textFormat": {"bold": True},
+            "horizontalAlignment": "CENTER",
+            "verticalAlignment": "TOP",
+            "wrapStrategy": "WRAP"
         },
     )
 
@@ -43,6 +46,15 @@ def format_columns(sh, sheet_name, export):
                         "sheetId": sheetId,
                         "dimension": "COLUMNS",
                         "startIndex": 0,
+                        "endIndex": num_columns,
+                    }
+                },
+                "autoResizeDimensions": {
+                    "dimensions": {
+                        "sheetId": sheetId,
+                        "dimension": "ROWS",
+                        "startIndex": 0,
+                        "endIndex": 1,
                         "endIndex": num_columns,
                     }
                 }
@@ -78,9 +90,9 @@ def main():
             "Date",
             "New",
             "Closed",
-            "Average Time to Close (h)",
-            "Currently Open",
-            "Average Age (h)",
+            "Average Time\nto Close (h)",
+            "Currently\nOpen",
+            "Average\nAge (h)",
         ]
     )
     for day, day_data in data["pontoon-prs"].items():
@@ -102,7 +114,7 @@ def main():
             "Date",
             "New",
             "Closed",
-            "Average Time to Close (h)",
+            "Average Time\nto Close (h)",
             "P1",
             "P2",
             "P3",
@@ -156,8 +168,8 @@ def main():
     export.append(
         [
             "Date",
-            "Phab\nAuthored",
-            "Phab\nReviewed",
+            "Phabricator\nAuthored",
+            "Phabricator\nReviewed",
             "GitHub\nReviewed",
             "Avg Review\nTime (h)",
             "GitHub\nPR Opened",
