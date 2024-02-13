@@ -24,9 +24,9 @@ fi
 echo -e "\n--------------\n"
 echo "Pontoon issues stats"
 if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/github_issues_stats.py" --repo mozilla/pontoon
+  python "${script_path}/scripts/github_pontoon_issues_stats.py"
 else
-  python "${script_path}/scripts/github_issues_stats.py" --since $1 --repo mozilla/pontoon
+  python "${script_path}/scripts/github_pontoon_issues_stats.py" --since $1
 fi
 
 # Jira stats

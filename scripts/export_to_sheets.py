@@ -33,7 +33,7 @@ def format_columns(sh, sheet_name, export):
             "textFormat": {"bold": True},
             "horizontalAlignment": "CENTER",
             "verticalAlignment": "TOP",
-            "wrapStrategy": "WRAP"
+            "wrapStrategy": "WRAP",
         },
     )
 
@@ -57,7 +57,7 @@ def format_columns(sh, sheet_name, export):
                         "endIndex": 1,
                         "endIndex": num_columns,
                     }
-                }
+                },
             }
         ]
     }
@@ -120,6 +120,7 @@ def main():
             "P3",
             "P4",
             "P5",
+            "Untriaged",
             "Total Open",
         ]
     )
@@ -134,6 +135,7 @@ def main():
             day_data["P3"],
             day_data["P4"],
             day_data["P5"],
+            day_data["Untriaged"],
             day_data["Total"],
         ]
         export.append(_row)

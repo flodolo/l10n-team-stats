@@ -13,9 +13,9 @@ from functions import (
 
 
 def main():
-    args = parse_arguments(repo=True)
+    args = parse_arguments()
     date_since = args.since.strftime("%Y-%m-%d")
-    repo = args.repo
+    repo = "mozilla/pontoon"
 
     g = get_github_object()
     record = {}
@@ -30,6 +30,7 @@ def main():
         "P3": 0,
         "P4": 0,
         "P5": 0,
+        "Untriaged": 0,
     }
 
     open = g.search_issues(
@@ -40,9 +41,13 @@ def main():
     if open:
         for pr in open:
             stats["Total"] += 1
+            triaged = False
             for label in pr.labels:
                 if label.name in stats.keys():
                     stats[label.name] += 1
+                    triaged = True
+            if not triaged:
+                stats["Untriaged"] += 1
 
         print("Overall statistics about open issues:")
         for k, v in stats.items():
