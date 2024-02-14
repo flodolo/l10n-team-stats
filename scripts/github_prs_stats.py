@@ -23,7 +23,7 @@ def main():
 
     ## Opened pull requests
     opened = g.search_issues(
-        query=f"repo:{repo} is:pr is:open created:>={date_since}",
+        query=f"repo:{repo} is:pr created:>={date_since}",
         sort="created",
         order="desc",
     )
