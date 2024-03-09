@@ -183,9 +183,9 @@ def main():
         details = []
         total_reviews = repository_reviews[username]["total"]
         user_header = f"\nUser: {name} ({len(repos)}"
-        user_header += f" repository, " if len(repos) == 1 else f" repositories,"
+        user_header += " repository, " if len(repos) == 1 else " repositories,"
         user_header += f" {total_reviews}"
-        user_header += f" review, " if total_reviews == 1 else f" reviews,"
+        user_header += " review, " if total_reviews == 1 else " reviews,"
 
         averages = []
         for repo, times in repos.items():

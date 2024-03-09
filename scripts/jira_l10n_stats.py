@@ -72,7 +72,7 @@ def main():
     ## Backlog
     backlog = search_jira_issues(
         jira,
-        f"project=l10n-requests AND status=Backlog ORDER BY created DESC",
+        "project=l10n-requests AND status=Backlog ORDER BY created DESC",
     )
     build_summary(backlog, "backlog", summary, summary_output, "l10n-requests")
     if args.verbose:
@@ -81,7 +81,7 @@ def main():
     # l10n-vendors has open epics that are not pending work
     backlog = search_jira_issues(
         jira,
-        f"project=l10n-vendor AND status in (Backlog, 'To Do') AND issuetype != Epic ORDER BY created DESC",
+        "project=l10n-vendor AND status in (Backlog, 'To Do') AND issuetype != Epic ORDER BY created DESC",
     )
     build_summary(backlog, "backlog", summary, summary_output, "l10n-vendors")
     if args.verbose:
@@ -90,7 +90,7 @@ def main():
     # l10n-requests has also a blocked status
     blocked = search_jira_issues(
         jira,
-        f"project=l10n-requests AND status ='Blocked' ORDER BY created DESC",
+        "project=l10n-requests AND status ='Blocked' ORDER BY created DESC",
     )
     build_summary(blocked, "blocked", summary, summary_output, "l10n-requests")
     if args.verbose:

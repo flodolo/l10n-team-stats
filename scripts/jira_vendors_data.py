@@ -16,7 +16,7 @@ def main():
 
     issues = search_jira_issues(
         jira,
-        f"project = 'l10n-vendor' AND status != Canceled AND issuetype != Epic",
+        "project = 'l10n-vendor' AND status != Canceled AND issuetype != Epic",
     )
 
     output = []

@@ -49,12 +49,13 @@ def format_columns(sh, sheet_name, export):
                         "endIndex": num_columns,
                     }
                 },
+            },
+            {
                 "autoResizeDimensions": {
                     "dimensions": {
                         "sheetId": sheetId,
                         "dimension": "ROWS",
                         "startIndex": 0,
-                        "endIndex": 1,
                         "endIndex": num_columns,
                     }
                 },

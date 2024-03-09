@@ -211,7 +211,7 @@ def phab_query(method, data, after=None, **kwargs):
 
     if res["result"]["cursor"]["after"] is not None:
         # print(f'Fetching new page (from {res["result"]["cursor"]["after"]})')
-        conduit(method, data, res["result"]["cursor"]["after"], **kwargs)
+        phab_query(method, data, res["result"]["cursor"]["after"], **kwargs)
 
     if "results" in data:
         data["results"].extend(res["result"]["data"])

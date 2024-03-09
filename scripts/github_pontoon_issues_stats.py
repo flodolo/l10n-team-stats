@@ -68,9 +68,9 @@ def main():
                 label.name for label in issue.labels if label.name.startswith("P")
             ]
             label = labels[0] if len(labels) > 0 else "-"
-            issues[f"#{issue.number}"] = (
-                f"  - #{issue.number} {created_at}: ({label}) {issue.title}"
-            )
+            issues[
+                f"#{issue.number}"
+            ] = f"  - #{issue.number} {created_at}: ({label}) {issue.title}"
         issue_ids = list(issues.keys())
         print(
             f"Issues opened after {date_since} ({len(issue_ids)}): {', '.join(issue_ids)}"
@@ -95,9 +95,9 @@ def main():
                 label.name for label in issue.labels if label.name.startswith("P")
             ]
             label = labels[0] if len(labels) > 0 else "-"
-            issues[f"#{issue.number}"] = (
-                f"  - #{issue.number} {closed_at}: ({label}) {issue.title}"
-            )
+            issues[
+                f"#{issue.number}"
+            ] = f"  - #{issue.number} {closed_at}: ({label}) {issue.title}"
         issue_ids = list(issues.keys())
         count = len(issue_ids)
         avg_age = round(age / count) if count > 0 else 0
