@@ -64,10 +64,12 @@ def main():
             errors.insert(0, f"{issue_id}: no parent (epic) available")
             type = "-"
         output.append(
-            f"{issue.key},{date_created},{issue.fields.reporter},{cc},{type},{invoiced},{assignee}"
+            f"{issue.key},{date_created},{issue.fields.reporter},{issue.fields.reporter.emailAddress},{cc},{type},{invoiced},{assignee}"
         )
 
-    output.append("Issue ID,Date,Reporter,Cost Center,Epic,Invoiced,Assignee")
+    output.append(
+        "Issue ID,Date,Reporter,Reporter Email,Cost Center,Epic,Invoiced,Assignee"
+    )
     output.reverse()
 
     if errors:
