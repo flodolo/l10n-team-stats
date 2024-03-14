@@ -217,3 +217,36 @@ def phab_query(method, data, after=None, **kwargs):
         data["results"].extend(res["result"]["data"])
     else:
         data["results"] = res["result"]["data"]
+
+
+def phab_query_transaction(data, obj):
+    phab_token, server = read_config("phab")
+    method = "transaction.search"
+    server = server.rstrip("/")
+    req = url_request.Request(
+        f"{server}/{method}",
+        method="POST",
+        data=url_parse.urlencode(
+            {
+                "params": json.dumps(
+                    {"objectIdentifier": obj, "__conduit__": {"token": phab_token}}
+                ),
+                "output": "json",
+                "__conduit__": True,
+            }
+        ).encode(),
+    )
+
+    with url_request.urlopen(req) as r:
+        res = json.load(r)
+    if res["error_code"] and res["error_info"]:
+        raise Exception(res["error_info"])
+
+    if res["result"]["cursor"]["after"] is not None:
+        # print(f'Fetching new page (from {res["result"]["cursor"]["after"]})')
+        phab_query(method, data, res["result"]["cursor"]["after"], **kwargs)
+
+    if "results" in data:
+        data["results"].extend(res["result"]["data"])
+    else:
+        data["results"] = res["result"]["data"]

@@ -6,7 +6,13 @@
 
 import datetime
 from collections import defaultdict
-from functions import parse_arguments, phab_query, store_json_data
+from functions import (
+    parse_arguments,
+    phab_query,
+    phab_query_transaction,
+    store_json_data,
+)
+import sys, json
 
 
 def get_revisions(type, user, data, constraints):
@@ -17,7 +23,6 @@ def get_revisions(type, user, data, constraints):
         constraints=constraints,
         order="newest",
     )
-
     revisions = revisions["results"]
     if not revisions:
         return
@@ -26,6 +31,16 @@ def get_revisions(type, user, data, constraints):
 
     for revision in revisions:
         fields = revision["fields"]
+
+        # User gets phid=user, type=accept
+        transactions = {}
+        phab_query_transaction(
+            transactions,
+            list(fields["stackGraph"].keys())[0],
+        )
+
+        print(json.dumps(transactions, indent=2))
+        sys.exit()
         date_created = datetime.datetime.fromtimestamp(
             fields["dateCreated"], datetime.UTC
         )
