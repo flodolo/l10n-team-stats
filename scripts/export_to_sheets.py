@@ -59,7 +59,7 @@ def format_columns(sh, sheet_name, export):
                         "endIndex": num_columns,
                     }
                 },
-            }
+            },
         ]
     }
     sh.batch_update(body)

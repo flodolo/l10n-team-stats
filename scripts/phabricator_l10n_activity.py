@@ -79,6 +79,7 @@ def get_user_phids():
     constraints = {
         "usernames": [
             "bolsson",
+            "delphine",
             "flod",
             # "eemeli",
         ],
