@@ -64,7 +64,7 @@ def main():
             errors.insert(0, f"{issue_id}: no parent (epic) available")
             type = "-"
         output.append(
-            f"{issue.key},{date_created},{issue.fields.reporter},{issue.fields.reporter.emailAddress},{cc},{type},{invoiced},{assignee}"
+            f"{issue_id},{date_created},{issue.fields.reporter},{issue.fields.reporter.emailAddress},{cc},{type},{invoiced},{assignee}"
         )
 
     output.append(
