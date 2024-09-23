@@ -22,7 +22,7 @@ def main():
 
     print(f"Analysis of repository: {repo}\n")
 
-    # Analyze all open PRs
+    # Analyze all open issues
     stats = {
         "Total": 0,
         "P1": 0,
@@ -39,10 +39,10 @@ def main():
         order="desc",
     )
     if open:
-        for pr in open:
+        for issue in open:
             stats["Total"] += 1
             triaged = False
-            for label in pr.labels:
+            for label in issue.labels:
                 if label.name in stats.keys():
                     stats[label.name] += 1
                     triaged = True
@@ -54,7 +54,7 @@ def main():
             print(f"- {k}: {v}")
             record[k] = v
 
-    # Analyze PRs opened since the specified date
+    # Analyze issues opened since the specified date
     opened = g.search_issues(
         query=f"repo:{repo} is:issue created:>={date_since}",
         sort="created",
@@ -79,7 +79,7 @@ def main():
         if args.verbose:
             print("\n".join(issues.values()))
 
-    # Analyze PRs closed since the specified date
+    # Analyze issues closed since the specified date
     closed = g.search_issues(
         query=f"repo:{repo} is:issue closed:>={date_since}",
         sort="created",
