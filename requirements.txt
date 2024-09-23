@@ -1,4 +1,4 @@
-gspread ~= 6.0.1
-jira ~= 3.6.0
-PyGithub ~= 2.1.1
-requests ~= 2.31.0
+gspread ~= 6.1.0
+jira ~= 3.8.0
+PyGithub ~= 2.4.0
+requests ~= 2.32.0
