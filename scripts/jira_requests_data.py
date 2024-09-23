@@ -5,7 +5,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import datetime
-import re
 from functions import get_jira_object, search_jira_issues
 
 
