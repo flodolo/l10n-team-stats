@@ -26,6 +26,8 @@ def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
     r_data = r.json()["data"]["search"]
     for node in r_data["nodes"]:
         for review_node in node["reviews"]["nodes"]:
+            if review_node["author"] is None:
+                continue
             author = review_node["author"]["login"]
             if author in usernames and review_node["state"] == "APPROVED":
                 review_date = datetime.strptime(
