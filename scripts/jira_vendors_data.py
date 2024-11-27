@@ -72,12 +72,12 @@ def main():
     )
     output.reverse()
 
+    print("\n----CSV output----\n\n")
+    print("\n".join(output))
+
     if errors:
         print("There are errors:")
         print("\n".join(errors))
-
-    print("\n----CSV output----\n\n")
-    print("\n".join(output))
 
 
 if __name__ == "__main__":

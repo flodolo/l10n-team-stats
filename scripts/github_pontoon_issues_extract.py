@@ -7,6 +7,7 @@
 from functions import get_github_object
 import csv
 
+
 def main():
     repo = "mozilla/pontoon"
 
@@ -34,10 +35,13 @@ def main():
         )
 
     with open("output.csv", "w", newline="", encoding="utf-8") as f:
-        issues_data.insert(0, ["Issue","Title","Body","Labels","Created","Last Update"])
+        issues_data.insert(
+            0, ["Issue", "Title", "Body", "Labels", "Created", "Last Update"]
+        )
         writer = csv.writer(f, quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerows(issues_data)
         print("Content saved as output.csv")
+
 
 if __name__ == "__main__":
     main()

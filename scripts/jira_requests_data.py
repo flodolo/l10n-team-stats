@@ -37,12 +37,12 @@ def main():
     output.append("Issue ID,Date,Reporter,Reporter Email,Components,Assignee")
     output.reverse()
 
+    print("\n----CSV output----\n\n")
+    print("\n".join(output))
+
     if errors:
         print("There are errors:")
         print("\n".join(errors))
-
-    print("\n----CSV output----\n\n")
-    print("\n".join(output))
 
 
 if __name__ == "__main__":
