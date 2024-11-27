@@ -12,6 +12,9 @@ from functions import get_jira_object, search_jira_issues
 def main():
     jira = get_jira_object()
 
+    # We need to exclude specific issues
+    ignored_issues = ["L10NV-184"]
+
     errors = []
 
     issues = search_jira_issues(
@@ -22,6 +25,8 @@ def main():
     output = []
     for issue in issues:
         issue_id = issue.key
+        if issue_id in ignored_issues:
+            continue
         date_created = datetime.datetime.strptime(
             issue.fields.created, "%Y-%m-%dT%H:%M:%S.%f%z"
         ).strftime("%Y-%m-%d")
