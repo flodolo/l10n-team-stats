@@ -58,7 +58,7 @@ def main():
 """
     locale_data = {}
     try:
-        url = f"https://pontoon.mozilla.org/graphql?query={urlquote(query)}"
+        url = f"https://pontoon.mozilla.org/graphql?query={urlquote(query)}&raw"
         response = urlopen(url)
         json_data = json.load(response)
 
