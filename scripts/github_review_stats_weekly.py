@@ -7,7 +7,7 @@
 from collections import defaultdict
 
 from functions import (
-    format_avg_time,
+    format_time,
     get_gh_usernames,
     get_user_pr_collection,
     get_pr_details,
@@ -65,12 +65,10 @@ def main():
                 if repo in period_data["pr_reviewed"][username]
                 else 0
             )
-            details.append(
-                f"- {repo}: {count} (avg review time: {format_avg_time(avg)})"
-            )
+            details.append(f"- {repo}: {count} (avg review time: {format_time(avg)})")
 
         avg_user = round(sum(averages) / len(averages)) if averages else 0
-        user_header += f" avg review time {format_avg_time(avg_user)})"
+        user_header += f" avg review time {format_time(avg_user)})"
         print(user_header)
         print("\n".join(details))
 
@@ -94,7 +92,7 @@ def main():
 
     print(f"\nTotal reviews: {total_reviews}")
     if avg > 0:
-        print(f"Average review time: {format_avg_time(avg)}")
+        print(f"Average review time: {format_time(avg)}")
     print(f"\nNumber of pull requests created: {total_created}")
     print(f"\nNumber of repositories: {len(period_data['repositories'])}")
 
