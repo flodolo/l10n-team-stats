@@ -22,7 +22,7 @@ def ymd(value):
         raise argparse.ArgumentTypeError(f"Invalid YYYY-MM-DD date: {value}")
 
 
-def parse_arguments(repo=False):
+def parse_arguments(repo=False, user=False):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--since", "-s", type=ymd, help="Start date (defaults to 1 week ago)"
@@ -34,6 +34,8 @@ def parse_arguments(repo=False):
         parser.add_argument(
             "--repo", "-r", help="Repository (e.g. mozilla/pontoon))", required=True
         )
+    if user:
+        parser.add_argument("--user", "-u", help="Username on GitHub (e.g. flodolo)")
     args = parser.parse_args()
 
     if not args.since:
@@ -75,13 +77,13 @@ def format_time(interval):
     # Unit of measurement is seconds
     if interval < 3600:
         interval = round(interval / 60)
-        return f"{interval} minutes"
-    elif interval < 86400:
+        return f"{interval} minute" if interval == 1 else f"{interval} minutes"
+    elif interval < 172800:
         interval = round(interval / 3600)
-        return f"{interval} hours"
+        return f"{interval} hour" if interval == 1 else f"{interval} hours"
     else:
         interval = round(interval / 86400)
-        return f"{interval} days"
+        return f"{interval} day" if interval == 1 else f"{interval} days"
 
 
 def format_avg_time(avg):
