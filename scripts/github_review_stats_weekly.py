@@ -31,12 +31,12 @@ def main():
     get_user_pr_collection(period_data, start_date)
 
     # Extract data on avg time to review
-    pr_stats = defaultdict(dict)
+    pr_stats = defaultdict(lambda: defaultdict(dict))
     get_pr_details(period_data["pr_reviewed"], start_date, pr_stats)
 
     print("\n-----------\n")
     for username, name in usernames.items():
-        repos = pr_stats[username]
+        repos = pr_stats["review_times"][username]
         details = []
         total_reviews = period_data["pr_reviewed"][username]["total"]
         user_header = f"\nUser: {name} ({len(repos)}"
@@ -64,7 +64,7 @@ def main():
 
     total_reviews = 0
     total_time = 0
-    for user_data in pr_stats.values():
+    for user_data in pr_stats["review_times"].values():
         for repo, repo_data in user_data.items():
             total_reviews += len(repo_data)
             total_time += sum(x for x in repo_data)

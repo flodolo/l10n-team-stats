@@ -297,6 +297,10 @@ def get_pr_details(period_data, start_date, pr_stats):
   ) {
     nodes {
       ... on PullRequest {
+        number
+        author {
+            login
+        }
         url
         createdAt
         closedAt
@@ -350,6 +354,9 @@ def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
     r = github_api_request(repo_query)
     r_data = r.json()["data"]["search"]
     for node in r_data["nodes"]:
+        pr_author = node.get("author", {}).get("login", "")
+        pr_date = datetime.strptime(node["createdAt"], "%Y-%m-%dT%H:%M:%SZ")
+        pr_number = node.get("number", None)
         for review_node in node["reviews"]["nodes"]:
             if review_node["author"] is None:
                 continue
@@ -362,13 +369,21 @@ def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
                     # Ignore review that happened the month before
                     continue
 
-                review_time = review_date - datetime.strptime(
-                    node["createdAt"], "%Y-%m-%dT%H:%M:%SZ"
-                )
-                if repo not in pr_stats[author]:
-                    pr_stats[author][repo] = [review_time.total_seconds()]
+                review_time = review_date - pr_date
+                if repo not in pr_stats["review_times"][author]:
+                    pr_stats["review_times"][author][repo] = [
+                        review_time.total_seconds()
+                    ]
                 else:
-                    pr_stats[author][repo].append(review_time.total_seconds())
+                    pr_stats["review_times"][author][repo].append(
+                        review_time.total_seconds()
+                    )
+
+        if pr_author in usernames and pr_date >= start_date:
+            if pr_author in pr_stats["pr_authored"]:
+                pr_stats["pr_authored"][pr_author].add(pr_number)
+            else:
+                pr_stats["pr_authored"][pr_author] = {pr_number}
 
     if r_data["pageInfo"]["hasNextPage"]:
         new_cursor = r_data["pageInfo"]["endCursor"]
