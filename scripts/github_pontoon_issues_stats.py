@@ -5,7 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from functions import (
-    format_avg_time,
+    format_time,
     get_github_object,
     parse_arguments,
     store_json_data,
@@ -106,7 +106,7 @@ def main():
         # Store value in hours
         record["avg-time-to-close"] = round(avg_age / 3600, 1)
         if avg_age > 0:
-            print(f"Average age of closed issues: {format_avg_time(avg_age)}")
+            print(f"Average age of closed issues: {format_time(avg_age)}")
         if args.verbose:
             print("\n".join(issues.values()))
 
