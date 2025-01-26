@@ -2,11 +2,11 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from datetime import datetime, timedelta
 from github import Github
 from jira import JIRA
 import argparse
 import configparser
-import datetime
 import json
 import os
 import requests
@@ -17,7 +17,7 @@ import urllib3
 
 def ymd(value):
     try:
-        return datetime.datetime.strptime(value, "%Y-%m-%d")
+        return datetime.strptime(value, "%Y-%m-%d")
     except ValueError:
         raise argparse.ArgumentTypeError(f"Invalid YYYY-MM-DD date: {value}")
 
@@ -37,7 +37,7 @@ def parse_arguments(repo=False):
     args = parser.parse_args()
 
     if not args.since:
-        args.since = datetime.datetime.today() - datetime.timedelta(weeks=1)
+        args.since = datetime.today() - timedelta(weeks=1)
     args.since = args.since.replace(hour=0, minute=0, second=0, microsecond=0)
 
     return args
@@ -164,6 +164,15 @@ def get_json_data():
             return json.load(f)
 
 
+def get_gh_usernames():
+    return {
+        "bcolsson": "Bryan",
+        "Delphine": "Delphine",
+        "flodolo": "Flod",
+        "peiying2": "Peiying",
+    }
+
+
 def write_json_data(json_data):
     json_file = get_json_file()
     with open(json_file, "w+") as f:
@@ -172,7 +181,7 @@ def write_json_data(json_data):
 
 def store_json_data(key, record, extend=False):
     json_data = get_json_data()
-    today = datetime.datetime.today().strftime("%Y-%m-%d")
+    today = datetime.today().strftime("%Y-%m-%d")
     if key not in json_data:
         json_data[key] = {}
     if extend:
@@ -217,3 +226,151 @@ def phab_query(method, data, after=None, **kwargs):
         data["results"].extend(res["result"]["data"])
     else:
         data["results"] = res["result"]["data"]
+
+
+def get_user_pr_collection(period_data, start_date):
+    usernames = get_gh_usernames()
+    print(f"Requesting data since: {start_date.strftime('%Y-%m-%d')}")
+    for username in usernames.keys():
+        replacements = {"%USER%": username, "%START%": start_date.isoformat()}
+        try:
+            query = """
+                query {
+                    user(login: "%USER%") {
+                        contributionsCollection(from: "%START%") {
+                            pullRequestReviewContributionsByRepository(maxRepositories: 100) {
+                                contributions {
+                                    totalCount
+                                }
+                                repository {
+                                    nameWithOwner
+                                }
+                            }
+                            pullRequestContributionsByRepository(maxRepositories: 100) {
+                                contributions {
+                                    totalCount
+                                }
+                                repository {
+                                    nameWithOwner
+                                }
+                            }
+                        }
+                    }
+                }
+            """
+            for placeholder, value in replacements.items():
+                query = query.replace(placeholder, value)
+            r = github_api_request(query)
+            json_data = r.json()["data"]["user"]["contributionsCollection"]
+
+            # Get reviews
+            total_reviewed = 0
+            for contrib in json_data["pullRequestReviewContributionsByRepository"]:
+                repo_name = contrib["repository"]["nameWithOwner"]
+                period_data["repositories"].add(repo_name)
+                count = contrib["contributions"]["totalCount"]
+                total_reviewed += count
+                period_data["pr_reviewed"][username][repo_name] = count
+            period_data["pr_reviewed"][username]["total"] = total_reviewed
+
+            # Get PR opened
+            total_created = 0
+            for contrib in json_data["pullRequestContributionsByRepository"]:
+                repo_name = contrib["repository"]["nameWithOwner"]
+                period_data["repositories"].add(repo_name)
+                count = contrib["contributions"]["totalCount"]
+                total_created += count
+                period_data["pr_created"][username][repo_name] = count
+            period_data["pr_created"][username]["total"] = total_created
+        except Exception as e:
+            print(e)
+
+
+def get_pr_details(period_data, start_date, pr_stats):
+    query_prs = """
+{
+  search(
+    first: 100
+    query: "repo:%REPO% is:pr created:>=%START%"
+    type: ISSUE
+    %CURSOR%
+  ) {
+    nodes {
+      ... on PullRequest {
+        url
+        createdAt
+        closedAt
+        merged
+        reviewDecision
+        reviews(first: 100) {
+          nodes {
+            author {
+              login
+            }
+            submittedAt
+            state
+          }
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      startCursor
+      endCursor
+    }
+  }
+}
+"""
+
+    start_query = start_date - timedelta(weeks=6)
+    query_prs = query_prs.replace("%START%", start_query.strftime("%Y-%m-%d"))
+
+    # Get a list of all the repos and usernames
+    usernames = list(period_data.keys())
+    usernames.sort()
+    repos = []
+    for username in usernames:
+        repos += list(period_data[username].keys())
+    repos = list(set(repos))
+    repos.remove("total")
+    repos.sort()
+
+    for repo in repos:
+        # print(f"Requesting data for {repo}")
+        query_pr_data(start_date, repo, usernames, query_prs, pr_stats)
+
+
+def query_pr_data(start_date, repo, usernames, query, pr_stats, cursor=""):
+    repo_query = query.replace("%REPO%", repo)
+    if cursor != "":
+        repo_query = repo_query.replace("%CURSOR%", f'after: "{cursor}"')
+    else:
+        repo_query = repo_query.replace("%CURSOR%", "")
+
+    r = github_api_request(repo_query)
+    r_data = r.json()["data"]["search"]
+    for node in r_data["nodes"]:
+        for review_node in node["reviews"]["nodes"]:
+            if review_node["author"] is None:
+                continue
+            author = review_node["author"]["login"]
+            if author in usernames and review_node["state"] == "APPROVED":
+                review_date = datetime.strptime(
+                    review_node["submittedAt"], "%Y-%m-%dT%H:%M:%SZ"
+                )
+                if review_date <= start_date:
+                    # Ignore review that happened the month before
+                    continue
+
+                review_time = review_date - datetime.strptime(
+                    node["createdAt"], "%Y-%m-%dT%H:%M:%SZ"
+                )
+                if repo not in pr_stats[author]:
+                    pr_stats[author][repo] = [review_time.total_seconds()]
+                else:
+                    pr_stats[author][repo].append(review_time.total_seconds())
+
+    if r_data["pageInfo"]["hasNextPage"]:
+        new_cursor = r_data["pageInfo"]["endCursor"]
+        # print(f"  Requesting new page (from {new_cursor})")
+        query_pr_data(start_date, repo, usernames, query, pr_stats, new_cursor)
