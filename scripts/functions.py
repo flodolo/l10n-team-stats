@@ -22,10 +22,13 @@ def ymd(value):
         raise argparse.ArgumentTypeError(f"Invalid YYYY-MM-DD date: {value}")
 
 
-def parse_arguments(repo=False, user=False):
+def parse_arguments(repo=False, user=False, end_date=False):
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--since", "-s", type=ymd, help="Start date (defaults to 1 week ago)"
+        "--start",
+        "-s",
+        type=ymd,
+        help="Start date (YYYY-MM-DD, defaults to 1 week ago)",
     )
     parser.add_argument(
         "--verbose", "-v", help="Print list of revisions", action="store_true"
@@ -34,13 +37,23 @@ def parse_arguments(repo=False, user=False):
         parser.add_argument(
             "--repo", "-r", help="Repository (e.g. mozilla/pontoon))", required=True
         )
+    if end_date:
+        parser.add_argument(
+            "--end", "-e", help="End date for analysis (YYYY-MM-DD)", required=False
+        )
     if user:
         parser.add_argument("--user", "-u", help="Username on GitHub (e.g. flodolo)")
     args = parser.parse_args()
 
-    if not args.since:
-        args.since = datetime.today() - timedelta(weeks=1)
-    args.since = args.since.replace(hour=0, minute=0, second=0, microsecond=0)
+    if not args.start:
+        args.start = datetime.today() - timedelta(weeks=1)
+    args.start = args.start.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    if args.end:
+        args.end = datetime.strptime(args.end, "%Y-%m-%d")
+        args.end = args.end.replace(hour=23, minute=59, second=59, microsecond=999999)
+    else:
+        args.end = datetime.now()
 
     return args
 
@@ -78,7 +91,8 @@ def format_time(interval):
     if interval < 3600:
         interval = round(interval / 60)
         return f"{interval} minute" if interval == 1 else f"{interval} minutes"
-    elif interval < 172800:
+    elif interval < (86400 * 3):
+        # Up to 3 days, display hours
         interval = round(interval / 3600)
         return f"{interval} hour" if interval == 1 else f"{interval} hours"
     else:

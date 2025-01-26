@@ -18,7 +18,7 @@ echo "Pontoon PR stats"
 if [ $# -eq 0 ]; then
   python "${script_path}/scripts/github_prs_stats.py" --repo mozilla/pontoon
 else
-  python "${script_path}/scripts/github_prs_stats.py" --since $1 --repo mozilla/pontoon
+  python "${script_path}/scripts/github_prs_stats.py" --start $1 --repo mozilla/pontoon
 fi
 
 echo -e "\n--------------\n"
@@ -26,7 +26,7 @@ echo "Pontoon issues stats"
 if [ $# -eq 0 ]; then
   python "${script_path}/scripts/github_pontoon_issues_stats.py"
 else
-  python "${script_path}/scripts/github_pontoon_issues_stats.py" --since $1
+  python "${script_path}/scripts/github_pontoon_issues_stats.py" --start $1
 fi
 
 # Jira stats
@@ -35,7 +35,7 @@ echo "Jira stats"
 if [ $# -eq 0 ]; then
   python "${script_path}/scripts/jira_l10n_stats.py"
 else
-  python "${script_path}/scripts/jira_l10n_stats.py" --since $1
+  python "${script_path}/scripts/jira_l10n_stats.py" --start $1
 fi
 
 # Phabricator stats
@@ -44,7 +44,7 @@ echo "Phabricator stats"
 if [ $# -eq 0 ]; then
   python "${script_path}/scripts/phabricator_l10n_activity.py"
 else
-  python "${script_path}/scripts/phabricator_l10n_activity.py" --since $1
+  python "${script_path}/scripts/phabricator_l10n_activity.py" --start $1
 fi
 
 # GitHub review stats
@@ -53,5 +53,5 @@ echo "GitHub EPM review stats"
 if [ $# -eq 0 ]; then
   python "${script_path}/scripts/github_review_stats_weekly.py"
 else
-  python "${script_path}/scripts/github_review_stats_weekly.py" --since $1
+  python "${script_path}/scripts/github_review_stats_weekly.py" --start $1
 fi

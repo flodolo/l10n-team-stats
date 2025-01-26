@@ -9,9 +9,9 @@ from functions import format_time, get_gh_usernames, get_pr_details, parse_argum
 
 
 def main():
-    args = parse_arguments(repo=True, user=True)
-    start_date = args.since
-    stop_date = datetime.now()
+    args = parse_arguments(repo=True, user=True, end_date=True)
+    start_date = args.start
+    end_date = args.end
 
     if args.user:
         usernames = {args.user: args.user}
@@ -21,7 +21,7 @@ def main():
 
     periods = []
     d = start_date
-    while d < stop_date:
+    while d < end_date:
         periods.append(d)
         d += relativedelta(months=1)
 
@@ -59,7 +59,7 @@ def main():
         for username, repo_times in period_data["review_times"].items():
             times = repo_times.get(repo, None)
             if times:
-                max_time = round(max(times))
+                max_time = max(times)
                 avg = round(sum(times) / len(times))
 
                 overall_stats["total_time_reviews"] += sum(times)
@@ -74,7 +74,7 @@ def main():
         # Get max time to close PRs
         for username, times in period_data["pr_closed"].items():
             if times:
-                max_time = round(max(times))
+                max_time = max(times)
                 if max_time > overall_stats["max_close"]:
                     overall_stats["max_close"] = max_time
 
