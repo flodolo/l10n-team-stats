@@ -32,7 +32,19 @@ def main():
 
     # Extract data on avg time to review
     pr_stats = defaultdict(lambda: defaultdict(dict))
-    get_pr_details(period_data["pr_reviewed"], start_date, pr_stats)
+
+    # Get a list of all the repos and usernames with some data
+    active_usernames = list(period_data["pr_reviewed"].keys())
+    active_usernames.sort()
+
+    repos = []
+    for username in active_usernames:
+        repos += list(period_data["pr_reviewed"][username].keys())
+    repos = list(set(repos))
+    repos.remove("total")
+    repos.sort()
+
+    get_pr_details(repos, active_usernames, start_date, pr_stats)
 
     print("\n-----------\n")
     for username, name in usernames.items():

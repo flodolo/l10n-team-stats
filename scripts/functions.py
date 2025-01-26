@@ -286,7 +286,9 @@ def get_user_pr_collection(period_data, start_date):
             print(e)
 
 
-def get_pr_details(period_data, start_date, pr_stats, single_repo=False):
+def get_pr_details(
+    repos, usernames, start_date, pr_stats, end_date=None, single_repo=False
+):
     query_prs = """
 {
   search(
@@ -326,21 +328,16 @@ def get_pr_details(period_data, start_date, pr_stats, single_repo=False):
 }
 """
 
+    if end_date:
+        query_prs = query_prs.replace(">=%START%", "%START%..%END%")
+
     start_query = start_date - timedelta(weeks=6)
     query_prs = query_prs.replace("%START%", start_query.strftime("%Y-%m-%d"))
-
-    # Get a list of all the repos and usernames
-    usernames = list(period_data.keys())
-    usernames.sort()
-    repos = []
-    for username in usernames:
-        repos += list(period_data[username].keys())
-    repos = list(set(repos))
-    repos.remove("total")
-    repos.sort()
+    if end_date:
+        query_prs = query_prs.replace("%END%", end_date.strftime("%Y-%m-%d"))
 
     for repo in repos:
-        # print(f"Requesting data for {repo}")
+        print(f"Requesting data for {repo}")
         query_pr_data(start_date, repo, usernames, query_prs, pr_stats, single_repo)
 
 
