@@ -101,7 +101,7 @@ def get_user_phids():
 
 def main():
     args = parse_arguments()
-    since = int(args.since.timestamp())
+    since = int(args.start.timestamp())
 
     users = get_user_phids()
     record = {}
@@ -122,7 +122,7 @@ def main():
             dict(reviewerPHIDs=[u["phid"]], createdStart=since),
         )
 
-    print_revisions(data, record, args.since.strftime("%Y-%m-%d"), args.verbose)
+    print_revisions(data, record, args.start.strftime("%Y-%m-%d"), args.verbose)
     store_json_data("epm-reviews", record, extend=True)
 
 

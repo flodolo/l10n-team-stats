@@ -15,7 +15,7 @@ from functions import (
 
 def main():
     args = parse_arguments(repo=True)
-    date_since = args.since.strftime("%Y-%m-%d")
+    date_since = args.start.strftime("%Y-%m-%d")
     repo = args.repo
 
     g = get_github_object()

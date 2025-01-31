@@ -18,7 +18,7 @@ from functions import (
 
 def main():
     args = parse_arguments()
-    start_date = args.since
+    start_date = args.start
 
     usernames = get_gh_usernames()
     record = {}

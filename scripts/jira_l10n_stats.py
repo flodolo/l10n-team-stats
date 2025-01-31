@@ -48,7 +48,7 @@ def build_summary(issues, type, summary, summary_output, project):
 
 def main():
     args = parse_arguments()
-    since_date = args.since.strftime("%Y-%m-%d")
+    since_date = args.start.strftime("%Y-%m-%d")
 
     jira = get_jira_object()
     record = {}
@@ -105,7 +105,7 @@ def main():
         if args.verbose:
             print_issues(in_progress)
 
-        date_since = args.since.strftime("%Y-%m-%d")
+        date_since = args.start.strftime("%Y-%m-%d")
         created = search_jira_issues(
             jira,
             f"project={project} AND created>={date_since} ORDER BY created DESC",

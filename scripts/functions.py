@@ -49,11 +49,14 @@ def parse_arguments(repo=False, user=False, end_date=False):
         args.start = datetime.today() - timedelta(weeks=1)
     args.start = args.start.replace(hour=0, minute=0, second=0, microsecond=0)
 
-    if args.end:
-        args.end = datetime.strptime(args.end, "%Y-%m-%d")
-        args.end = args.end.replace(hour=23, minute=59, second=59, microsecond=999999)
-    else:
-        args.end = datetime.now()
+    if end_date:
+        if args.end:
+            args.end = datetime.strptime(args.end, "%Y-%m-%d")
+            args.end = args.end.replace(
+                hour=23, minute=59, second=59, microsecond=999999
+            )
+        else:
+            args.end = datetime.now()
 
     return args
 

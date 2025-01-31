@@ -14,7 +14,7 @@ from functions import (
 
 def main():
     args = parse_arguments()
-    date_since = args.since.strftime("%Y-%m-%d")
+    date_since = args.start.strftime("%Y-%m-%d")
     repo = "mozilla/pontoon"
 
     g = get_github_object()
