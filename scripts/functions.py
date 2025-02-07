@@ -131,18 +131,26 @@ def get_jira_object():
     )
 
 
-def search_jira_issues(connection, query):
+def search_jira_issues(connection, query, changelog=False):
     pagesize = 100
     index = 0
     issues = []
     while True:
         startAt = index * pagesize
         # _issues = jira.search_issues('project=FXA and created > startOfDay(-5) order by id desc', startAt=startAt, maxResults=chunk)
-        _issues = connection.search_issues(
-            query,
-            startAt=startAt,
-            maxResults=pagesize,
-        )
+        if changelog:
+            _issues = connection.search_issues(
+                query,
+                startAt=startAt,
+                maxResults=pagesize,
+                expand="changelog",
+            )
+        else:
+            _issues = connection.search_issues(
+                query,
+                startAt=startAt,
+                maxResults=pagesize,
+            )
         if _issues:
             issues.extend(_issues)
             index += 1
