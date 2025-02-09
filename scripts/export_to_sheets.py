@@ -260,7 +260,7 @@ def main():
             "Avg perf against deadline (d)",
         ]
     )
-    for day, day_data in data["jira-vendor-stats"].items():
+    for day, day_data in data["jira-request-stats"].items():
         _row = [
             day,
             day_data["triage"],
