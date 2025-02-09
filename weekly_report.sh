@@ -55,3 +55,12 @@ if [ $# -eq 0 ]; then
 else
   python "${script_path}/scripts/github_review_stats_weekly.py" --start $1
 fi
+
+# Jira vendor stats
+echo -e "\n--------------\n"
+echo "Jira vendor stats"
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/jira_vendors_efficiency_stats.py"
+else
+  python "${script_path}/scripts/jira_vendors_efficiency_stats.py" --start $1
+fi

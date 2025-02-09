@@ -131,18 +131,26 @@ def get_jira_object():
     )
 
 
-def search_jira_issues(connection, query):
+def search_jira_issues(connection, query, changelog=False):
     pagesize = 100
     index = 0
     issues = []
     while True:
         startAt = index * pagesize
         # _issues = jira.search_issues('project=FXA and created > startOfDay(-5) order by id desc', startAt=startAt, maxResults=chunk)
-        _issues = connection.search_issues(
-            query,
-            startAt=startAt,
-            maxResults=pagesize,
-        )
+        if changelog:
+            _issues = connection.search_issues(
+                query,
+                startAt=startAt,
+                maxResults=pagesize,
+                expand="changelog",
+            )
+        else:
+            _issues = connection.search_issues(
+                query,
+                startAt=startAt,
+                maxResults=pagesize,
+            )
         if _issues:
             issues.extend(_issues)
             index += 1
@@ -180,15 +188,14 @@ def write_json_data(json_data):
         f.write(json.dumps(json_data, indent=2, sort_keys=True))
 
 
-def store_json_data(key, record, extend=False):
+def store_json_data(day, key, record, extend=False):
     json_data = get_json_data()
-    today = datetime.today().strftime("%Y-%m-%d")
     if key not in json_data:
         json_data[key] = {}
     if extend:
-        previous_data = json_data[key].get(today, {})
+        previous_data = json_data[key].get(day, {})
         record.update(previous_data)
-    json_data[key][today] = record
+    json_data[key][day] = record
 
     write_json_data(json_data)
 

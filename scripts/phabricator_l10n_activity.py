@@ -123,7 +123,7 @@ def main():
         )
 
     print_revisions(data, record, args.start.strftime("%Y-%m-%d"), args.verbose)
-    store_json_data("epm-reviews", record, extend=True)
+    store_json_data(args.start.strftime("%Y-%m-%d"), "epm-reviews", record, extend=True)
 
 
 if __name__ == "__main__":

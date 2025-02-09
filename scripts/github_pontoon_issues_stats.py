@@ -14,7 +14,7 @@ from functions import (
 
 def main():
     args = parse_arguments()
-    date_since = args.start.strftime("%Y-%m-%d")
+    since_date = args.start.strftime("%Y-%m-%d")
     repo = "mozilla/pontoon"
 
     g = get_github_object()
@@ -56,7 +56,7 @@ def main():
 
     # Analyze issues opened since the specified date
     opened = g.search_issues(
-        query=f"repo:{repo} is:issue created:>={date_since}",
+        query=f"repo:{repo} is:issue created:>={since_date}",
         sort="created",
         order="desc",
     )
@@ -73,7 +73,7 @@ def main():
             )
         issue_ids = list(issues.keys())
         print(
-            f"Issues opened after {date_since} ({len(issue_ids)}): {', '.join(issue_ids)}"
+            f"Issues opened after {since_date} ({len(issue_ids)}): {', '.join(issue_ids)}"
         )
         record["opened"] = len(issue_ids)
         if args.verbose:
@@ -81,7 +81,7 @@ def main():
 
     # Analyze issues closed since the specified date
     closed = g.search_issues(
-        query=f"repo:{repo} is:issue closed:>={date_since}",
+        query=f"repo:{repo} is:issue closed:>={since_date}",
         sort="created",
         order="desc",
     )
@@ -101,7 +101,7 @@ def main():
         issue_ids = list(issues.keys())
         count = len(issue_ids)
         avg_age = round(age / count) if count > 0 else 0
-        print(f"Issues closed after {date_since} ({count}): {', '.join(issue_ids)}")
+        print(f"Issues closed after {since_date} ({count}): {', '.join(issue_ids)}")
         record["closed"] = count
         # Store value in hours
         record["avg-time-to-close"] = round(avg_age / 3600, 1)
@@ -110,7 +110,7 @@ def main():
         if args.verbose:
             print("\n".join(issues.values()))
 
-    store_json_data("pontoon-issues", record)
+    store_json_data(since_date, "pontoon-issues", record)
 
 
 if __name__ == "__main__":
