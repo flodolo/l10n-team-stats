@@ -56,13 +56,51 @@ def format_columns(sh, sheet_name, export):
                         "sheetId": sheetId,
                         "dimension": "ROWS",
                         "startIndex": 0,
-                        "endIndex": num_columns,
+                        "endIndex": len(export),
                     }
                 },
             },
         ]
     }
     sh.batch_update(body)
+
+    range_name = f"{sheet_name[4:]}_data"
+    # Update or define named range
+    try:
+        named_ranges = sh.list_named_ranges()
+        named_range_id = None
+        for range in named_ranges:
+            if range["name"] == range_name:
+                named_range_id = range["namedRangeId"]
+                break
+        # Create a new one if missing
+        if not named_range_id:
+            end_cell = f"{columns[num_columns - 1]}{len(export)}"
+            wks.define_named_range(f"A1:{end_cell}", range_name)
+        else:
+            body = {
+                "requests": [
+                    {
+                        "updateNamedRange": {
+                            "namedRange": {
+                                "namedRangeId": named_range_id,
+                                "name": range_name,
+                                "range": {
+                                    "sheetId": sheetId,
+                                    "startRowIndex": 0,
+                                    "endRowIndex": len(export),
+                                    "startColumnIndex": 0,
+                                    "endColumnIndex": num_columns,
+                                },
+                            },
+                            "fields": "range",
+                        }
+                    }
+                ]
+            }
+            sh.batch_update(body)
+    except gspread.exceptions.APIError as e:
+        print(f"Error removing named range {range_name}: {e}")
 
 
 def main():
@@ -106,7 +144,7 @@ def main():
             day_data["avg-age-open"],
         ]
         export.append(_row)
-    format_columns(sh, "Pontoon PRs", export)
+    format_columns(sh, "raw_pontoon_prs", export)
 
     # Export Pontoon issues
     export = []
@@ -140,7 +178,7 @@ def main():
             day_data["Total"],
         ]
         export.append(_row)
-    format_columns(sh, "Pontoon Issues", export)
+    format_columns(sh, "raw_pontoon_issues", export)
 
     # Export Jira issues
     export = []
@@ -164,7 +202,7 @@ def main():
             day_data["closed"],
         ]
         export.append(_row)
-    format_columns(sh, "Jira Issues (EPM)", export)
+    format_columns(sh, "raw_jira_issues", export)
 
     # Export EPM Review
     export = []
@@ -190,7 +228,7 @@ def main():
             day_data["github-repositories"],
         ]
         export.append(_row)
-    format_columns(sh, "EPM Reviews", export)
+    format_columns(sh, "raw_epm_reviews", export)
 
 
 if __name__ == "__main__":
