@@ -35,7 +35,7 @@ def main():
     # not just created.
     issues = search_jira_issues(
         jira,
-        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED FROM 'BACKLOG' AFTER {since_date}",
+        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED FROM 'BACKLOG' AFTER '{since_date}'",
         changelog=True,
     )
 
