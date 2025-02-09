@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import datetime
 import gspread
 from functions import (
     get_json_data,
@@ -13,7 +14,7 @@ from functions import (
 columns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
-def format_columns(sh, sheet_name, export):
+def update_sheet(sh, sheet_name, export):
     num_columns = len(export[0])
     wks = sh.worksheet(sheet_name)
 
@@ -23,7 +24,7 @@ def format_columns(sh, sheet_name, export):
     # add spaces after each column header.
     export[0] = [f"{label}   " for label in export[0]]
 
-    wks.update(export, "A1")
+    wks.update(export, "A1", value_input_option="USER_ENTERED")
     wks.format(
         f"A1:{columns[num_columns - 1]}1",
         {
@@ -60,6 +61,31 @@ def format_columns(sh, sheet_name, export):
                     }
                 },
             },
+        ]
+    }
+    sh.batch_update(body)
+
+    # Format as date the first column (minus header)
+    # Define the formatting request using Google Sheets API
+    body = {
+        "requests": [
+            {
+                "repeatCell": {
+                    "range": {
+                        "sheetId": sheetId,
+                        "startRowIndex": 1,
+                        "endRowIndex": 999,
+                        "startColumnIndex": 0,
+                        "endColumnIndex": 1,
+                    },
+                    "cell": {
+                        "userEnteredFormat": {
+                            "numberFormat": {"type": "DATE", "pattern": "yyyy-MM-dd"}
+                        }
+                    },
+                    "fields": "userEnteredFormat.numberFormat",
+                }
+            }
         ]
     }
     sh.batch_update(body)
@@ -144,7 +170,7 @@ def main():
             day_data["avg-age-open"],
         ]
         export.append(_row)
-    format_columns(sh, "raw_pontoon_prs", export)
+    update_sheet(sh, "raw_pontoon_prs", export)
 
     # Export Pontoon issues
     export = []
@@ -178,7 +204,7 @@ def main():
             day_data["Total"],
         ]
         export.append(_row)
-    format_columns(sh, "raw_pontoon_issues", export)
+    update_sheet(sh, "raw_pontoon_issues", export)
 
     # Export Jira issues
     export = []
@@ -202,7 +228,7 @@ def main():
             day_data["closed"],
         ]
         export.append(_row)
-    format_columns(sh, "raw_jira_issues", export)
+    update_sheet(sh, "raw_jira_issues", export)
 
     # Export EPM Review
     export = []
@@ -228,7 +254,7 @@ def main():
             day_data["github-repositories"],
         ]
         export.append(_row)
-    format_columns(sh, "raw_epm_reviews", export)
+    update_sheet(sh, "raw_epm_reviews", export)
 
     # Export Jira LSP (vendor) stats
     export = []
@@ -248,7 +274,7 @@ def main():
             day_data["deadline"],
         ]
         export.append(_row)
-    format_columns(sh, "raw_vendor_stats", export)
+    update_sheet(sh, "raw_vendor_stats", export)
 
     # Export Jira requests stats
     export = []
@@ -268,7 +294,7 @@ def main():
             day_data["deadline"],
         ]
         export.append(_row)
-    format_columns(sh, "raw_request_stats", export)
+    update_sheet(sh, "raw_request_stats", export)
 
 
 if __name__ == "__main__":
