@@ -48,18 +48,32 @@ def main():
         changelog=True,
     )
 
+    ignored_issues = ["LR-45"]
     issue_data = {}
     for issue in issues:
+        print(f"Checking issue {issue.key}")
+        if issue.key in ignored_issues:
+            continue
         for history in reversed(issue.changelog.histories):
             for item in history.items:
                 # Ignore changes without a fieldId (e.g. parent change)
                 if not hasattr(item, "fieldId"):
                     continue
 
-                if item.fieldId == "status" and item.toString == "In Progress":
+                # Don't reset fields if an issue was reopened
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "In Progress"
+                    and not issue_data.get(issue.key, {}).get("triaged", None)
+                ):
                     store_date(issue_data, issue, "triaged", history.created)
-                if item.fieldId == "status" and item.toString == "Done":
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "Done"
+                    and not issue_data.get(issue.key, {}).get("completed", None)
+                ):
                     store_date(issue_data, issue, "completed", history.created)
+
     times = {
         "triage": [],
         "complete": [],
@@ -105,7 +119,7 @@ def main():
         else:
             record[type] = 0
 
-    store_json_data(since_date, "jira-vendor-stats", record)
+    store_json_data(since_date, "jira-request-stats", record)
 
 
 if __name__ == "__main__":
