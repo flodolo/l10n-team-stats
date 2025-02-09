@@ -1067,14 +1067,14 @@
   },
   "jira-vendor-stats": {
     "2024-02-09": {
-      "deadline": 0.96,
-      "deliver": 7.06,
+      "deadline": 1.58,
+      "deliver": 7.72,
       "triage": 0.04
     },
     "2024-02-16": {
-      "deadline": -0.89,
-      "deliver": 4.78,
-      "triage": 0.37
+      "deadline": -1.61,
+      "deliver": 3.65,
+      "triage": 0.5
     },
     "2024-02-23": {
       "deadline": 0.2,
@@ -1082,19 +1082,19 @@
       "triage": 0.17
     },
     "2024-03-01": {
-      "deadline": -0.28,
-      "deliver": 7.81,
-      "triage": 0.05
+      "deadline": 0,
+      "deliver": 0,
+      "triage": 0
     },
     "2024-03-08": {
-      "deadline": -1.52,
-      "deliver": 5.66,
-      "triage": 0.04
+      "deadline": -1.98,
+      "deliver": 6.2,
+      "triage": 0.05
     },
     "2024-03-15": {
-      "deadline": 0.51,
-      "deliver": 10.16,
-      "triage": 0.08
+      "deadline": 0.65,
+      "deliver": 9.54,
+      "triage": 0.06
     },
     "2024-03-22": {
       "deadline": -1.2,
@@ -1102,9 +1102,9 @@
       "triage": 0.07
     },
     "2024-03-29": {
-      "deadline": -0.55,
-      "deliver": 7.86,
-      "triage": 0.09
+      "deadline": -0.16,
+      "deliver": 5.48,
+      "triage": 0.32
     },
     "2024-04-05": {
       "deadline": -0.69,
@@ -1127,14 +1127,14 @@
       "triage": 0.05
     },
     "2024-05-03": {
-      "deadline": -15.08,
-      "deliver": 6.19,
-      "triage": 0.02
+      "deadline": 0,
+      "deliver": 0,
+      "triage": 0
     },
     "2024-05-10": {
-      "deadline": -5.63,
-      "deliver": 4.69,
-      "triage": 0.01
+      "deadline": -8.27,
+      "deliver": 4.53,
+      "triage": 0.02
     },
     "2024-05-17": {
       "deadline": -1.32,
@@ -1142,9 +1142,9 @@
       "triage": 0.06
     },
     "2024-05-24": {
-      "deadline": 1.68,
-      "deliver": 8.04,
-      "triage": 0.06
+      "deadline": -1.32,
+      "deliver": 4.14,
+      "triage": 0.12
     },
     "2024-05-31": {
       "deadline": 4.68,
@@ -1164,7 +1164,7 @@
     "2024-06-21": {
       "deadline": 0.66,
       "deliver": 1.79,
-      "triage": 0.04
+      "triage": 0.08
     },
     "2024-06-28": {
       "deadline": 2.63,
@@ -1182,8 +1182,8 @@
       "triage": 0.0
     },
     "2024-07-19": {
-      "deadline": -0.2,
-      "deliver": 7.6,
+      "deadline": -0.31,
+      "deliver": 8.01,
       "triage": 0.0
     },
     "2024-07-26": {
@@ -1202,9 +1202,9 @@
       "triage": 0
     },
     "2024-08-16": {
-      "deadline": -6.17,
-      "deliver": 5.35,
-      "triage": 0.18
+      "deadline": 0,
+      "deliver": 0,
+      "triage": 0
     },
     "2024-08-23": {
       "deadline": -3.83,
@@ -1217,9 +1217,9 @@
       "triage": 0.0
     },
     "2024-09-06": {
-      "deadline": -0.68,
-      "deliver": 3.79,
-      "triage": 0.25
+      "deadline": -0.94,
+      "deliver": 1.75,
+      "triage": 0.1
     },
     "2024-09-13": {
       "deadline": -2.01,
@@ -1237,14 +1237,14 @@
       "triage": 1.45
     },
     "2024-10-04": {
-      "deadline": -1.84,
-      "deliver": 7.27,
-      "triage": 4.35
+      "deadline": -3.32,
+      "deliver": 10.29,
+      "triage": 8.42
     },
     "2024-10-11": {
-      "deadline": -1.17,
-      "deliver": 6.89,
-      "triage": 0.59
+      "deadline": -1.52,
+      "deliver": 6.74,
+      "triage": 0.57
     },
     "2024-10-18": {
       "deadline": -3.47,
@@ -1252,8 +1252,8 @@
       "triage": 0.77
     },
     "2024-10-25": {
-      "deadline": 19.41,
-      "deliver": 31.21,
+      "deadline": 24.54,
+      "deliver": 37.86,
       "triage": 0.65
     },
     "2024-11-01": {
@@ -1282,8 +1282,8 @@
       "triage": 0
     },
     "2024-12-06": {
-      "deadline": -1.86,
-      "deliver": 5.0,
+      "deadline": -2.66,
+      "deliver": 3.98,
       "triage": 0.0
     },
     "2024-12-13": {
@@ -1297,9 +1297,9 @@
       "triage": 0
     },
     "2024-12-27": {
-      "deadline": -1.26,
-      "deliver": 4.99,
-      "triage": 0.01
+      "deadline": 0,
+      "deliver": 0,
+      "triage": 0
     },
     "2025-01-03": {
       "deadline": -1.26,
@@ -1312,9 +1312,9 @@
       "triage": 0
     },
     "2025-01-17": {
-      "deadline": -5.2,
-      "deliver": 7.24,
-      "triage": 0.66
+      "deadline": -7.26,
+      "deliver": 8.71,
+      "triage": 0.85
     },
     "2025-01-24": {
       "deadline": -1.08,
