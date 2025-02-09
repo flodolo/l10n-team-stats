@@ -60,7 +60,16 @@ fi
 echo -e "\n--------------\n"
 echo "Jira vendor stats"
 if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/jira_vendors_efficiency_stats.py"
+  python "${script_path}/scripts/jira_vendors_stats.py"
 else
-  python "${script_path}/scripts/jira_vendors_efficiency_stats.py" --start $1
+  python "${script_path}/scripts/jira_vendors_stats.py" --start $1
+fi
+
+# Jira request stats
+echo -e "\n--------------\n"
+echo "Jira vendor stats"
+if [ $# -eq 0 ]; then
+  python "${script_path}/scripts/jira_requests_stats.py"
+else
+  python "${script_path}/scripts/jira_requests_stats.py" --start $1
 fi

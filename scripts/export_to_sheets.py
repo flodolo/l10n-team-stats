@@ -230,7 +230,7 @@ def main():
         export.append(_row)
     format_columns(sh, "raw_epm_reviews", export)
 
-    # Export LSP (vendor) stats
+    # Export Jira LSP (vendor) stats
     export = []
     export.append(
         [
@@ -249,6 +249,26 @@ def main():
         ]
         export.append(_row)
     format_columns(sh, "raw_vendor_stats", export)
+
+    # Export Jira requests stats
+    export = []
+    export.append(
+        [
+            "Date",
+            "Avg triage (d)",
+            "Avg complete (d)",
+            "Avg perf against deadline (d)",
+        ]
+    )
+    for day, day_data in data["jira-request-stats"].items():
+        _row = [
+            day,
+            day_data["triage"],
+            day_data["complete"],
+            day_data["deadline"],
+        ]
+        export.append(_row)
+    format_columns(sh, "raw_request_stats", export)
 
 
 if __name__ == "__main__":

@@ -17,9 +17,18 @@ from functions import (
 def store_date(issue_data, issue, field, dt):
     issue_id = issue.key
     if issue_id not in issue_data:
+        # If deadline is not defined, assume 1 week from filing
+        if issue.fields.duedate:
+            deadline = issue.fields.duedate
+        else:
+            create_dt = datetime.datetime.strptime(
+                issue.fields.created, "%Y-%m-%dT%H:%M:%S.%f%z"
+            )
+            deadline = (create_dt + datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+            print(f"Missing deadline for {issue_id}: assuming {deadline}")
         issue_data[issue_id] = {
             "created": issue.fields.created,
-            "deadline": issue.fields.customfield_10451,
+            "deadline": deadline,
         }
 
     issue_data[issue_id][field] = dt
@@ -35,49 +44,60 @@ def main():
     # not just created.
     issues = search_jira_issues(
         jira,
-        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED FROM 'BACKLOG' AFTER '{since_date}'",
+        f"project = 'l10n-requests' AND status != Blocked AND status CHANGED FROM 'BACKLOG' AFTER '{since_date}'",
         changelog=True,
     )
 
+    ignored_issues = ["LR-45"]
     issue_data = {}
     for issue in issues:
+        print(f"Checking issue {issue.key}")
+        if issue.key in ignored_issues:
+            continue
         for history in reversed(issue.changelog.histories):
             for item in history.items:
                 # Ignore changes without a fieldId (e.g. parent change)
                 if not hasattr(item, "fieldId"):
                     continue
 
-                if item.fieldId == "status" and item.toString == "To Do":
+                # Don't reset fields if an issue was reopened
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "In Progress"
+                    and not issue_data.get(issue.key, {}).get("triaged", None)
+                ):
                     store_date(issue_data, issue, "triaged", history.created)
-                if item.fieldId == "status" and item.toString == "Vendor Delivery":
-                    store_date(issue_data, issue, "delivered", history.created)
-                if item.fieldId == "status" and item.toString == "Scheduled":
-                    store_date(issue_data, issue, "scheduled", history.created)
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "Done"
+                    and not issue_data.get(issue.key, {}).get("completed", None)
+                ):
+                    store_date(issue_data, issue, "completed", history.created)
 
     times = {
         "triage": [],
-        "deliver": [],
+        "complete": [],
         "deadline": [],
     }
     for issue, issue_details in issue_data.items():
         create_dt = datetime.datetime.strptime(
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
         )
-        triage_str = issue_details.get("triaged", issue_details.get("scheduled", None))
+        triage_str = issue_details.get("triaged", issue_details.get("completed", None))
         if triage_str is not None:
             triage_dt = datetime.datetime.strptime(triage_str, "%Y-%m-%dT%H:%M:%S.%f%z")
             delta = triage_dt - create_dt
             issue_details["time_triage"] = round(delta.total_seconds() / 86400, 3)
             times["triage"].append(issue_details["time_triage"])
 
-        deliver_str = issue_details.get("delivered", None)
-        if deliver_str is not None:
-            deliver_dt = datetime.datetime.strptime(
-                deliver_str, "%Y-%m-%dT%H:%M:%S.%f%z"
+        complete_str = issue_details.get("completed", None)
+        if complete_str is not None:
+            complete_dt = datetime.datetime.strptime(
+                complete_str, "%Y-%m-%dT%H:%M:%S.%f%z"
             )
-            delta = deliver_dt - create_dt
-            issue_details["time_deliver"] = round(delta.total_seconds() / 86400, 3)
-            times["deliver"].append(issue_details["time_deliver"])
+            delta = complete_dt - create_dt
+            issue_details["time_complete"] = round(delta.total_seconds() / 86400, 3)
+            times["complete"].append(issue_details["time_complete"])
 
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
@@ -86,7 +106,7 @@ def main():
             deadline_dt = deadline_dt.replace(
                 tzinfo=datetime.timezone.utc, hour=23, minute=59, second=59
             )
-            delta = deliver_dt - deadline_dt
+            delta = complete_dt - deadline_dt
             issue_details["time_deadline"] = round(delta.total_seconds() / 86400, 3)
             times["deadline"].append(issue_details["time_deadline"])
 
@@ -99,7 +119,7 @@ def main():
         else:
             record[type] = 0
 
-    store_json_data(since_date, "jira-vendor-stats", record)
+    store_json_data(since_date, "jira-request-stats", record)
 
 
 if __name__ == "__main__":
