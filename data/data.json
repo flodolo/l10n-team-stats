@@ -798,6 +798,273 @@
       "in-progress": 3
     }
   },
+  "jira-request-stats": {
+    "2024-02-09": {
+      "complete": 8.06,
+      "deadline": 2.18,
+      "triage": 7.1
+    },
+    "2024-02-16": {
+      "complete": 6.6,
+      "deadline": 0.32,
+      "triage": 5.93
+    },
+    "2024-02-23": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-03-01": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-03-08": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-03-15": {
+      "complete": 15.72,
+      "deadline": 10.01,
+      "triage": 0.69
+    },
+    "2024-03-22": {
+      "complete": 17.85,
+      "deadline": 11.7,
+      "triage": 2.42
+    },
+    "2024-03-29": {
+      "complete": 6.35,
+      "deadline": -0.75,
+      "triage": 1.01
+    },
+    "2024-04-05": {
+      "complete": 11.68,
+      "deadline": 5.87,
+      "triage": 0.93
+    },
+    "2024-04-12": {
+      "complete": 7.75,
+      "deadline": 4.82,
+      "triage": 1.59
+    },
+    "2024-04-19": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-04-26": {
+      "complete": 4.44,
+      "deadline": -2.84,
+      "triage": 0.71
+    },
+    "2024-05-03": {
+      "complete": 6.14,
+      "deadline": -0.77,
+      "triage": 1.87
+    },
+    "2024-05-10": {
+      "complete": 13.34,
+      "deadline": 6.24,
+      "triage": 3.03
+    },
+    "2024-05-17": {
+      "complete": 20.24,
+      "deadline": 15.16,
+      "triage": 1.84
+    },
+    "2024-05-24": {
+      "complete": 17.41,
+      "deadline": 11.34,
+      "triage": 3.4
+    },
+    "2024-05-31": {
+      "complete": 5.2,
+      "deadline": -3.12,
+      "triage": 2.32
+    },
+    "2024-06-07": {
+      "complete": 7.98,
+      "deadline": 5.28,
+      "triage": 0.8
+    },
+    "2024-06-14": {
+      "complete": 11.59,
+      "deadline": 7.34,
+      "triage": 5.32
+    },
+    "2024-06-21": {
+      "complete": 3.1,
+      "deadline": -2.57,
+      "triage": 0.28
+    },
+    "2024-06-28": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-07-05": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-07-12": {
+      "complete": 1.44,
+      "deadline": -1.31,
+      "triage": 0.1
+    },
+    "2024-07-19": {
+      "complete": 26.66,
+      "deadline": 21.24,
+      "triage": 2.06
+    },
+    "2024-07-26": {
+      "complete": 0.34,
+      "deadline": -7.31,
+      "triage": 0.34
+    },
+    "2024-08-02": {
+      "complete": 13.73,
+      "deadline": 11.48,
+      "triage": 1.48
+    },
+    "2024-08-09": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-08-16": {
+      "complete": 12.96,
+      "deadline": 11.68,
+      "triage": 0.01
+    },
+    "2024-08-23": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-08-30": {
+      "complete": 25.14,
+      "deadline": 1.01,
+      "triage": 2.46
+    },
+    "2024-09-06": {
+      "complete": 7.32,
+      "deadline": 3.93,
+      "triage": 1.18
+    },
+    "2024-09-13": {
+      "complete": 2.12,
+      "deadline": 0.29,
+      "triage": 0.35
+    },
+    "2024-09-20": {
+      "complete": 8.61,
+      "deadline": 7.95,
+      "triage": 0.05
+    },
+    "2024-09-27": {
+      "complete": 6.15,
+      "deadline": 2.29,
+      "triage": 0.13
+    },
+    "2024-10-04": {
+      "complete": 8.82,
+      "deadline": 5.24,
+      "triage": 2.76
+    },
+    "2024-10-11": {
+      "complete": 5.0,
+      "deadline": -0.23,
+      "triage": 0.2
+    },
+    "2024-10-18": {
+      "complete": 14.78,
+      "deadline": 12.53,
+      "triage": 0.75
+    },
+    "2024-10-25": {
+      "complete": 14.95,
+      "deadline": 10.15,
+      "triage": 0.18
+    },
+    "2024-11-01": {
+      "complete": 22.54,
+      "deadline": 18.1,
+      "triage": 0.46
+    },
+    "2024-11-08": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-11-15": {
+      "complete": 8.25,
+      "deadline": 2.71,
+      "triage": 1.92
+    },
+    "2024-11-22": {
+      "complete": 7.74,
+      "deadline": -0.34,
+      "triage": 0.43
+    },
+    "2024-11-29": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2024-12-06": {
+      "complete": 5.25,
+      "deadline": -2.11,
+      "triage": 2.28
+    },
+    "2024-12-13": {
+      "complete": 4.12,
+      "deadline": 0.89,
+      "triage": 4.12
+    },
+    "2024-12-20": {
+      "complete": 17.3,
+      "deadline": -2.04,
+      "triage": 0.33
+    },
+    "2024-12-27": {
+      "complete": 0,
+      "deadline": 0,
+      "triage": 0
+    },
+    "2025-01-03": {
+      "complete": 4.08,
+      "deadline": -1.17,
+      "triage": 0.74
+    },
+    "2025-01-10": {
+      "complete": 19.07,
+      "deadline": 11.94,
+      "triage": 0.1
+    },
+    "2025-01-17": {
+      "complete": 6.22,
+      "deadline": -0.96,
+      "triage": 2.88
+    },
+    "2025-01-24": {
+      "complete": 3.55,
+      "deadline": -0.14,
+      "triage": 0.72
+    },
+    "2025-01-31": {
+      "complete": 1.39,
+      "deadline": -3.68,
+      "triage": 0.77
+    },
+    "2025-02-07": {
+      "complete": 0.17,
+      "deadline": -2.9,
+      "triage": 0.17
+    }
+  },
   "jira-vendor-stats": {
     "2024-02-09": {
       "deadline": 0.96,
