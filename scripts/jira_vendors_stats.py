@@ -16,10 +16,19 @@ from functions import (
 
 def store_date(issue_data, issue, field, dt):
     issue_id = issue.key
+    # If deadline is not defined, assume 1 week from filing
+    if issue.fields.customfield_10451:
+        deadline = issue.fields.customfield_10451
+    else:
+        create_dt = datetime.datetime.strptime(
+            issue.fields.created, "%Y-%m-%dT%H:%M:%S.%f%z"
+        )
+        deadline = (create_dt + datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+        print(f"Missing deadline for {issue_id}: assuming {deadline}")
     if issue_id not in issue_data:
         issue_data[issue_id] = {
             "created": issue.fields.created,
-            "deadline": issue.fields.customfield_10451,
+            "deadline": deadline,
         }
 
     issue_data[issue_id][field] = dt
@@ -39,19 +48,35 @@ def main():
         changelog=True,
     )
 
+    ignored_issues = []
     issue_data = {}
     for issue in issues:
+        print(f"Checking issue {issue.key}")
+        if issue.key in ignored_issues:
+            continue
         for history in reversed(issue.changelog.histories):
             for item in history.items:
                 # Ignore changes without a fieldId (e.g. parent change)
                 if not hasattr(item, "fieldId"):
                     continue
-
-                if item.fieldId == "status" and item.toString == "To Do":
+                # Don't reset fields if an issue was reopened
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "To Do"
+                    and not issue_data.get(issue.key, {}).get("triaged", None)
+                ):
                     store_date(issue_data, issue, "triaged", history.created)
-                if item.fieldId == "status" and item.toString == "Vendor Delivery":
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "Vendor Delivery"
+                    and not issue_data.get(issue.key, {}).get("delivered", None)
+                ):
                     store_date(issue_data, issue, "delivered", history.created)
-                if item.fieldId == "status" and item.toString == "Scheduled":
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "Scheduled"
+                    and not issue_data.get(issue.key, {}).get("scheduled", None)
+                ):
                     store_date(issue_data, issue, "scheduled", history.created)
 
     times = {
