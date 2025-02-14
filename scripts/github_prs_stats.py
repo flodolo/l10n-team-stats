@@ -102,7 +102,7 @@ def main():
         if avg_age > 0:
             print(f"Average age: {format_time(avg_age)}")
 
-    store_json_data(date_since, "pontoon-prs", record)
+    store_json_data("pontoon-prs", record)
 
 
 if __name__ == "__main__":

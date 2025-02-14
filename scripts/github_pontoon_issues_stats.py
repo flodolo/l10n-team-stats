@@ -110,7 +110,7 @@ def main():
         if args.verbose:
             print("\n".join(issues.values()))
 
-    store_json_data(since_date, "pontoon-issues", record)
+    store_json_data("pontoon-issues", record)
 
 
 if __name__ == "__main__":

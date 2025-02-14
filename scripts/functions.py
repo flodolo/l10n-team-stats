@@ -188,8 +188,10 @@ def write_json_data(json_data):
         f.write(json.dumps(json_data, indent=2, sort_keys=True))
 
 
-def store_json_data(day, key, record, extend=False):
+def store_json_data(key, record, day=None, extend=False):
     json_data = get_json_data()
+    if not day:
+        day = datetime.today().strftime("%Y-%m-%d")
     if key not in json_data:
         json_data[key] = {}
     if extend:

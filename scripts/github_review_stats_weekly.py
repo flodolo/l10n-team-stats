@@ -96,7 +96,7 @@ def main():
     print(f"\nNumber of pull requests created: {total_created}")
     print(f"\nNumber of repositories: {len(period_data['repositories'])}")
 
-    store_json_data(start_date.strftime("%Y-%m-%d"), "epm-reviews", record, extend=True)
+    store_json_data("epm-reviews", record, extend=True)
 
 
 if __name__ == "__main__":

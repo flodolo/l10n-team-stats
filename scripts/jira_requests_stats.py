@@ -119,7 +119,7 @@ def main():
         else:
             record[type] = 0
 
-    store_json_data(since_date, "jira-request-stats", record)
+    store_json_data("jira-request-stats", record)
 
 
 if __name__ == "__main__":
