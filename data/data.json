@@ -1062,7 +1062,7 @@
     "2025-02-07": {
       "complete": 0.17,
       "deadline": -2.9,
-      "triage": 0.17
+      "triage": 0.23
     }
   },
   "jira-vendor-stats": {
@@ -1329,7 +1329,7 @@
     "2025-02-07": {
       "deadline": 0,
       "deliver": 0,
-      "triage": 0
+      "triage": 2.15
     }
   },
   "pontoon-issues": {
@@ -1958,16 +1958,16 @@
       "opened": 3
     },
     "2025-02-07": {
-      "P1": 1,
+      "P1": 0,
       "P2": 34,
-      "P3": 235,
+      "P3": 237,
       "P4": 40,
       "P5": 23,
       "Total": 334,
-      "Untriaged": 1,
-      "avg-time-to-close": 319.1,
-      "closed": 6,
-      "opened": 4
+      "Untriaged": 0,
+      "avg-time-to-close": 253.3,
+      "closed": 3,
+      "opened": 3
     }
   },
   "pontoon-prs": {
@@ -2336,11 +2336,11 @@
       "opened": 4
     },
     "2025-02-07": {
-      "avg-age-open": 1168.8,
-      "avg-time-to-close": 131.0,
-      "closed": 3,
-      "open": 3,
-      "opened": 2
+      "avg-age-open": 959.3,
+      "avg-time-to-close": 34.6,
+      "closed": 8,
+      "open": 4,
+      "opened": 9
     }
   }
 }
