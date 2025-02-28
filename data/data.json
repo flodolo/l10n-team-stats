@@ -1405,11 +1405,6 @@
       "deadline": -5.94,
       "deliver": 14.66,
       "triage": 1.88
-    },
-    "2025-03-07": {
-      "deadline": 0,
-      "deliver": 0,
-      "triage": 0
     }
   },
   "pontoon-issues": {
@@ -2471,6 +2466,13 @@
       "closed": 1,
       "open": 6,
       "opened": 3
+    },
+    "2025-02-28": {
+      "avg-age-open": 692.4,
+      "avg-time-to-close": 207.5,
+      "closed": 5,
+      "open": 7,
+      "opened": 6
     }
   }
 }
