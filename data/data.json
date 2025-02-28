@@ -439,6 +439,14 @@
       "github-reviews": 17,
       "phab-authored": 0,
       "phab-reviewed": 4
+    },
+    "2025-02-28": {
+      "github-avg-time-to-review": 17.9,
+      "github-pr-created": 20,
+      "github-repositories": 14,
+      "github-reviews": 27,
+      "phab-authored": 0,
+      "phab-reviewed": 5
     }
   },
   "jira-issues": {
@@ -826,6 +834,13 @@
       "closed": 2,
       "created": 2,
       "in-progress": 4
+    },
+    "2025-02-28": {
+      "backlog": 0,
+      "blocked": 0,
+      "closed": 5,
+      "created": 5,
+      "in-progress": 5
     }
   },
   "jira-request-stats": {
@@ -1103,6 +1118,11 @@
       "complete": 2.69,
       "deadline": -4.5,
       "triage": 0.5
+    },
+    "2025-02-28": {
+      "complete": 3.31,
+      "deadline": -1.97,
+      "triage": 1.56
     }
   },
   "jira-vendor-stats": {
@@ -1380,6 +1400,11 @@
       "deadline": 0,
       "deliver": 0,
       "triage": 0
+    },
+    "2025-02-28": {
+      "deadline": 0,
+      "deliver": 0,
+      "triage": 0.22
     }
   },
   "pontoon-issues": {
@@ -2042,6 +2067,18 @@
       "avg-time-to-close": 0.0,
       "closed": 0,
       "opened": 2
+    },
+    "2025-02-28": {
+      "P1": 0,
+      "P2": 33,
+      "P3": 237,
+      "P4": 40,
+      "P5": 25,
+      "Total": 337,
+      "Untriaged": 2,
+      "avg-time-to-close": 406.7,
+      "closed": 4,
+      "opened": 5
     }
   },
   "pontoon-prs": {
@@ -2429,6 +2466,13 @@
       "closed": 1,
       "open": 6,
       "opened": 3
+    },
+    "2025-02-28": {
+      "avg-age-open": 692.4,
+      "avg-time-to-close": 207.5,
+      "closed": 5,
+      "open": 7,
+      "opened": 6
     }
   }
 }
