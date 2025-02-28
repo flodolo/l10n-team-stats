@@ -44,7 +44,7 @@ def main():
     # not just created.
     issues = search_jira_issues(
         jira,
-        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED FROM 'BACKLOG' AFTER '{since_date}'",
+        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED AFTER '{since_date}'",
         changelog=True,
     )
 
@@ -62,6 +62,7 @@ def main():
                 # Don't reset fields if an issue was reopened
                 if (
                     item.fieldId == "status"
+                    and item.fromString == "Backlog"
                     and item.toString == "To Do"
                     and not issue_data.get(issue.key, {}).get("triaged", None)
                 ):
