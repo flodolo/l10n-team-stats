@@ -85,6 +85,8 @@ def main():
         "deliver": [],
         "deadline": [],
     }
+    num_triaged = 0
+    num_delivered = 0
     for issue, issue_details in issue_data.items():
         create_dt = datetime.datetime.strptime(
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -95,6 +97,7 @@ def main():
             delta = triage_dt - create_dt
             issue_details["time_triage"] = round(delta.total_seconds() / 86400, 3)
             times["triage"].append(issue_details["time_triage"])
+            num_triaged += 1
 
         deliver_str = issue_details.get("delivered", None)
         if deliver_str is not None:
@@ -104,6 +107,7 @@ def main():
             delta = deliver_dt - create_dt
             issue_details["time_deliver"] = round(delta.total_seconds() / 86400, 3)
             times["deliver"].append(issue_details["time_deliver"])
+            num_delivered += 1
 
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
@@ -126,6 +130,8 @@ def main():
             record[type] = 0
 
     store_json_data("jira-vendor-stats", record)
+    record["num_triaged"] = num_triaged
+    record["num_delivered"] = num_delivered
 
 
 if __name__ == "__main__":

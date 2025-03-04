@@ -79,6 +79,8 @@ def main():
         "complete": [],
         "deadline": [],
     }
+    num_triaged = 0
+    num_completed = 0
     for issue, issue_details in issue_data.items():
         create_dt = datetime.datetime.strptime(
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -89,6 +91,7 @@ def main():
             delta = triage_dt - create_dt
             issue_details["time_triage"] = round(delta.total_seconds() / 86400, 3)
             times["triage"].append(issue_details["time_triage"])
+            num_triaged += 1
 
         complete_str = issue_details.get("completed", None)
         if complete_str is not None:
@@ -98,6 +101,7 @@ def main():
             delta = complete_dt - create_dt
             issue_details["time_complete"] = round(delta.total_seconds() / 86400, 3)
             times["complete"].append(issue_details["time_complete"])
+            num_completed += 1
 
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
@@ -118,6 +122,8 @@ def main():
             record[type] = avg
         else:
             record[type] = 0
+    record["num_triaged"] = num_triaged
+    record["num_completed"] = num_completed
 
     store_json_data("jira-request-stats", record)
 
