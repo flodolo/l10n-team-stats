@@ -845,566 +845,1032 @@
   },
   "jira-request-stats": {
     "2024-02-09": {
-      "complete": 8.06,
-      "deadline": 2.18,
-      "triage": 7.1
+      "complete": 8.17,
+      "completed": "LR-69, LR-77",
+      "deadline": 0.56,
+      "num_completed": 2,
+      "num_triaged": 4,
+      "triage": 4.36,
+      "triaged": "LR-69, LR-74, LR-77, LR-78"
     },
     "2024-02-16": {
-      "complete": 6.6,
-      "deadline": 0.32,
-      "triage": 5.93
+      "complete": 8.06,
+      "completed": "LR-70, LR-74, LR-75, LR-78",
+      "deadline": 2.18,
+      "num_completed": 4,
+      "num_triaged": 4,
+      "triage": 7.73,
+      "triaged": "LR-70, LR-74, LR-75, LR-78"
     },
     "2024-02-23": {
-      "complete": 0,
-      "deadline": 0,
-      "triage": 0
+      "complete": 6.6,
+      "completed": "LR-79, LR-81",
+      "deadline": 0.32,
+      "num_completed": 2,
+      "num_triaged": 2,
+      "triage": 5.93,
+      "triaged": "LR-79, LR-81"
     },
     "2024-03-01": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-03-08": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-03-15": {
-      "complete": 15.72,
-      "deadline": 10.01,
-      "triage": 0.69
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 0.16,
+      "triaged": "LR-82"
     },
     "2024-03-22": {
-      "complete": 17.85,
-      "deadline": 11.7,
-      "triage": 2.42
+      "complete": 1.07,
+      "completed": "LR-83, LR-85",
+      "deadline": -5.59,
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 0.87,
+      "triaged": "LR-83, LR-84, LR-85"
     },
     "2024-03-29": {
-      "complete": 6.35,
-      "deadline": -0.75,
-      "triage": 1.01
+      "complete": 4.45,
+      "completed": "LR-86, LR-87",
+      "deadline": -1.19,
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 2.42,
+      "triaged": "LR-86, LR-87, LR-88"
     },
     "2024-04-05": {
-      "complete": 11.68,
-      "deadline": 5.87,
-      "triage": 0.93
+      "complete": 6.35,
+      "completed": "LR-89",
+      "deadline": -0.75,
+      "num_completed": 1,
+      "num_triaged": 1,
+      "triage": 1.01,
+      "triaged": "LR-89"
     },
     "2024-04-12": {
-      "complete": 7.75,
-      "deadline": 4.82,
-      "triage": 1.59
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 2,
+      "triage": 0.93,
+      "triaged": "LR-90, LR-91"
     },
     "2024-04-19": {
-      "complete": 0,
-      "deadline": 0,
-      "triage": 0
+      "complete": 0.88,
+      "completed": "LR-94",
+      "deadline": -1.33,
+      "num_completed": 1,
+      "num_triaged": 3,
+      "triage": 1.59,
+      "triaged": "LR-92, LR-93, LR-94"
     },
     "2024-04-26": {
-      "complete": 4.44,
-      "deadline": -2.84,
-      "triage": 0.71
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 1.09,
+      "triaged": "LR-95"
     },
     "2024-05-03": {
-      "complete": 6.14,
-      "deadline": -0.77,
-      "triage": 1.87
+      "complete": 4.44,
+      "completed": "LR-95, LR-96",
+      "deadline": -2.84,
+      "num_completed": 2,
+      "num_triaged": 2,
+      "triage": 3.12,
+      "triaged": "LR-95, LR-96"
     },
     "2024-05-10": {
-      "complete": 13.34,
-      "deadline": 6.24,
-      "triage": 3.03
+      "complete": 3.74,
+      "completed": "LR-100, LR-97",
+      "deadline": -2.96,
+      "num_completed": 2,
+      "num_triaged": 4,
+      "triage": 1.87,
+      "triaged": "LR-100, LR-97, LR-98, LR-99"
     },
     "2024-05-17": {
-      "complete": 20.24,
-      "deadline": 15.16,
-      "triage": 1.84
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 3.03,
+      "triaged": "LR-101"
     },
     "2024-05-24": {
-      "complete": 17.41,
-      "deadline": 11.34,
-      "triage": 3.4
+      "complete": 2.33,
+      "completed": "LR-104",
+      "deadline": -2.09,
+      "num_completed": 1,
+      "num_triaged": 4,
+      "triage": 1.84,
+      "triaged": "LR-102, LR-103, LR-104, LR-106"
     },
     "2024-05-31": {
-      "complete": 5.2,
-      "deadline": -3.12,
-      "triage": 2.32
+      "complete": 7.27,
+      "completed": "LR-105",
+      "deadline": 5.34,
+      "num_completed": 1,
+      "num_triaged": 2,
+      "triage": 3.4,
+      "triaged": "LR-105, LR-107"
     },
     "2024-06-07": {
-      "complete": 7.98,
-      "deadline": 5.28,
-      "triage": 0.8
+      "complete": 5.2,
+      "completed": "LR-108",
+      "deadline": -3.12,
+      "num_completed": 1,
+      "num_triaged": 1,
+      "triage": 2.32,
+      "triaged": "LR-108"
     },
     "2024-06-14": {
-      "complete": 11.59,
-      "deadline": 7.34,
-      "triage": 5.32
+      "complete": 1.32,
+      "completed": "LR-109",
+      "deadline": -0.79,
+      "num_completed": 1,
+      "num_triaged": 2,
+      "triage": 0.8,
+      "triaged": "LR-109, LR-111"
     },
     "2024-06-21": {
-      "complete": 3.1,
-      "deadline": -2.57,
-      "triage": 0.28
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 5.32,
+      "triaged": "LR-112"
     },
     "2024-06-28": {
-      "complete": 0,
-      "deadline": 0,
-      "triage": 0
+      "complete": 3.1,
+      "completed": "LR-113, LR-114",
+      "deadline": -2.57,
+      "num_completed": 2,
+      "num_triaged": 2,
+      "triage": 0.28,
+      "triaged": "LR-113, LR-114"
     },
     "2024-07-05": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-07-12": {
-      "complete": 1.44,
-      "deadline": -1.31,
-      "triage": 0.1
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-07-19": {
-      "complete": 26.66,
-      "deadline": 21.24,
-      "triage": 2.06
+      "complete": 1.44,
+      "completed": "LR-116, LR-117",
+      "deadline": -1.31,
+      "num_completed": 2,
+      "num_triaged": 2,
+      "triage": 0.1,
+      "triaged": "LR-116, LR-117"
     },
     "2024-07-26": {
-      "complete": 0.34,
-      "deadline": -7.31,
-      "triage": 0.34
+      "complete": 0.73,
+      "completed": "LR-123",
+      "deadline": -6.35,
+      "num_completed": 1,
+      "num_triaged": 6,
+      "triage": 2.06,
+      "triaged": "LR-118, LR-119, LR-120, LR-121, LR-122, LR-123"
     },
     "2024-08-02": {
-      "complete": 13.73,
-      "deadline": 11.48,
-      "triage": 1.48
+      "complete": 0.34,
+      "completed": "LR-125",
+      "deadline": -7.31,
+      "num_completed": 1,
+      "num_triaged": 1,
+      "triage": 0.34,
+      "triaged": "LR-125"
     },
     "2024-08-09": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 3,
+      "triage": 1.48,
+      "triaged": "LR-124, LR-126, LR-129"
     },
     "2024-08-16": {
-      "complete": 12.96,
-      "deadline": 11.68,
-      "triage": 0.01
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-08-23": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 0.01,
+      "triaged": "LR-130"
     },
     "2024-08-30": {
-      "complete": 25.14,
-      "deadline": 1.01,
-      "triage": 2.46
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-09-06": {
-      "complete": 7.32,
-      "deadline": 3.93,
-      "triage": 1.18
+      "complete": 6.12,
+      "completed": "LR-131",
+      "deadline": -8.21,
+      "num_completed": 1,
+      "num_triaged": 3,
+      "triage": 2.46,
+      "triaged": "LR-131, LR-132, LR-133"
     },
     "2024-09-13": {
-      "complete": 2.12,
-      "deadline": 0.29,
-      "triage": 0.35
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 1.18,
+      "triaged": "LR-134"
     },
     "2024-09-20": {
-      "complete": 8.61,
-      "deadline": 7.95,
-      "triage": 0.05
+      "complete": 1.21,
+      "completed": "LR-135, LR-136",
+      "deadline": -1.44,
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 0.35,
+      "triaged": "LR-135, LR-136, LR-137"
     },
     "2024-09-27": {
-      "complete": 6.15,
-      "deadline": 2.29,
-      "triage": 0.13
+      "complete": 0.16,
+      "completed": "LR-139, LR-140",
+      "deadline": -1.08,
+      "num_completed": 2,
+      "num_triaged": 4,
+      "triage": 0.11,
+      "triaged": "LR-138, LR-139, LR-140, LR-141"
     },
     "2024-10-04": {
-      "complete": 8.82,
-      "deadline": 5.24,
-      "triage": 2.76
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 0.06,
+      "triaged": "LR-142"
     },
     "2024-10-11": {
-      "complete": 5.0,
-      "deadline": -0.23,
-      "triage": 0.2
+      "complete": 6.33,
+      "completed": "LR-143",
+      "deadline": 2.98,
+      "num_completed": 1,
+      "num_triaged": 3,
+      "triage": 2.76,
+      "triaged": "LR-143, LR-144, LR-145"
     },
     "2024-10-18": {
-      "complete": 14.78,
-      "deadline": 12.53,
-      "triage": 0.75
+      "complete": 5.0,
+      "completed": "LR-146",
+      "deadline": -0.23,
+      "num_completed": 1,
+      "num_triaged": 3,
+      "triage": 0.21,
+      "triaged": "LR-146, LR-147, LR-148"
     },
     "2024-10-25": {
-      "complete": 14.95,
-      "deadline": 10.15,
-      "triage": 0.18
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 2,
+      "triage": 1.29,
+      "triaged": "LR-149, LR-150"
     },
     "2024-11-01": {
-      "complete": 22.54,
-      "deadline": 18.1,
-      "triage": 0.46
+      "complete": 0.99,
+      "completed": "LR-152",
+      "deadline": -6.25,
+      "num_completed": 1,
+      "num_triaged": 2,
+      "triage": 0.18,
+      "triaged": "LR-151, LR-152"
     },
     "2024-11-08": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 5,
+      "triage": 0.46,
+      "triaged": "LR-153, LR-154, LR-155, LR-156, LR-157"
     },
     "2024-11-15": {
-      "complete": 8.25,
-      "deadline": 2.71,
-      "triage": 1.92
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-11-22": {
-      "complete": 7.74,
-      "deadline": -0.34,
-      "triage": 0.43
+      "complete": 1.93,
+      "completed": "LR-161, LR-162",
+      "deadline": -2.8,
+      "num_completed": 2,
+      "num_triaged": 5,
+      "triage": 1.92,
+      "triaged": "LR-158, LR-159, LR-160, LR-161, LR-162"
     },
     "2024-11-29": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 0.43,
+      "triaged": "LR-163"
     },
     "2024-12-06": {
-      "complete": 5.25,
-      "deadline": -2.11,
-      "triage": 2.28
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-12-13": {
-      "complete": 4.12,
-      "deadline": 0.89,
-      "triage": 4.12
+      "complete": 5.25,
+      "completed": "LR-164",
+      "deadline": -2.11,
+      "num_completed": 1,
+      "num_triaged": 1,
+      "triage": 2.28,
+      "triaged": "LR-164"
     },
     "2024-12-20": {
-      "complete": 17.3,
-      "deadline": -2.04,
-      "triage": 0.33
+      "complete": 4.12,
+      "completed": "LR-165",
+      "deadline": 0.89,
+      "num_completed": 1,
+      "num_triaged": 1,
+      "triage": 4.12,
+      "triaged": "LR-165"
     },
     "2024-12-27": {
       "complete": 0,
+      "completed": "",
       "deadline": 0,
-      "triage": 0
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 0.33,
+      "triaged": "LR-167"
     },
     "2025-01-03": {
-      "complete": 4.08,
-      "deadline": -1.17,
-      "triage": 0.74
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-01-10": {
-      "complete": 19.07,
-      "deadline": 11.94,
-      "triage": 0.1
+      "complete": 1.16,
+      "completed": "LR-168",
+      "deadline": -2.13,
+      "num_completed": 1,
+      "num_triaged": 3,
+      "triage": 0.52,
+      "triaged": "LR-168, LR-169, LR-170"
     },
     "2025-01-17": {
-      "complete": 6.22,
-      "deadline": -0.96,
-      "triage": 2.88
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-01-24": {
-      "complete": 3.55,
-      "deadline": -0.14,
-      "triage": 0.72
+      "complete": 6.22,
+      "completed": "LR-171, LR-172, LR-173, LR-174",
+      "deadline": -0.96,
+      "num_completed": 4,
+      "num_triaged": 4,
+      "triage": 2.88,
+      "triaged": "LR-171, LR-172, LR-173, LR-174"
     },
     "2025-01-31": {
-      "complete": 1.39,
-      "deadline": -3.68,
-      "triage": 0.77
+      "complete": 3.55,
+      "completed": "LR-175, LR-176",
+      "deadline": -0.14,
+      "num_completed": 2,
+      "num_triaged": 2,
+      "triage": 0.72,
+      "triaged": "LR-175, LR-176"
     },
     "2025-02-07": {
-      "complete": 0.17,
-      "deadline": -2.9,
-      "triage": 0.17
+      "complete": 1.16,
+      "completed": "LR-177, LR-178",
+      "deadline": -5.85,
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 0.77,
+      "triaged": "LR-177, LR-178, LR-179"
     },
     "2025-02-14": {
       "complete": 0.17,
+      "completed": "LR-180",
       "deadline": -2.9,
-      "triage": 0.23
+      "num_completed": 1,
+      "num_triaged": 2,
+      "triage": 0.23,
+      "triaged": "LR-180, LR-181"
     },
     "2025-02-21": {
       "complete": 2.69,
+      "completed": "LR-182, LR-183",
       "deadline": -4.5,
-      "triage": 0.5
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 0.5,
+      "triaged": "LR-182, LR-183, LR-184"
     },
     "2025-02-28": {
-      "complete": 3.31,
-      "deadline": -1.97,
-      "triage": 1.56
+      "complete": 3.47,
+      "completed": "LR-184, LR-185, LR-187",
+      "deadline": -0.05,
+      "num_completed": 3,
+      "num_triaged": 4,
+      "triage": 2.12,
+      "triaged": "LR-184, LR-185, LR-186, LR-187"
+    },
+    "2025-03-07": {
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 1,
+      "triage": 0.05,
+      "triaged": "LR-188"
     }
   },
   "jira-vendor-stats": {
     "2024-02-09": {
-      "deadline": 1.58,
-      "deliver": 7.72,
-      "triage": 0.04
+      "deadline": -3.28,
+      "deliver": 1.86,
+      "delivered": "L10NV-175",
+      "num_delivered": 1,
+      "num_triaged": 1,
+      "triage": 0.53,
+      "triaged": "L10NV-176"
     },
     "2024-02-16": {
-      "deadline": -0.16,
-      "deliver": 6.41,
-      "triage": 0.16
+      "deadline": -0.4,
+      "deliver": 9.04,
+      "delivered": "L10NV-176",
+      "num_delivered": 1,
+      "num_triaged": 2,
+      "triage": 0.04,
+      "triaged": "L10NV-178, L10NV-179"
     },
     "2024-02-23": {
-      "deadline": 2.02,
-      "deliver": 8.25,
-      "triage": 0.36
+      "deadline": 2.42,
+      "deliver": 8.12,
+      "delivered": "L10NV-174, L10NV-177, L10NV-178, L10NV-179, L10NV-180, L10NV-181",
+      "num_delivered": 6,
+      "num_triaged": 2,
+      "triage": 0.74,
+      "triaged": "L10NV-180, L10NV-181"
     },
     "2024-03-01": {
-      "deadline": 0.2,
-      "deliver": 6.46,
-      "triage": 0.17
+      "deadline": -0.24,
+      "deliver": 5.92,
+      "delivered": "L10NV-183",
+      "num_delivered": 1,
+      "num_triaged": 2,
+      "triage": 0.17,
+      "triaged": "L10NV-182, L10NV-183"
     },
     "2024-03-08": {
-      "deadline": 1.78,
-      "deliver": 7.72,
-      "triage": 0.28
+      "deadline": 0.65,
+      "deliver": 7.0,
+      "delivered": "L10NV-182",
+      "num_delivered": 1,
+      "num_triaged": 1,
+      "triage": 0.05,
+      "triaged": "L10NV-184"
     },
     "2024-03-15": {
-      "deadline": -1.98,
-      "deliver": 6.2,
-      "triage": 0.05
+      "deadline": -1.34,
+      "deliver": 2.86,
+      "delivered": "L10NV-185",
+      "num_delivered": 1,
+      "num_triaged": 3,
+      "triage": 0.3,
+      "triaged": "L10NV-184, L10NV-185, L10NV-186"
     },
     "2024-03-22": {
-      "deadline": -0.08,
-      "deliver": 9.12,
-      "triage": 0.07
+      "deadline": -0.22,
+      "deliver": 5.91,
+      "delivered": "L10NV-184, L10NV-187",
+      "num_delivered": 2,
+      "num_triaged": 6,
+      "triage": 0.06,
+      "triaged": "L10NV-187, L10NV-188, L10NV-189, L10NV-190, L10NV-191, L10NV-192"
     },
     "2024-03-29": {
-      "deadline": -0.49,
-      "deliver": 8.65,
-      "triage": 0.07
+      "deadline": -1.9,
+      "deliver": 5.67,
+      "delivered": "L10NV-186, L10NV-188, L10NV-191",
+      "num_delivered": 3,
+      "num_triaged": 5,
+      "triage": 0.41,
+      "triaged": "L10NV-189, L10NV-191, L10NV-193, L10NV-197, L10NV-198"
     },
     "2024-04-05": {
-      "deadline": -1.13,
-      "deliver": 5.94,
-      "triage": 0.09
+      "deadline": -1.62,
+      "deliver": 5.65,
+      "delivered": "L10NV-197, L10NV-198",
+      "num_delivered": 2,
+      "num_triaged": 1,
+      "triage": 0.32,
+      "triaged": "L10NV-199"
     },
     "2024-04-12": {
-      "deadline": -0.13,
-      "deliver": 9.81,
-      "triage": 0.09
+      "deadline": 0.6,
+      "deliver": 11.59,
+      "delivered": "L10NV-189, L10NV-190, L10NV-192, L10NV-193, L10NV-199, L10NV-200",
+      "num_delivered": 6,
+      "num_triaged": 3,
+      "triage": 0.01,
+      "triaged": "L10NV-200, L10NV-201, L10NV-202"
     },
     "2024-04-19": {
-      "deadline": -1.11,
-      "deliver": 7.25,
-      "triage": 0.07
-    },
-    "2024-04-26": {
       "deadline": -0.35,
       "deliver": 9.96,
-      "triage": 0.0
+      "delivered": "L10NV-201, L10NV-202",
+      "num_delivered": 2,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
+    },
+    "2024-04-26": {
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-05-03": {
       "deadline": -4.34,
       "deliver": 2.87,
-      "triage": 0.01
+      "delivered": "L10NV-203",
+      "num_delivered": 1,
+      "num_triaged": 1,
+      "triage": 0.01,
+      "triaged": "L10NV-203"
     },
     "2024-05-10": {
-      "deadline": -4.34,
-      "deliver": 2.87,
-      "triage": 0.01
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-05-17": {
       "deadline": -8.27,
       "deliver": 4.53,
-      "triage": 0.02
+      "delivered": "L10NV-204, L10NV-205",
+      "num_delivered": 2,
+      "num_triaged": 1,
+      "triage": 0.02,
+      "triaged": "L10NV-204"
     },
     "2024-05-24": {
-      "deadline": -1.37,
-      "deliver": 3.96,
-      "triage": 0.06
+      "deadline": -0.36,
+      "deliver": 5.0,
+      "delivered": "L10NV-206",
+      "num_delivered": 1,
+      "num_triaged": 2,
+      "triage": 0.06,
+      "triaged": "L10NV-206, L10NV-207"
     },
     "2024-05-31": {
-      "deadline": -1.8,
-      "deliver": 4.07,
-      "triage": 0.12
+      "deadline": -2.29,
+      "deliver": 4.0,
+      "delivered": "L10NV-207",
+      "num_delivered": 1,
+      "num_triaged": 1,
+      "triage": 0.12,
+      "triaged": "L10NV-208"
     },
     "2024-06-07": {
-      "deadline": 0.18,
-      "deliver": 6.27,
-      "triage": 0.06
+      "deadline": -1.32,
+      "deliver": 4.14,
+      "delivered": "L10NV-208",
+      "num_delivered": 1,
+      "num_triaged": 1,
+      "triage": 0.0,
+      "triaged": "L10NV-209"
     },
     "2024-06-14": {
       "deadline": 4.68,
       "deliver": 11.94,
-      "triage": 0.0
+      "delivered": "L10NV-209",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-06-21": {
-      "deadline": -0.81,
-      "deliver": 2.95,
-      "triage": 0.14
+      "deadline": -1.33,
+      "deliver": 2.78,
+      "delivered": "L10NV-211",
+      "num_delivered": 1,
+      "num_triaged": 2,
+      "triage": 0.14,
+      "triaged": "L10NV-211, L10NV-212"
     },
     "2024-06-28": {
-      "deadline": -3.47,
-      "deliver": 3.61,
-      "triage": 0.08
+      "deadline": 0.19,
+      "deliver": 2.46,
+      "delivered": "L10NV-212, L10NV-213",
+      "num_delivered": 2,
+      "num_triaged": 3,
+      "triage": 0.04,
+      "triaged": "L10NV-213, L10NV-214, L10NV-215"
     },
     "2024-07-05": {
-      "deadline": 1.65,
-      "deliver": 3.96,
-      "triage": 0.08
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 3,
+      "triage": 0.56,
+      "triaged": "L10NV-214, L10NV-215, L10NV-216"
     },
     "2024-07-12": {
-      "deadline": -0.22,
-      "deliver": 4.29,
-      "triage": 0.09
+      "deadline": 2.63,
+      "deliver": 6.12,
+      "delivered": "L10NV-216",
+      "num_delivered": 1,
+      "num_triaged": 2,
+      "triage": 0.1,
+      "triaged": "L10NV-217, L10NV-218"
     },
     "2024-07-19": {
       "deadline": -11.62,
       "deliver": 2.68,
-      "triage": 0.06
+      "delivered": "L10NV-218, L10NV-219",
+      "num_delivered": 2,
+      "num_triaged": 1,
+      "triage": 0.0,
+      "triaged": "L10NV-219"
     },
     "2024-07-26": {
-      "deadline": 1.16,
-      "deliver": 7.06,
-      "triage": 0.09
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 1,
+      "triage": 0.0,
+      "triaged": "L10NV-220"
     },
     "2024-08-02": {
-      "deadline": 5.92,
-      "deliver": 12.98,
-      "triage": 0.05
+      "deadline": -0.31,
+      "deliver": 8.01,
+      "delivered": "L10NV-220",
+      "num_delivered": 1,
+      "num_triaged": 3,
+      "triage": 0.06,
+      "triaged": "L10NV-221, L10NV-222, L10NV-223"
     },
     "2024-08-09": {
-      "deadline": 0.06,
-      "deliver": 8.42,
-      "triage": 0.08
+      "deadline": -1.19,
+      "deliver": 3.63,
+      "delivered": "L10NV-221, L10NV-222, L10NV-224",
+      "num_delivered": 3,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-08-16": {
       "deadline": 0,
       "deliver": 0,
-      "triage": 0
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-08-23": {
-      "deadline": -0.97,
-      "deliver": 4.72,
-      "triage": 0.06
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-08-30": {
-      "deadline": -3.83,
-      "deliver": 5.39,
-      "triage": 0.19
+      "deadline": -6.17,
+      "deliver": 5.35,
+      "delivered": "L10NV-225, L10NV-226",
+      "num_delivered": 2,
+      "num_triaged": 4,
+      "triage": 0.19,
+      "triaged": "L10NV-225, L10NV-226, L10NV-227, L10NV-228"
     },
     "2024-09-06": {
-      "deadline": 15.39,
-      "deliver": 23.04,
-      "triage": 0.12
+      "deadline": 8.67,
+      "deliver": 13.45,
+      "delivered": "L10NV-223, L10NV-228, L10NV-229",
+      "num_delivered": 3,
+      "num_triaged": 1,
+      "triage": 0.0,
+      "triaged": "L10NV-230"
     },
     "2024-09-13": {
-      "deadline": -0.88,
-      "deliver": 2.59,
-      "triage": 0.17
+      "deadline": -2.37,
+      "deliver": 1.12,
+      "delivered": "L10NV-231",
+      "num_delivered": 1,
+      "num_triaged": 3,
+      "triage": 0.1,
+      "triaged": "L10NV-231, L10NV-232, L10NV-233"
     },
     "2024-09-20": {
-      "deadline": 7.74,
-      "deliver": 14.55,
-      "triage": 0.13
+      "deadline": -1.65,
+      "deliver": 2.79,
+      "delivered": "L10NV-232, L10NV-233, L10NV-235, L10NV-236, L10NV-237",
+      "num_delivered": 5,
+      "num_triaged": 5,
+      "triage": 0.19,
+      "triaged": "L10NV-234, L10NV-235, L10NV-236, L10NV-237, L10NV-238"
     },
     "2024-09-27": {
-      "deadline": -0.25,
-      "deliver": 4.0,
-      "triage": 0.34
+      "deadline": -0.28,
+      "deliver": 7.88,
+      "delivered": "L10NV-234",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-10-04": {
-      "deadline": -1.72,
-      "deliver": 3.79,
-      "triage": 0.51
+      "deadline": -0.82,
+      "deliver": 3.85,
+      "delivered": "L10NV-239, L10NV-240",
+      "num_delivered": 2,
+      "num_triaged": 2,
+      "triage": 1.45,
+      "triaged": "L10NV-239, L10NV-240"
     },
     "2024-10-11": {
-      "deadline": -3.32,
-      "deliver": 10.29,
-      "triage": 8.42
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 1,
+      "triage": 8.42,
+      "triaged": "L10NV-241"
     },
     "2024-10-18": {
-      "deadline": -1.57,
-      "deliver": 6.46,
-      "triage": 1.94
+      "deadline": -3.58,
+      "deliver": 5.1,
+      "delivered": "L10NV-241, L10NV-242, L10NV-244, L10NV-245",
+      "num_delivered": 4,
+      "num_triaged": 4,
+      "triage": 0.57,
+      "triaged": "L10NV-242, L10NV-243, L10NV-244, L10NV-245"
     },
     "2024-10-25": {
-      "deadline": -3.23,
-      "deliver": 5.21,
-      "triage": 1.46
+      "deadline": -2.78,
+      "deliver": 6.16,
+      "delivered": "L10NV-243, L10NV-248, L10NV-249, L10NV-250",
+      "num_delivered": 4,
+      "num_triaged": 5,
+      "triage": 0.77,
+      "triaged": "L10NV-247, L10NV-248, L10NV-249, L10NV-250, L10NV-251"
     },
     "2024-11-01": {
-      "deadline": 9.62,
-      "deliver": 19.69,
-      "triage": 0.53
+      "deadline": -2.92,
+      "deliver": 5.85,
+      "delivered": "L10NV-246, L10NV-247, L10NV-251, L10NV-252, L10NV-253",
+      "num_delivered": 5,
+      "num_triaged": 3,
+      "triage": 18.41,
+      "triaged": "L10NV-230, L10NV-253, L10NV-254"
     },
     "2024-11-08": {
-      "deadline": 0.65,
-      "deliver": 10.3,
-      "triage": 0.53
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 1,
+      "triage": 1.05,
+      "triaged": "L10NV-254"
     },
     "2024-11-15": {
-      "deadline": 19.25,
-      "deliver": 28.2,
-      "triage": 0.64
+      "deadline": 0.52,
+      "deliver": 39.81,
+      "delivered": "L10NV-230, L10NV-255",
+      "num_delivered": 2,
+      "num_triaged": 1,
+      "triage": 0.0,
+      "triaged": "L10NV-256"
     },
     "2024-11-22": {
       "deadline": -11.21,
       "deliver": 2.8,
-      "triage": 0.0
+      "delivered": "L10NV-257",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-11-29": {
-      "deadline": 25.41,
-      "deliver": 35.59,
-      "triage": 0.0
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-12-06": {
       "deadline": 0,
       "deliver": 0,
-      "triage": 0
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-12-13": {
-      "deadline": 4.86,
-      "deliver": 16.06,
-      "triage": 0.0
+      "deadline": 7.42,
+      "deliver": 21.14,
+      "delivered": "L10NV-254, L10NV-259",
+      "num_delivered": 2,
+      "num_triaged": 2,
+      "triage": 0.0,
+      "triaged": "L10NV-259, L10NV-260"
     },
     "2024-12-20": {
-      "deadline": 3.58,
-      "deliver": 13.8,
-      "triage": 0.0
+      "deadline": -0.25,
+      "deliver": 5.9,
+      "delivered": "L10NV-260",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-12-27": {
-      "deadline": -0.26,
-      "deliver": 6.47,
-      "triage": 0.0
+      "deadline": -0.27,
+      "deliver": 7.03,
+      "delivered": "L10NV-261",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-01-03": {
       "deadline": 0,
       "deliver": 0,
-      "triage": 0
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-01-10": {
       "deadline": -1.26,
       "deliver": 4.99,
-      "triage": 0.01
+      "delivered": "L10NV-262",
+      "num_delivered": 1,
+      "num_triaged": 1,
+      "triage": 0.01,
+      "triaged": "L10NV-262"
     },
     "2025-01-17": {
       "deadline": 0,
       "deliver": 0,
-      "triage": 0
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-01-24": {
-      "deadline": -7.26,
-      "deliver": 8.71,
-      "triage": 0.85
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 2,
+      "triage": 0.85,
+      "triaged": "L10NV-263, L10NV-264"
     },
     "2025-01-31": {
       "deadline": -5.2,
       "deliver": 7.24,
-      "triage": 0.66
+      "delivered": "L10NV-263, L10NV-264, L10NV-266",
+      "num_delivered": 3,
+      "num_triaged": 1,
+      "triage": 0.27,
+      "triaged": "L10NV-266"
     },
     "2025-02-07": {
-      "deadline": -0.67,
-      "deliver": 5.77,
-      "triage": 0.3
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-02-14": {
-      "deadline": -4.39,
-      "deliver": 11.52,
-      "triage": 1.89
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 3,
+      "triage": 2.15,
+      "triaged": "L10NV-267, L10NV-268, L10NV-269"
     },
     "2025-02-21": {
       "deadline": -1.3,
       "deliver": 5.26,
-      "triage": 0.24
+      "delivered": "L10NV-269",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2025-02-28": {
-      "deadline": -5.94,
-      "deliver": 14.66,
-      "triage": 1.88
+      "deadline": -0.43,
+      "deliver": 28.66,
+      "delivered": "L10NV-263, L10NV-267",
+      "num_delivered": 2,
+      "num_triaged": 1,
+      "triage": 0.22,
+      "triaged": "L10NV-270"
+    },
+    "2025-03-07": {
+      "deadline": -5.28,
+      "deliver": 7.39,
+      "delivered": "L10NV-268, L10NV-270, L10NV-271",
+      "num_delivered": 3,
+      "num_triaged": 2,
+      "triage": 0.16,
+      "triaged": "L10NV-271, L10NV-272"
     }
   },
   "pontoon-issues": {
