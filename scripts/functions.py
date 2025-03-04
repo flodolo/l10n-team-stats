@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 from github import Github
 from jira import JIRA
 import argparse
@@ -101,6 +101,13 @@ def format_time(interval):
     else:
         interval = round(interval / 86400)
         return f"{interval} day" if interval == 1 else f"{interval} days"
+
+
+def check_date_interval(start_date, end_date, timestamp):
+    dt = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f%z")
+    start_dt = datetime.combine(start_date, time.min).replace(tzinfo=dt.tzinfo)
+    end_dt = datetime.combine(end_date, time.min).replace(tzinfo=dt.tzinfo)
+    return start_dt <= dt <= end_dt
 
 
 def get_github_object():
