@@ -7,8 +7,9 @@
 import datetime
 import statistics
 from functions import (
-    parse_arguments,
+    check_date_interval,
     get_jira_object,
+    parse_arguments,
     search_jira_issues,
     store_json_data,
 )
@@ -36,7 +37,12 @@ def store_date(issue_data, issue, field, dt):
 
 def main():
     args = parse_arguments()
-    since_date = args.start.strftime("%Y-%m-%d")
+    since_date = args.start
+    str_since_date = since_date.strftime("%Y-%m-%d")
+    # Consider a period of 7 days from the start date.
+    end_date = args.start + datetime.timedelta(days=7)
+    str_end_date = end_date.strftime("%Y-%m-%d")
+    print(f"Checking issues changed between {str_since_date} and {str_end_date}")
 
     jira = get_jira_object()
 
@@ -44,7 +50,7 @@ def main():
     # not just created.
     issues = search_jira_issues(
         jira,
-        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED AFTER '{since_date}'",
+        f"project = 'l10n-vendor' AND status != Canceled AND status CHANGED DURING ('{str_since_date}', '{str_end_date}')",
         changelog=True,
     )
 
@@ -66,27 +72,36 @@ def main():
                     and item.toString == "To Do"
                     and not issue_data.get(issue.key, {}).get("triaged", None)
                 ):
-                    store_date(issue_data, issue, "triaged", history.created)
+                    if check_date_interval(since_date, end_date, history.created):
+                        store_date(issue_data, issue, "triaged", history.created)
+                    else:
+                        print(f"Ignored triage date out of bounds {history.created}")
                 if (
                     item.fieldId == "status"
                     and item.toString == "Vendor Delivery"
                     and not issue_data.get(issue.key, {}).get("delivered", None)
                 ):
-                    store_date(issue_data, issue, "delivered", history.created)
+                    if check_date_interval(since_date, end_date, history.created):
+                        store_date(issue_data, issue, "delivered", history.created)
+                    else:
+                        print(f"Ignored delivered date out of bounds {history.created}")
                 if (
                     item.fieldId == "status"
                     and item.toString == "Scheduled"
                     and not issue_data.get(issue.key, {}).get("scheduled", None)
                 ):
-                    store_date(issue_data, issue, "scheduled", history.created)
+                    if check_date_interval(since_date, end_date, history.created):
+                        store_date(issue_data, issue, "scheduled", history.created)
+                    else:
+                        print(f"Ignored scheduled date out of bounds {history.created}")
 
     times = {
         "triage": [],
         "deliver": [],
         "deadline": [],
     }
-    num_triaged = 0
-    num_delivered = 0
+    triaged = []
+    delivered = []
     for issue, issue_details in issue_data.items():
         create_dt = datetime.datetime.strptime(
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -97,7 +112,7 @@ def main():
             delta = triage_dt - create_dt
             issue_details["time_triage"] = round(delta.total_seconds() / 86400, 3)
             times["triage"].append(issue_details["time_triage"])
-            num_triaged += 1
+            triaged.append(issue)
 
         deliver_str = issue_details.get("delivered", None)
         if deliver_str is not None:
@@ -107,7 +122,7 @@ def main():
             delta = deliver_dt - create_dt
             issue_details["time_deliver"] = round(delta.total_seconds() / 86400, 3)
             times["deliver"].append(issue_details["time_deliver"])
-            num_delivered += 1
+            delivered.append(issue)
 
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
@@ -128,10 +143,14 @@ def main():
             record[type] = avg
         else:
             record[type] = 0
+    triaged.sort()
+    delivered.sort()
+    record["triaged"] = ", ".join(triaged)
+    record["num_triaged"] = len(triaged)
+    record["delivered"] = ", ".join(delivered)
+    record["num_delivered"] = len(delivered)
 
-    store_json_data("jira-vendor-stats", record)
-    record["num_triaged"] = num_triaged
-    record["num_delivered"] = num_delivered
+    store_json_data("jira-vendor-stats", record, day=str_end_date)
 
 
 if __name__ == "__main__":

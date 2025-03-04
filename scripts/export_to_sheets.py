@@ -148,6 +148,70 @@ def main():
     connection = gspread.service_account_from_dict(credentials)
     sh = connection.open_by_key(config["spreadsheet_key"])
 
+    # Export Jira LSP (vendor) stats
+    export = []
+    export.append(
+        [
+            "Date",
+            "Avg triage (d)",
+            "Avg deliver (d)",
+            "Avg perf against deadline (d)",
+            "Triaged",
+            "Delivered",
+        ]
+    )
+    for day, day_data in data["jira-vendor-stats"].items():
+        _row = [
+            day,
+            day_data["triage"],
+            day_data["deliver"],
+            day_data["deadline"],
+            (
+                f"({day_data['num_triaged']}): {day_data['triaged']}"
+                if day_data["triaged"]
+                else ""
+            ),
+            (
+                f"({day_data['num_delivered']}): {day_data['delivered']}"
+                if day_data["delivered"]
+                else ""
+            ),
+        ]
+        export.append(_row)
+    update_sheet(sh, "raw_vendor_stats", export)
+
+    # Export Jira requests stats
+    export = []
+    export.append(
+        [
+            "Date",
+            "Avg triage (d)",
+            "Avg complete (d)",
+            "Avg perf against deadline (d)",
+            "Triaged",
+            "Completed",
+        ]
+    )
+    for day, day_data in data["jira-request-stats"].items():
+        _row = [
+            day,
+            day_data["triage"],
+            day_data["complete"],
+            day_data["deadline"],
+            (
+                f"({day_data['num_triaged']}): {day_data['triaged']}"
+                if day_data["triaged"]
+                else ""
+            ),
+            (
+                f"({day_data['num_completed']}): {day_data['completed']}"
+                if day_data["completed"]
+                else ""
+            ),
+        ]
+        export.append(_row)
+    update_sheet(sh, "raw_request_stats", export)
+
     # Export Pontoon PR data
     export = []
     export.append(
@@ -255,47 +319,6 @@ def main():
         ]
         export.append(_row)
     update_sheet(sh, "raw_epm_reviews", export)
-
-    # Export Jira LSP (vendor) stats
-    export = []
-    export.append(
-        [
-            "Date",
-            "Avg triage (d)",
-            "Avg deliver (d)",
-            "Avg perf against deadline (d)",
-        ]
-    )
-    for day, day_data in data["jira-vendor-stats"].items():
-        _row = [
-            day,
-            day_data["triage"],
-            day_data["deliver"],
-            day_data["deadline"],
-        ]
-        export.append(_row)
-    update_sheet(sh, "raw_vendor_stats", export)
-
-    # Export Jira requests stats
-    export = []
-    export.append(
-        [
-            "Date",
-            "Avg triage (d)",
-            "Avg complete (d)",
-            "Avg perf against deadline (d)",
-        ]
-    )
-    for day, day_data in data["jira-request-stats"].items():
-        _row = [
-            day,
-            day_data["triage"],
-            day_data["complete"],
-            day_data["deadline"],
-        ]
-        export.append(_row)
-    update_sheet(sh, "raw_request_stats", export)
-
 
 if __name__ == "__main__":
     main()
