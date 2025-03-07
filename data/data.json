@@ -447,6 +447,14 @@
       "github-reviews": 27,
       "phab-authored": 0,
       "phab-reviewed": 5
+    },
+    "2025-03-07": {
+      "github-avg-time-to-review": 27.7,
+      "github-pr-created": 17,
+      "github-repositories": 21,
+      "github-reviews": 32,
+      "phab-authored": 0,
+      "phab-reviewed": 1
     }
   },
   "jira-issues": {
@@ -841,6 +849,13 @@
       "closed": 5,
       "created": 5,
       "in-progress": 5
+    },
+    "2025-03-07": {
+      "backlog": 1,
+      "blocked": 0,
+      "closed": 10,
+      "created": 10,
+      "in-progress": 3
     }
   },
   "jira-request-stats": {
@@ -1349,13 +1364,13 @@
       "triaged": "LR-184, LR-185, LR-186, LR-187"
     },
     "2025-03-07": {
-      "complete": 0,
-      "completed": "",
-      "deadline": 0,
-      "num_completed": 0,
-      "num_triaged": 1,
-      "triage": 0.05,
-      "triaged": "LR-188"
+      "complete": 1.6,
+      "completed": "LR-188, LR-189, LR-190, LR-193, LR-194",
+      "deadline": -2.62,
+      "num_completed": 5,
+      "num_triaged": 6,
+      "triage": 0.39,
+      "triaged": "LR-188, LR-189, LR-190, LR-192, LR-193, LR-194"
     }
   },
   "jira-vendor-stats": {
@@ -1864,13 +1879,13 @@
       "triaged": "L10NV-270"
     },
     "2025-03-07": {
-      "deadline": -5.28,
-      "deliver": 7.39,
-      "delivered": "L10NV-268, L10NV-270, L10NV-271",
-      "num_delivered": 3,
-      "num_triaged": 2,
-      "triage": 0.16,
-      "triaged": "L10NV-271, L10NV-272"
+      "deadline": -4.54,
+      "deliver": 6.7,
+      "delivered": "L10NV-268, L10NV-270, L10NV-271, L10NV-272",
+      "num_delivered": 4,
+      "num_triaged": 3,
+      "triage": 0.11,
+      "triaged": "L10NV-271, L10NV-272, L10NV-273"
     }
   },
   "pontoon-issues": {
@@ -2545,6 +2560,18 @@
       "avg-time-to-close": 406.7,
       "closed": 4,
       "opened": 5
+    },
+    "2025-03-07": {
+      "P1": 0,
+      "P2": 35,
+      "P3": 237,
+      "P4": 40,
+      "P5": 25,
+      "Total": 339,
+      "Untriaged": 2,
+      "avg-time-to-close": 1444.0,
+      "closed": 1,
+      "opened": 3
     }
   },
   "pontoon-prs": {
@@ -2939,6 +2966,13 @@
       "closed": 5,
       "open": 7,
       "opened": 6
+    },
+    "2025-03-07": {
+      "avg-age-open": 797.0,
+      "avg-time-to-close": 112.8,
+      "closed": 5,
+      "open": 7,
+      "opened": 5
     }
   }
 }
