@@ -455,6 +455,14 @@
       "github-reviews": 32,
       "phab-authored": 0,
       "phab-reviewed": 1
+    },
+    "2025-03-14": {
+      "github-avg-time-to-review": 11.1,
+      "github-pr-created": 14,
+      "github-repositories": 18,
+      "github-reviews": 37,
+      "phab-authored": 2,
+      "phab-reviewed": 5
     }
   },
   "jira-issues": {
@@ -855,6 +863,13 @@
       "blocked": 0,
       "closed": 10,
       "created": 10,
+      "in-progress": 3
+    },
+    "2025-03-14": {
+      "backlog": 0,
+      "blocked": 0,
+      "closed": 4,
+      "created": 4,
       "in-progress": 3
     }
   },
@@ -1371,6 +1386,15 @@
       "num_triaged": 6,
       "triage": 0.39,
       "triaged": "LR-188, LR-189, LR-190, LR-192, LR-193, LR-194"
+    },
+    "2025-03-14": {
+      "complete": 4.05,
+      "completed": "LR-191, LR-195",
+      "deadline": -24.73,
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 1.8,
+      "triaged": "LR-191, LR-195, LR-196"
     }
   },
   "jira-vendor-stats": {
@@ -1886,6 +1910,15 @@
       "num_triaged": 3,
       "triage": 0.11,
       "triaged": "L10NV-271, L10NV-272, L10NV-273"
+    },
+    "2025-03-14": {
+      "deadline": -2.82,
+      "deliver": 3.84,
+      "delivered": "L10NV-273, L10NV-274",
+      "num_delivered": 2,
+      "num_triaged": 2,
+      "triage": 0.01,
+      "triaged": "L10NV-274, L10NV-275"
     }
   },
   "pontoon-issues": {
@@ -2572,6 +2605,18 @@
       "avg-time-to-close": 1444.0,
       "closed": 1,
       "opened": 3
+    },
+    "2025-03-14": {
+      "P1": 1,
+      "P2": 35,
+      "P3": 237,
+      "P4": 40,
+      "P5": 25,
+      "Total": 340,
+      "Untriaged": 2,
+      "avg-time-to-close": 4.8,
+      "closed": 2,
+      "opened": 3
     }
   },
   "pontoon-prs": {
@@ -2973,6 +3018,13 @@
       "closed": 5,
       "open": 7,
       "opened": 5
+    },
+    "2025-03-14": {
+      "avg-age-open": 965.0,
+      "avg-time-to-close": 4.7,
+      "closed": 2,
+      "open": 7,
+      "opened": 2
     }
   }
 }
