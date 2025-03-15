@@ -89,9 +89,10 @@ def get_revisions_review_data(group_members, results_data, search_constraints):
 
 
 def main():
-    args = parse_arguments(group=True)
-    # Convert start date to a Unix timestamp.
+    args = parse_arguments(group=True, end_date=True)
+    # Convert start/end dates to a Unix timestamp.
     since_timestamp = int(args.start.timestamp())
+    end_timestamp = int(args.end.timestamp())
 
     # Retrieve group details by searching for the group (project) by name.
     group_query = {"query": args.group}
@@ -127,6 +128,7 @@ def main():
     revision_search_constraints = {
         "reviewerPHIDs": [group_phid],
         "createdStart": since_timestamp,
+        "createdEnd": end_timestamp,
     }
     get_revisions_review_data(
         group_members, revisions_data, revision_search_constraints
@@ -141,6 +143,9 @@ def main():
             stats[rev_data["reviewer"]].append(rev_data["time_to_review_h"])
         all_stats.append(rev_data["time_to_review_h"])
 
+    print(
+        f"Revisions between {args.start.strftime('%Y-%m-%d')} and {args.end.strftime('%Y-%m-%d')}"
+    )
     print(
         f"Average time to review (h) for {args.group} ({len(all_stats)}): {round(statistics.mean(all_stats), 2)}"
     )
