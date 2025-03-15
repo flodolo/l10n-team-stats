@@ -52,19 +52,13 @@ def get_revisions_review_data(group_members, results_data, search_constraints):
             objectIdentifier=revision["phid"],
         )
 
-        # Initialize data storage for the revision.
-        revision_data = results_data.setdefault(revision_id, {})
-        create_ts = revision["fields"]["dateCreated"]
-        revision_data["create_timestamp"] = create_ts
-        revision_data["create_date"] = datetime.fromtimestamp(create_ts).strftime(
-            "%Y-%m-%d %H:%M"
-        )
-        revision_data["title"] = f"{revision_id}: {revision['fields']['title']}"
-
-        # Process transactions to find review acceptance by a group member.
+        # Process transactions to find review by a group member.
         transactions = transactions_response.get("results", [])
+        reviewed = False
         for txn in transactions:
             if txn["type"] == "accept" and txn["authorPHID"] in group_members:
+                reviewed = True
+                revision_data = results_data.setdefault(revision_id, {})
                 review_ts = txn["dateCreated"]
                 revision_data["review_timestamp"] = review_ts
                 revision_data["review_date"] = datetime.fromtimestamp(
@@ -73,6 +67,17 @@ def get_revisions_review_data(group_members, results_data, search_constraints):
                 revision_data["reviewer"] = group_members[txn["authorPHID"]]
                 # Once we've found the first valid review, we can break.
                 break
+
+        # If there was no review yet, ignore this diff.
+        if not reviewed:
+            continue
+
+        create_ts = revision["fields"]["dateCreated"]
+        revision_data["create_timestamp"] = create_ts
+        revision_data["create_date"] = datetime.fromtimestamp(create_ts).strftime(
+            "%Y-%m-%d %H:%M"
+        )
+        revision_data["title"] = f"{revision_id}: {revision['fields']['title']}"
 
         # If review_timestamp is set, calculate the time difference.
         if "review_timestamp" in revision_data:
@@ -137,11 +142,11 @@ def main():
         all_stats.append(rev_data["time_to_review_h"])
 
     print(
-        f"Average time to review for {args.group} ({len(all_stats)}): {round(statistics.mean(all_stats), 2)}"
+        f"Average time to review (h) for {args.group} ({len(all_stats)}): {round(statistics.mean(all_stats), 2)}"
     )
     for user, user_stats in stats.items():
         print(
-            f"{user} ({len(user_stats)}, {round(len(user_stats) / len(all_stats) * 100, 2)}%): average {round(statistics.mean(user_stats), 2)}"
+            f"{user} ({len(user_stats)}, {round(len(user_stats) / len(all_stats) * 100, 2)}%): average (h) {round(statistics.mean(user_stats), 2)}"
         )
 
 
