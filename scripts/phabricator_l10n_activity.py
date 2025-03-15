@@ -18,7 +18,7 @@ def get_revisions(type, user, data, constraints):
         order="newest",
     )
 
-    revisions = revisions["results"]
+    revisions = revisions_response.get("results", [])
     if not revisions:
         return
 
@@ -33,7 +33,7 @@ def get_revisions(type, user, data, constraints):
         if type not in data[user][key]:
             data[user][key][type] = []
         rev = (
-            f'D{revision["id"]:5} {date_created.strftime("%Y-%m-%d")} {fields["title"]}'
+            f"D{revision['id']:5} {date_created.strftime('%Y-%m-%d')} {fields['title']}"
         )
         data[user][key][type].append(rev)
 
@@ -99,6 +99,10 @@ def get_user_phids():
     return users
 
 
+def recursivedict():
+    return defaultdict(recursivedict)
+
+
 def main():
     args = parse_arguments()
     since = int(args.start.timestamp())
@@ -106,7 +110,6 @@ def main():
     users = get_user_phids()
     record = {}
 
-    recursivedict = lambda: defaultdict(recursivedict)
     data = recursivedict()
     for u in users:
         get_revisions(

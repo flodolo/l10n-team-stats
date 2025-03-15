@@ -22,7 +22,12 @@ def ymd(value):
         raise argparse.ArgumentTypeError(f"Invalid YYYY-MM-DD date: {value}")
 
 
-def parse_arguments(repo=False, user=False, end_date=False):
+def parse_arguments(
+    repo=False,
+    user=False,
+    group=False,
+    end_date=False,
+):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--start",
@@ -41,8 +46,12 @@ def parse_arguments(repo=False, user=False, end_date=False):
         parser.add_argument(
             "--end", "-e", help="End date for analysis (YYYY-MM-DD)", required=False
         )
+    if group:
+        parser.add_argument(
+            "--group", "-g", help="Group name on Phabricator", required=True
+        )
     if user:
-        parser.add_argument("--user", "-u", help="Username on GitHub (e.g. flodolo)")
+        parser.add_argument("--user", "-u", help="Username on GitHub")
     args = parser.parse_args()
 
     if not args.start:
