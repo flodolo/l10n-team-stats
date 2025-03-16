@@ -6,7 +6,7 @@
       "github-repositories": 15,
       "github-reviews": 22,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 9
     },
     "2024-02-16": {
       "github-avg-time-to-review": 70.2,
@@ -14,7 +14,7 @@
       "github-repositories": 15,
       "github-reviews": 25,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 6
     },
     "2024-02-23": {
       "github-avg-time-to-review": 25.5,
@@ -22,7 +22,7 @@
       "github-repositories": 15,
       "github-reviews": 16,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 3
     },
     "2024-03-01": {
       "github-avg-time-to-review": 87.2,
@@ -30,7 +30,7 @@
       "github-repositories": 15,
       "github-reviews": 21,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 7
     },
     "2024-03-08": {
       "github-avg-time-to-review": 45.3,
@@ -38,7 +38,7 @@
       "github-repositories": 14,
       "github-reviews": 17,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 6
     },
     "2024-03-15": {
       "github-avg-time-to-review": 132.4,
@@ -46,7 +46,7 @@
       "github-repositories": 12,
       "github-reviews": 25,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 7
     },
     "2024-03-22": {
       "github-avg-time-to-review": 35.7,
@@ -54,7 +54,7 @@
       "github-repositories": 15,
       "github-reviews": 29,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 5
     },
     "2024-03-29": {
       "github-avg-time-to-review": 24.0,
@@ -62,7 +62,7 @@
       "github-repositories": 12,
       "github-reviews": 21,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 5
     },
     "2024-04-05": {
       "github-avg-time-to-review": 33.8,
@@ -70,7 +70,7 @@
       "github-repositories": 10,
       "github-reviews": 15,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 3
     },
     "2024-04-12": {
       "github-avg-time-to-review": 24.8,
@@ -78,7 +78,7 @@
       "github-repositories": 12,
       "github-reviews": 35,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 8
     },
     "2024-04-19": {
       "github-avg-time-to-review": 46.0,
@@ -86,7 +86,7 @@
       "github-repositories": 14,
       "github-reviews": 18,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 13
     },
     "2024-04-26": {
       "github-avg-time-to-review": 36.9,
@@ -94,7 +94,7 @@
       "github-repositories": 13,
       "github-reviews": 31,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 9
     },
     "2024-05-03": {
       "github-avg-time-to-review": 48.9,
@@ -102,7 +102,7 @@
       "github-repositories": 16,
       "github-reviews": 23,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 5
     },
     "2024-05-10": {
       "github-avg-time-to-review": 56.1,
@@ -110,15 +110,15 @@
       "github-repositories": 15,
       "github-reviews": 23,
       "phab-authored": 2,
-      "phab-reviewed": 3
+      "phab-reviewed": 7
     },
     "2024-05-17": {
       "github-avg-time-to-review": 51.6,
       "github-pr-created": 1,
       "github-repositories": 14,
       "github-reviews": 20,
-      "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-authored": 1,
+      "phab-reviewed": 7
     },
     "2024-05-24": {
       "github-avg-time-to-review": 35.3,
@@ -126,23 +126,23 @@
       "github-repositories": 11,
       "github-reviews": 26,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 7
     },
     "2024-05-31": {
       "github-avg-time-to-review": 22.8,
       "github-pr-created": 3,
       "github-repositories": 14,
       "github-reviews": 21,
-      "phab-authored": 1,
-      "phab-reviewed": 4
+      "phab-authored": 2,
+      "phab-reviewed": 14
     },
     "2024-06-07": {
       "github-avg-time-to-review": 19.3,
       "github-pr-created": 8,
       "github-repositories": 16,
       "github-reviews": 32,
-      "phab-authored": 1,
-      "phab-reviewed": 5
+      "phab-authored": 2,
+      "phab-reviewed": 14
     },
     "2024-06-14": {
       "github-avg-time-to-review": 74.1,
@@ -150,7 +150,7 @@
       "github-repositories": 10,
       "github-reviews": 17,
       "phab-authored": 1,
-      "phab-reviewed": 2
+      "phab-reviewed": 6
     },
     "2024-06-21": {
       "github-avg-time-to-review": 21.2,
@@ -158,7 +158,7 @@
       "github-repositories": 13,
       "github-reviews": 18,
       "phab-authored": 1,
-      "phab-reviewed": 0
+      "phab-reviewed": 7
     },
     "2024-06-28": {
       "github-avg-time-to-review": 34.5,
@@ -166,7 +166,7 @@
       "github-repositories": 11,
       "github-reviews": 17,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 2
     },
     "2024-07-05": {
       "github-avg-time-to-review": 14.9,
@@ -182,7 +182,7 @@
       "github-repositories": 12,
       "github-reviews": 20,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 4
     },
     "2024-07-19": {
       "github-avg-time-to-review": 17.6,
@@ -190,7 +190,7 @@
       "github-repositories": 9,
       "github-reviews": 16,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 6
     },
     "2024-07-26": {
       "github-avg-time-to-review": 66.8,
@@ -198,7 +198,7 @@
       "github-repositories": 14,
       "github-reviews": 27,
       "phab-authored": 1,
-      "phab-reviewed": 1
+      "phab-reviewed": 7
     },
     "2024-08-02": {
       "github-avg-time-to-review": 42.1,
@@ -206,7 +206,7 @@
       "github-repositories": 12,
       "github-reviews": 19,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 10
     },
     "2024-08-09": {
       "github-avg-time-to-review": 60.0,
@@ -214,7 +214,7 @@
       "github-repositories": 16,
       "github-reviews": 25,
       "phab-authored": 3,
-      "phab-reviewed": 2
+      "phab-reviewed": 3
     },
     "2024-08-16": {
       "github-avg-time-to-review": 21.7,
@@ -230,15 +230,15 @@
       "github-repositories": 12,
       "github-reviews": 10,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 7
     },
     "2024-08-30": {
       "github-avg-time-to-review": 25.5,
       "github-pr-created": 7,
       "github-repositories": 17,
       "github-reviews": 30,
-      "phab-authored": 0,
-      "phab-reviewed": 4
+      "phab-authored": 1,
+      "phab-reviewed": 6
     },
     "2024-09-06": {
       "github-avg-time-to-review": 65.3,
@@ -246,7 +246,7 @@
       "github-repositories": 14,
       "github-reviews": 25,
       "phab-authored": 2,
-      "phab-reviewed": 0
+      "phab-reviewed": 4
     },
     "2024-09-13": {
       "github-avg-time-to-review": 64.7,
@@ -254,7 +254,7 @@
       "github-repositories": 18,
       "github-reviews": 28,
       "phab-authored": 3,
-      "phab-reviewed": 1
+      "phab-reviewed": 5
     },
     "2024-09-20": {
       "github-avg-time-to-review": 29.1,
@@ -262,7 +262,7 @@
       "github-repositories": 17,
       "github-reviews": 36,
       "phab-authored": 1,
-      "phab-reviewed": 1
+      "phab-reviewed": 6
     },
     "2024-09-27": {
       "github-avg-time-to-review": 28.2,
@@ -270,7 +270,7 @@
       "github-repositories": 17,
       "github-reviews": 39,
       "phab-authored": 1,
-      "phab-reviewed": 3
+      "phab-reviewed": 10
     },
     "2024-10-04": {
       "github-avg-time-to-review": 16.1,
@@ -278,7 +278,7 @@
       "github-repositories": 15,
       "github-reviews": 34,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 4
     },
     "2024-10-11": {
       "github-avg-time-to-review": 24.5,
@@ -286,7 +286,7 @@
       "github-repositories": 12,
       "github-reviews": 19,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 4
     },
     "2024-10-18": {
       "github-avg-time-to-review": 62.4,
@@ -294,7 +294,7 @@
       "github-repositories": 16,
       "github-reviews": 23,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 6
     },
     "2024-10-25": {
       "github-avg-time-to-review": 29.0,
@@ -302,15 +302,15 @@
       "github-repositories": 18,
       "github-reviews": 28,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 7
     },
     "2024-11-01": {
       "github-avg-time-to-review": 24.5,
       "github-pr-created": 4,
       "github-repositories": 15,
       "github-reviews": 21,
-      "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-authored": 1,
+      "phab-reviewed": 3
     },
     "2024-11-08": {
       "github-avg-time-to-review": 81.6,
@@ -318,7 +318,7 @@
       "github-repositories": 12,
       "github-reviews": 14,
       "phab-authored": 1,
-      "phab-reviewed": 3
+      "phab-reviewed": 8
     },
     "2024-11-15": {
       "github-avg-time-to-review": 41.6,
@@ -326,7 +326,7 @@
       "github-repositories": 16,
       "github-reviews": 18,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 4
     },
     "2024-11-22": {
       "github-avg-time-to-review": 51.0,
@@ -334,7 +334,7 @@
       "github-repositories": 15,
       "github-reviews": 25,
       "phab-authored": 1,
-      "phab-reviewed": 3
+      "phab-reviewed": 5
     },
     "2024-11-29": {
       "github-avg-time-to-review": 61.5,
@@ -342,7 +342,7 @@
       "github-repositories": 15,
       "github-reviews": 22,
       "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-reviewed": 9
     },
     "2024-12-06": {
       "github-avg-time-to-review": 68.8,
@@ -350,7 +350,7 @@
       "github-repositories": 14,
       "github-reviews": 23,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 10
     },
     "2024-12-13": {
       "github-avg-time-to-review": 24.4,
@@ -358,7 +358,7 @@
       "github-repositories": 13,
       "github-reviews": 25,
       "phab-authored": 0,
-      "phab-reviewed": 3
+      "phab-reviewed": 7
     },
     "2024-12-20": {
       "github-avg-time-to-review": 24.3,
@@ -366,7 +366,7 @@
       "github-repositories": 17,
       "github-reviews": 31,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-reviewed": 11
     },
     "2024-12-27": {
       "github-avg-time-to-review": 57.1,
@@ -382,7 +382,7 @@
       "github-repositories": 12,
       "github-reviews": 11,
       "phab-authored": 2,
-      "phab-reviewed": 0
+      "phab-reviewed": 4
     },
     "2025-01-10": {
       "github-avg-time-to-review": 60.1,
@@ -398,7 +398,7 @@
       "github-repositories": 13,
       "github-reviews": 29,
       "phab-authored": 1,
-      "phab-reviewed": 0
+      "phab-reviewed": 8
     },
     "2025-01-24": {
       "github-avg-time-to-review": 122.2,
@@ -406,7 +406,7 @@
       "github-repositories": 14,
       "github-reviews": 16,
       "phab-authored": 1,
-      "phab-reviewed": 1
+      "phab-reviewed": 16
     },
     "2025-01-31": {
       "github-avg-time-to-review": 32.2,
@@ -414,7 +414,7 @@
       "github-repositories": 16,
       "github-reviews": 34,
       "phab-authored": 2,
-      "phab-reviewed": 6
+      "phab-reviewed": 17
     },
     "2025-02-07": {
       "github-avg-time-to-review": 23.1,
@@ -422,7 +422,7 @@
       "github-repositories": 11,
       "github-reviews": 21,
       "phab-authored": 2,
-      "phab-reviewed": 3
+      "phab-reviewed": 17
     },
     "2025-02-14": {
       "github-avg-time-to-review": 67.4,
@@ -430,7 +430,7 @@
       "github-repositories": 14,
       "github-reviews": 20,
       "phab-authored": 3,
-      "phab-reviewed": 4
+      "phab-reviewed": 17
     },
     "2025-02-21": {
       "github-avg-time-to-review": 47.1,
@@ -438,15 +438,15 @@
       "github-repositories": 16,
       "github-reviews": 17,
       "phab-authored": 0,
-      "phab-reviewed": 4
+      "phab-reviewed": 15
     },
     "2025-02-28": {
       "github-avg-time-to-review": 17.9,
       "github-pr-created": 20,
       "github-repositories": 14,
       "github-reviews": 27,
-      "phab-authored": 0,
-      "phab-reviewed": 5
+      "phab-authored": 1,
+      "phab-reviewed": 21
     },
     "2025-03-07": {
       "github-avg-time-to-review": 27.7,
@@ -454,7 +454,7 @@
       "github-repositories": 21,
       "github-reviews": 32,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-reviewed": 14
     },
     "2025-03-14": {
       "github-avg-time-to-review": 11.1,
@@ -462,7 +462,7 @@
       "github-repositories": 18,
       "github-reviews": 37,
       "phab-authored": 2,
-      "phab-reviewed": 5
+      "phab-reviewed": 16
     }
   },
   "jira-issues": {
