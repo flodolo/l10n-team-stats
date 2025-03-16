@@ -43,13 +43,9 @@ def parse_arguments(
             "--repo", "-r", help="Repository (e.g. mozilla/pontoon))", required=True
         )
     if end_date:
-        parser.add_argument(
-            "--end", "-e", help="End date for analysis (YYYY-MM-DD)", required=False
-        )
+        parser.add_argument("--end", "-e", help="End date for analysis (YYYY-MM-DD)")
     if group:
-        parser.add_argument(
-            "--group", "-g", help="Group name on Phabricator", required=True
-        )
+        parser.add_argument("--group", "-g", help="Group name on Phabricator")
     if user:
         parser.add_argument("--user", "-u", help="Username on GitHub")
     args = parser.parse_args()
@@ -198,6 +194,14 @@ def get_gh_usernames():
     }
 
 
+def get_phab_usernames():
+    return {
+        "bolsson": "Bryan",
+        "delphine": "Delphine",
+        "flod": "Flod",
+    }
+
+
 def write_json_data(json_data):
     json_file = get_json_file()
     with open(json_file, "w+") as f:
@@ -211,9 +215,11 @@ def store_json_data(key, record, day=None, extend=False):
     if key not in json_data:
         json_data[key] = {}
     if extend:
-        previous_data = json_data[key].get(day, {})
-        record.update(previous_data)
-    json_data[key][day] = record
+        data = json_data[key].get(day, {})
+        data.update(record)
+        json_data[key][day] = data
+    else:
+        json_data[key][day] = record
 
     write_json_data(json_data)
 

@@ -43,8 +43,10 @@ echo -e "\n--------------\n"
 echo "Phabricator stats"
 if [ $# -eq 0 ]; then
   python "${script_path}/scripts/phabricator_l10n_activity.py"
+  python "${script_path}/scripts/phabricator_group_activity.py"
 else
   python "${script_path}/scripts/phabricator_l10n_activity.py" --start $1
+  python "${script_path}/scripts/phabricator_group_activity.py" --start $1
 fi
 
 # GitHub review stats
