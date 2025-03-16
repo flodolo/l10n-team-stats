@@ -160,11 +160,15 @@ def main():
 
         group_stats = {}
         all_reviews = []
-        for rev_data in revisions_data.values():
+        for rev_id, rev_data in revisions_data.items():
             if rev_data["reviewer"] not in group_stats:
-                group_stats[rev_data["reviewer"]] = [rev_data["time_to_review_h"]]
+                group_stats[rev_data["reviewer"]] = [
+                    (rev_id, rev_data["time_to_review_h"])
+                ]
             else:
-                group_stats[rev_data["reviewer"]].append(rev_data["time_to_review_h"])
+                group_stats[rev_data["reviewer"]].append(
+                    (rev_id, rev_data["time_to_review_h"])
+                )
             all_reviews.append(rev_data["time_to_review_h"])
 
         if group_stats:
@@ -172,19 +176,24 @@ def main():
                 "details": group_stats,
             }
 
-    for group, group_data in stats.items():
+    for group, group_stats in stats.items():
         all_reviews = [
-            rev_time for values in group_data["details"].values() for rev_time in values
+            rev_time
+            for values in group_stats["details"].values()
+            for _, rev_time in values
         ]
-        group_data["total_reviews"] = len(all_reviews)
-        group_data["average_review_time"] = round(statistics.mean(all_reviews), 2)
+        num_reviews = len(all_reviews)
+        group_stats["total_reviews"] = num_reviews
+        group_stats["average_review_time"] = round(statistics.mean(all_reviews), 2)
         print(
-            f"Average time to review (h) for {group} ({group_data['total_reviews']}): {group_data['average_review_time']}"
+            f"Average time to review (h) for {group} ({group_stats['total_reviews']}): {group_stats['average_review_time']}"
         )
-        for user, user_stats in group_data["details"].items():
-            perc = round(len(user_stats) / len(all_reviews) * 100, 2)
+        for user, user_stats in group_stats["details"].items():
+            user_reviews = [rev_time for _, rev_time in user_stats]
+            num_user_reviews = len(user_stats)
+            perc = round(num_user_reviews / num_reviews * 100, 2)
             print(
-                f"{user} ({len(user_stats)}, {perc}%): average (h) {round(statistics.mean(user_stats), 2)}"
+                f"{user} ({num_user_reviews}, {perc}%): average (h) {round(statistics.mean(user_reviews), 2)}"
             )
 
     store_json_data("phab_groups", stats, day=args.end)
