@@ -9,6 +9,7 @@ import argparse
 import configparser
 import json
 import os
+import re
 import requests
 import urllib.parse as url_parse
 import urllib.request as url_request
@@ -204,8 +205,19 @@ def get_phab_usernames():
 
 def write_json_data(json_data):
     json_file = get_json_file()
+
+    # Pretty-print with indent.
+    json_str = json.dumps(json_data, indent=2, sort_keys=True)
+
+    # Collapse arrays onto one line.
+    json_str = re.sub(
+        r'\[\s+([^\]]+?)\s+\]',
+        lambda m: '[' + ' '.join(m.group(1).split()) + ']',
+        json_str
+    )
+
     with open(json_file, "w+") as f:
-        f.write(json.dumps(json_data, indent=2, sort_keys=True))
+        f.write(json_str)
 
 
 def store_json_data(key, record, day=None, extend=False):
