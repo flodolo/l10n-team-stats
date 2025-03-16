@@ -98,23 +98,18 @@ def get_revisions_review_data(group_members, results_data, search_constraints):
 def main():
     args = parse_arguments(group=True, end_date=True)
     # Convert start/end dates to a Unix timestamp.
-    since_timestamp = int(args.start.timestamp())
+    start_timestamp = int(args.start.timestamp())
     end_timestamp = int(args.end.timestamp())
-
-    # TODO: start remove
-    from datetime import timedelta
-    args.end = args.start + timedelta(days=7)
-    args.end = args.end.replace(
-        hour=6, minute=0, second=0, microsecond=0
-    )
-    end_timestamp = int(args.end.timestamp())
-    # TODO: end remove
 
     if args.group:
         groups = [args.group]
     else:
         # Check all relevant groups
         groups = ["android-l10n-reviewers", "fluent-reviewers"]
+
+    print(
+        f"Revisions between {args.start.strftime('%Y-%m-%d')} and {args.end.strftime('%Y-%m-%d')}"
+    )
 
     stats = {}
     l10n_users = get_phab_usernames().keys()
@@ -156,7 +151,7 @@ def main():
         revisions_data = {}
         revision_search_constraints = {
             "reviewerPHIDs": [group_phid],
-            "createdStart": since_timestamp,
+            "createdStart": start_timestamp,
             "createdEnd": end_timestamp,
         }
         get_revisions_review_data(
@@ -177,9 +172,6 @@ def main():
                 "details": group_stats,
             }
 
-    print(
-        f"Revisions between {args.start.strftime('%Y-%m-%d')} and {args.end.strftime('%Y-%m-%d')}"
-    )
     for group, group_data in stats.items():
         all_reviews = [
             rev_time for values in group_data["details"].values() for rev_time in values
