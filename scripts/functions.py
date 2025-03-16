@@ -193,6 +193,7 @@ def get_gh_usernames():
         "peiying2": "Peiying",
     }
 
+
 def get_phab_usernames():
     return {
         "bolsson": "Bryan",
@@ -214,9 +215,11 @@ def store_json_data(key, record, day=None, extend=False):
     if key not in json_data:
         json_data[key] = {}
     if extend:
-        previous_data = json_data[key].get(day, {})
-        record.update(previous_data)
-    json_data[key][day] = record
+        data = json_data[key].get(day, {})
+        data.update(record)
+        json_data[key][day] = data
+    else:
+        json_data[key][day] = record
 
     write_json_data(json_data)
 
