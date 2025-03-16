@@ -1921,6 +1921,1320 @@
       "triaged": "L10NV-274, L10NV-275"
     }
   },
+  "phab_groups": {
+    "2024-02-09": {
+      "fluent-reviewers": {
+        "average_review_time": 102.88,
+        "details": {
+          "bolsson": [
+            77.13,
+            75.23,
+            434.12,
+            9.67,
+            77.02,
+            26.96,
+            72.73,
+            19.58,
+            430.29,
+            1.11
+          ],
+          "flod": [
+            2.0,
+            8.69
+          ]
+        },
+        "total_reviews": 12
+      }
+    },
+    "2024-02-16": {
+      "fluent-reviewers": {
+        "average_review_time": 425.99,
+        "details": {
+          "bolsson": [
+            72.66,
+            459.96,
+            380.98,
+            6.11
+          ],
+          "flod": [
+            2001.67,
+            57.33,
+            3.21
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-02-23": {
+      "fluent-reviewers": {
+        "average_review_time": 1011.86,
+        "details": {
+          "bolsson": [
+            3033.15,
+            0.83
+          ],
+          "flod": [
+            1.61
+          ]
+        },
+        "total_reviews": 3
+      }
+    },
+    "2024-03-01": {
+      "fluent-reviewers": {
+        "average_review_time": 530.96,
+        "details": {
+          "bolsson": [
+            717.3,
+            100.73,
+            189.29,
+            382.81,
+            166.65,
+            15.87,
+            2144.09
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-03-08": {
+      "fluent-reviewers": {
+        "average_review_time": 100.09,
+        "details": {
+          "bolsson": [
+            69.62,
+            346.2,
+            29.43,
+            146.26
+          ],
+          "flod": [
+            1.04,
+            8.01
+          ]
+        },
+        "total_reviews": 6
+      }
+    },
+    "2024-03-15": {
+      "fluent-reviewers": {
+        "average_review_time": 603.31,
+        "details": {
+          "bolsson": [
+            435.68,
+            100.35,
+            462.35,
+            22.98
+          ],
+          "flod": [
+            8.21,
+            2590.31
+          ]
+        },
+        "total_reviews": 6
+      }
+    },
+    "2024-03-22": {
+      "fluent-reviewers": {
+        "average_review_time": 135.87,
+        "details": {
+          "bolsson": [
+            33.9,
+            22.22,
+            6.26,
+            481.97
+          ],
+          "flod": [
+            135.02
+          ]
+        },
+        "total_reviews": 5
+      }
+    },
+    "2024-03-29": {
+      "fluent-reviewers": {
+        "average_review_time": 435.47,
+        "details": {
+          "bolsson": [
+            25.22,
+            24.48,
+            24.12,
+            261.56,
+            32.96,
+            5.93,
+            2.8,
+            2.66
+          ],
+          "flod": [
+            3539.49
+          ]
+        },
+        "total_reviews": 9
+      }
+    },
+    "2024-04-05": {
+      "fluent-reviewers": {
+        "average_review_time": 6.33,
+        "details": {
+          "bolsson": [
+            3.74
+          ],
+          "flod": [
+            15.02,
+            0.23
+          ]
+        },
+        "total_reviews": 3
+      }
+    },
+    "2024-04-12": {
+      "fluent-reviewers": {
+        "average_review_time": 59.82,
+        "details": {
+          "bolsson": [
+            1.47,
+            5.46,
+            149.17,
+            22.23
+          ],
+          "flod": [
+            107.22,
+            127.27,
+            5.9
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-04-19": {
+      "fluent-reviewers": {
+        "average_review_time": 67.65,
+        "details": {
+          "bolsson": [
+            2.89,
+            22.88,
+            3.68,
+            6.08,
+            26.54,
+            460.27,
+            39.08,
+            11.93,
+            147.07,
+            16.75
+          ],
+          "flod": [
+            58.08,
+            16.59
+          ]
+        },
+        "total_reviews": 12
+      }
+    },
+    "2024-04-26": {
+      "fluent-reviewers": {
+        "average_review_time": 52.82,
+        "details": {
+          "bolsson": [
+            16.75,
+            153.52,
+            65.16,
+            22.78,
+            3.57,
+            15.53
+          ],
+          "flod": [
+            36.42,
+            108.81
+          ]
+        },
+        "total_reviews": 8
+      }
+    },
+    "2024-05-03": {
+      "fluent-reviewers": {
+        "average_review_time": 71.92,
+        "details": {
+          "bolsson": [
+            15.53,
+            3.37,
+            336.73
+          ],
+          "flod": [
+            20.05,
+            46.42,
+            9.4
+          ]
+        },
+        "total_reviews": 6
+      }
+    },
+    "2024-05-10": {
+      "fluent-reviewers": {
+        "average_review_time": 310.19,
+        "details": {
+          "bolsson": [
+            744.69,
+            262.36,
+            233.55
+          ],
+          "flod": [
+            0.14
+          ]
+        },
+        "total_reviews": 4
+      }
+    },
+    "2024-05-17": {
+      "fluent-reviewers": {
+        "average_review_time": 85.62,
+        "details": {
+          "bolsson": [
+            577.66,
+            30.24,
+            51.86,
+            2.93,
+            1.2,
+            1.03,
+            26.27,
+            47.64,
+            1.17,
+            116.19
+          ]
+        },
+        "total_reviews": 10
+      }
+    },
+    "2024-05-24": {
+      "fluent-reviewers": {
+        "average_review_time": 1141.55,
+        "details": {
+          "bolsson": [
+            116.19,
+            0.26,
+            5712.56,
+            480.28,
+            122.53
+          ],
+          "flod": [
+            417.47
+          ]
+        },
+        "total_reviews": 6
+      }
+    },
+    "2024-05-31": {
+      "fluent-reviewers": {
+        "average_review_time": 438.02,
+        "details": {
+          "bolsson": [
+            7.1,
+            125.65,
+            75.23,
+            3289.83,
+            173.05,
+            95.02,
+            1.82
+          ],
+          "flod": [
+            10.47,
+            0.02,
+            1032.35,
+            7.64
+          ]
+        },
+        "total_reviews": 11
+      }
+    },
+    "2024-06-07": {
+      "fluent-reviewers": {
+        "average_review_time": 176.62,
+        "details": {
+          "bolsson": [
+            245.51,
+            1014.56,
+            0.19,
+            0.22,
+            210.09,
+            4.82,
+            16.79,
+            3.95,
+            0.57
+          ],
+          "flod": [
+            7.64,
+            441.57,
+            30.89,
+            649.79,
+            10.44,
+            12.26
+          ]
+        },
+        "total_reviews": 15
+      }
+    },
+    "2024-06-14": {
+      "fluent-reviewers": {
+        "average_review_time": 273.94,
+        "details": {
+          "bolsson": [
+            42.72,
+            4.42,
+            884.65,
+            842.55,
+            191.23,
+            24.79,
+            128.52,
+            339.4
+          ],
+          "flod": [
+            7.2
+          ]
+        },
+        "total_reviews": 9
+      }
+    },
+    "2024-06-21": {
+      "fluent-reviewers": {
+        "average_review_time": 119.72,
+        "details": {
+          "bolsson": [
+            171.49,
+            10.69,
+            4.17,
+            54.29,
+            95.32,
+            25.37,
+            149.38
+          ],
+          "flod": [
+            337.76,
+            323.92,
+            138.45,
+            6.04
+          ]
+        },
+        "total_reviews": 11
+      }
+    },
+    "2024-06-28": {
+      "fluent-reviewers": {
+        "average_review_time": 139.58,
+        "details": {
+          "bolsson": [
+            149.38,
+            66.89
+          ],
+          "flod": [
+            6.04,
+            336.03
+          ]
+        },
+        "total_reviews": 4
+      }
+    },
+    "2024-07-05": {
+      "fluent-reviewers": {
+        "average_review_time": 121.86,
+        "details": {
+          "bolsson": [
+            343.88,
+            453.03
+          ],
+          "flod": [
+            277.76,
+            7.94,
+            7.97,
+            289.25,
+            55.39,
+            165.31,
+            32.91,
+            27.68,
+            9.11,
+            2.22,
+            23.77,
+            9.81
+          ]
+        },
+        "total_reviews": 14
+      }
+    },
+    "2024-07-12": {
+      "fluent-reviewers": {
+        "average_review_time": 155.62,
+        "details": {
+          "bolsson": [
+            254.93,
+            321.1,
+            318.28,
+            0.54,
+            101.53
+          ],
+          "flod": [
+            69.35,
+            23.59
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-07-19": {
+      "fluent-reviewers": {
+        "average_review_time": 98.54,
+        "details": {
+          "bolsson": [
+            85.15,
+            25.17,
+            95.29,
+            5.21,
+            21.31,
+            145.21,
+            43.62,
+            117.52
+          ],
+          "flod": [
+            348.4
+          ]
+        },
+        "total_reviews": 9
+      }
+    },
+    "2024-07-26": {
+      "fluent-reviewers": {
+        "average_review_time": 357.67,
+        "details": {
+          "bolsson": [
+            117.52,
+            5.84,
+            69.12,
+            1465.28,
+            114.16,
+            95.91,
+            91.65
+          ],
+          "flod": [
+            788.63,
+            470.95
+          ]
+        },
+        "total_reviews": 9
+      }
+    },
+    "2024-08-02": {
+      "fluent-reviewers": {
+        "average_review_time": 164.31,
+        "details": {
+          "bolsson": [
+            13.91,
+            156.54,
+            79.43,
+            23.2,
+            0.28,
+            505.64,
+            39.97,
+            179.17,
+            4.46,
+            946.0,
+            93.86,
+            92.86
+          ],
+          "flod": [
+            470.95,
+            0.59,
+            0.6,
+            21.54
+          ]
+        },
+        "total_reviews": 16
+      }
+    },
+    "2024-08-09": {
+      "fluent-reviewers": {
+        "average_review_time": 246.4,
+        "details": {
+          "bolsson": [
+            6.32,
+            2.04,
+            862.02,
+            321.6,
+            525.15
+          ],
+          "flod": [
+            2.21,
+            5.49
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-08-16": {
+      "fluent-reviewers": {
+        "average_review_time": 260.93,
+        "details": {
+          "bolsson": [
+            525.15,
+            211.05
+          ],
+          "flod": [
+            46.59
+          ]
+        },
+        "total_reviews": 3
+      }
+    },
+    "2024-08-23": {
+      "fluent-reviewers": {
+        "average_review_time": 216.19,
+        "details": {
+          "bolsson": [
+            1032.86,
+            185.31,
+            17.71,
+            48.04
+          ],
+          "flod": [
+            3.25,
+            9.97
+          ]
+        },
+        "total_reviews": 6
+      }
+    },
+    "2024-08-30": {
+      "fluent-reviewers": {
+        "average_review_time": 150.66,
+        "details": {
+          "bolsson": [
+            72.61,
+            0.38,
+            101.21,
+            414.49,
+            678.71,
+            214.57,
+            4.66
+          ],
+          "flod": [
+            15.38,
+            4.52,
+            0.04
+          ]
+        },
+        "total_reviews": 10
+      }
+    },
+    "2024-09-06": {
+      "fluent-reviewers": {
+        "average_review_time": 517.22,
+        "details": {
+          "bolsson": [
+            159.42,
+            3.17,
+            197.25,
+            1362.28,
+            1362.31,
+            18.89
+          ]
+        },
+        "total_reviews": 6
+      }
+    },
+    "2024-09-13": {
+      "fluent-reviewers": {
+        "average_review_time": 113.09,
+        "details": {
+          "bolsson": [
+            237.71,
+            92.45,
+            24.92,
+            0.19,
+            152.27,
+            267.05,
+            121.2
+          ],
+          "flod": [
+            8.94
+          ]
+        },
+        "total_reviews": 8
+      }
+    },
+    "2024-09-20": {
+      "fluent-reviewers": {
+        "average_review_time": 256.26,
+        "details": {
+          "bolsson": [
+            340.09,
+            73.26,
+            98.44,
+            0.94,
+            259.66,
+            259.64,
+            245.22,
+            3.47,
+            3.32,
+            25.98,
+            1.71,
+            2014.22
+          ],
+          "flod": [
+            5.45
+          ]
+        },
+        "total_reviews": 13
+      }
+    },
+    "2024-09-27": {
+      "fluent-reviewers": {
+        "average_review_time": 276.42,
+        "details": {
+          "bolsson": [
+            2014.22,
+            7.75,
+            29.18,
+            24.75,
+            1.12,
+            547.1,
+            12.31,
+            5.05,
+            1230.08,
+            356.32,
+            0.59,
+            481.83,
+            4.83,
+            381.26,
+            27.81,
+            0.08,
+            120.06
+          ],
+          "flod": [
+            7.64,
+            0.01
+          ]
+        },
+        "total_reviews": 19
+      }
+    },
+    "2024-10-04": {
+      "fluent-reviewers": {
+        "average_review_time": 73.15,
+        "details": {
+          "bolsson": [
+            73.45,
+            67.58,
+            0.9,
+            50.73,
+            3.83,
+            20.59,
+            126.94,
+            288.67,
+            0.21,
+            98.56
+          ]
+        },
+        "total_reviews": 10
+      }
+    },
+    "2024-10-11": {
+      "fluent-reviewers": {
+        "average_review_time": 60.58,
+        "details": {
+          "bolsson": [
+            1.04,
+            199.29,
+            19.02,
+            28.26,
+            168.23,
+            8.18
+          ],
+          "flod": [
+            0.04
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-10-18": {
+      "android-l10n-reviewers": {
+        "average_review_time": 2915.27,
+        "details": {
+          "delphine": [
+            2915.27
+          ]
+        },
+        "total_reviews": 1
+      },
+      "fluent-reviewers": {
+        "average_review_time": 199.38,
+        "details": {
+          "bolsson": [
+            5.91,
+            4.57,
+            3.13,
+            51.1,
+            23.72,
+            17.58,
+            4.55,
+            1.23,
+            0.57,
+            671.63,
+            98.07,
+            1510.5
+          ]
+        },
+        "total_reviews": 12
+      }
+    },
+    "2024-10-25": {
+      "android-l10n-reviewers": {
+        "average_review_time": 3074.53,
+        "details": {
+          "delphine": [
+            3074.53
+          ]
+        },
+        "total_reviews": 1
+      },
+      "fluent-reviewers": {
+        "average_review_time": 156.97,
+        "details": {
+          "bolsson": [
+            1510.5,
+            118.69,
+            5.29,
+            681.03,
+            33.96,
+            164.19,
+            20.26,
+            16.78,
+            5.72,
+            3.09,
+            10.63,
+            7.46,
+            6.76,
+            2.76,
+            19.2
+          ],
+          "flod": [
+            61.99,
+            0.24
+          ]
+        },
+        "total_reviews": 17
+      }
+    },
+    "2024-11-01": {
+      "fluent-reviewers": {
+        "average_review_time": 126.8,
+        "details": {
+          "bolsson": [
+            2.76,
+            19.2,
+            1.04,
+            121.99,
+            243.41,
+            12.87,
+            186.88,
+            18.46
+          ],
+          "flod": [
+            547.35,
+            116.85,
+            123.99
+          ]
+        },
+        "total_reviews": 11
+      }
+    },
+    "2024-11-08": {
+      "fluent-reviewers": {
+        "average_review_time": 278.11,
+        "details": {
+          "bolsson": [
+            845.27,
+            5.22,
+            4.0,
+            1.98,
+            763.9
+          ],
+          "flod": [
+            7.76,
+            555.07,
+            41.64
+          ]
+        },
+        "total_reviews": 8
+      }
+    },
+    "2024-11-15": {
+      "fluent-reviewers": {
+        "average_review_time": 183.01,
+        "details": {
+          "bolsson": [
+            763.9,
+            171.4,
+            130.33,
+            125.81,
+            16.2
+          ],
+          "flod": [
+            7.38,
+            66.02
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2024-11-22": {
+      "fluent-reviewers": {
+        "average_review_time": 100.01,
+        "details": {
+          "bolsson": [
+            16.2,
+            78.39,
+            83.81,
+            5.87,
+            575.73,
+            21.55,
+            13.24,
+            389.22,
+            6.88,
+            6.58,
+            0.7
+          ],
+          "flod": [
+            1.92
+          ]
+        },
+        "total_reviews": 12
+      }
+    },
+    "2024-11-29": {
+      "fluent-reviewers": {
+        "average_review_time": 301.67,
+        "details": {
+          "bolsson": [
+            437.87,
+            2113.59,
+            70.82,
+            281.4,
+            244.84,
+            140.88,
+            346.93,
+            97.56
+          ],
+          "flod": [
+            119.79,
+            61.06,
+            1.16,
+            4.42,
+            1.33
+          ]
+        },
+        "total_reviews": 13
+      }
+    },
+    "2024-12-06": {
+      "fluent-reviewers": {
+        "average_review_time": 119.39,
+        "details": {
+          "bolsson": [
+            76.91,
+            69.09,
+            223.47,
+            2.0,
+            31.29,
+            28.31,
+            0.27,
+            25.35,
+            863.53,
+            107.94,
+            2.8
+          ],
+          "flod": [
+            1.72
+          ]
+        },
+        "total_reviews": 12
+      }
+    },
+    "2024-12-13": {
+      "android-l10n-reviewers": {
+        "average_review_time": 1822.37,
+        "details": {
+          "delphine": [
+            1822.37
+          ]
+        },
+        "total_reviews": 1
+      },
+      "fluent-reviewers": {
+        "average_review_time": 244.34,
+        "details": {
+          "bolsson": [
+            6.55,
+            165.34,
+            31.68,
+            7.35,
+            605.6
+          ],
+          "flod": [
+            974.53,
+            85.02,
+            78.61
+          ]
+        },
+        "total_reviews": 8
+      }
+    },
+    "2024-12-20": {
+      "fluent-reviewers": {
+        "average_review_time": 434.77,
+        "details": {
+          "bolsson": [
+            153.07,
+            6.71,
+            1.29,
+            2065.97,
+            8.42,
+            2.45,
+            26.23,
+            26.37,
+            1032.47,
+            2022.28
+          ],
+          "flod": [
+            78.61,
+            61.27,
+            60.6,
+            541.05
+          ]
+        },
+        "total_reviews": 14
+      }
+    },
+    "2024-12-27": {
+      "fluent-reviewers": {
+        "average_review_time": 860.56,
+        "details": {
+          "bolsson": [
+            12.21,
+            1708.9
+          ]
+        },
+        "total_reviews": 2
+      }
+    },
+    "2025-01-03": {
+      "fluent-reviewers": {
+        "average_review_time": 516.71,
+        "details": {
+          "bolsson": [
+            918.25,
+            115.16
+          ]
+        },
+        "total_reviews": 2
+      }
+    },
+    "2025-01-10": {
+      "fluent-reviewers": {
+        "average_review_time": 43.46,
+        "details": {
+          "bolsson": [
+            115.16,
+            12.25,
+            2.97
+          ]
+        },
+        "total_reviews": 3
+      }
+    },
+    "2025-01-17": {
+      "fluent-reviewers": {
+        "average_review_time": 289.77,
+        "details": {
+          "bolsson": [
+            292.72,
+            628.2,
+            0.38,
+            19.75,
+            23.1,
+            958.94
+          ],
+          "flod": [
+            105.3
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2025-01-24": {
+      "fluent-reviewers": {
+        "average_review_time": 66.11,
+        "details": {
+          "bolsson": [
+            100.31,
+            15.87,
+            30.17,
+            29.02,
+            174.85,
+            10.59,
+            3.9,
+            293.44,
+            26.41
+          ],
+          "flod": [
+            143.33,
+            0.29,
+            18.25,
+            13.02
+          ]
+        },
+        "total_reviews": 13
+      }
+    },
+    "2025-01-31": {
+      "fluent-reviewers": {
+        "average_review_time": 15.7,
+        "details": {
+          "bolsson": [
+            12.3,
+            5.0,
+            23.41,
+            5.54,
+            27.77,
+            3.19,
+            1.11,
+            20.31,
+            4.16,
+            121.98
+          ],
+          "flod": [
+            0.48,
+            0.08,
+            8.99,
+            1.08,
+            0.13
+          ]
+        },
+        "total_reviews": 15
+      }
+    },
+    "2025-02-07": {
+      "android-l10n-reviewers": {
+        "average_review_time": 596.34,
+        "details": {
+          "delphine": [
+            596.34
+          ]
+        },
+        "total_reviews": 1
+      },
+      "fluent-reviewers": {
+        "average_review_time": 67.41,
+        "details": {
+          "bolsson": [
+            456.49,
+            52.38,
+            15.65,
+            6.1,
+            3.0,
+            9.36,
+            146.34,
+            6.82,
+            147.12,
+            23.49
+          ],
+          "flod": [
+            0.68,
+            0.96,
+            7.89
+          ]
+        },
+        "total_reviews": 13
+      }
+    },
+    "2025-02-14": {
+      "android-l10n-reviewers": {
+        "average_review_time": 263.66,
+        "details": {
+          "delphine": [
+            483.21
+          ],
+          "flod": [
+            44.12
+          ]
+        },
+        "total_reviews": 2
+      },
+      "fluent-reviewers": {
+        "average_review_time": 54.42,
+        "details": {
+          "bolsson": [
+            10.54,
+            4.08,
+            169.28,
+            47.43,
+            0.73,
+            18.55,
+            6.86,
+            2.8,
+            197.6,
+            27.68,
+            0.88,
+            267.95
+          ],
+          "flod": [
+            6.91,
+            0.54
+          ]
+        },
+        "total_reviews": 14
+      }
+    },
+    "2025-02-21": {
+      "android-l10n-reviewers": {
+        "average_review_time": 61.82,
+        "details": {
+          "delphine": [
+            7.14,
+            163.6,
+            76.4,
+            0.14
+          ]
+        },
+        "total_reviews": 4
+      },
+      "fluent-reviewers": {
+        "average_review_time": 35.63,
+        "details": {
+          "bolsson": [
+            100.84,
+            100.84,
+            62.16,
+            5.0,
+            3.48,
+            6.82,
+            5.86
+          ],
+          "flod": [
+            0.04
+          ]
+        },
+        "total_reviews": 8
+      }
+    },
+    "2025-02-28": {
+      "android-l10n-reviewers": {
+        "average_review_time": 40.67,
+        "details": {
+          "delphine": [
+            9.88,
+            27.28,
+            7.91,
+            0.2,
+            15.56,
+            17.85
+          ],
+          "flod": [
+            143.65,
+            143.65,
+            0.02
+          ]
+        },
+        "total_reviews": 9
+      },
+      "fluent-reviewers": {
+        "average_review_time": 49.56,
+        "details": {
+          "bolsson": [
+            73.95,
+            4.04,
+            0.51,
+            3.31,
+            217.54,
+            29.28,
+            45.01,
+            143.96,
+            13.75,
+            5.56
+          ],
+          "flod": [
+            8.21
+          ]
+        },
+        "total_reviews": 11
+      }
+    },
+    "2025-03-07": {
+      "android-l10n-reviewers": {
+        "average_review_time": 20.73,
+        "details": {
+          "delphine": [
+            7.88,
+            2.65,
+            0.52,
+            0.51,
+            0.22
+          ],
+          "flod": [
+            112.59
+          ]
+        },
+        "total_reviews": 6
+      },
+      "fluent-reviewers": {
+        "average_review_time": 26.61,
+        "details": {
+          "bolsson": [
+            126.45,
+            0.27,
+            2.24,
+            12.11,
+            7.72,
+            32.55,
+            4.96
+          ]
+        },
+        "total_reviews": 7
+      }
+    },
+    "2025-03-14": {
+      "android-l10n-reviewers": {
+        "average_review_time": 15.93,
+        "details": {
+          "delphine": [
+            17.33,
+            6.83,
+            51.09,
+            3.1
+          ],
+          "flod": [
+            1.3
+          ]
+        },
+        "total_reviews": 5
+      },
+      "fluent-reviewers": {
+        "average_review_time": 13.61,
+        "details": {
+          "bolsson": [
+            57.35,
+            9.38,
+            0.47,
+            21.84,
+            20.55,
+            2.76,
+            22.8
+          ],
+          "flod": [
+            0.39,
+            0.34,
+            0.21
+          ]
+        },
+        "total_reviews": 10
+      }
+    }
+  },
   "pontoon-issues": {
     "2024-02-09": {
       "P1": 1,
