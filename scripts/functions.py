@@ -54,14 +54,14 @@ def parse_arguments(
         args.start = datetime.today() - timedelta(weeks=1)
     args.start = args.start.replace(hour=0, minute=0, second=0, microsecond=0)
 
+    # By default, the period is 1 week (7 days) from the start date (or from
+    # today, if not provided).
     if end_date:
         if args.end:
             args.end = datetime.strptime(args.end, "%Y-%m-%d")
-            args.end = args.end.replace(
-                hour=23, minute=59, second=59, microsecond=999999
-            )
         else:
-            args.end = datetime.now()
+            args.end = args.start + timedelta(weeks=1)
+        args.end = args.end.replace(hour=0, minute=0, second=0, microsecond=0)
 
     return args
 
@@ -211,15 +211,16 @@ def write_json_data(json_data):
 def store_json_data(key, record, day=None, extend=False):
     json_data = get_json_data()
     if not day:
-        day = datetime.today().strftime("%Y-%m-%d")
+        day = datetime.today()
+    day_str = day.strftime("%Y-%m-%d")
     if key not in json_data:
         json_data[key] = {}
     if extend:
-        data = json_data[key].get(day, {})
+        data = json_data[key].get(day_str, {})
         data.update(record)
-        json_data[key][day] = data
+        json_data[key][day_str] = data
     else:
-        json_data[key][day] = record
+        json_data[key][day_str] = record
 
     write_json_data(json_data)
 

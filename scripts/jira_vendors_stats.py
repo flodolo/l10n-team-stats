@@ -150,7 +150,7 @@ def main():
     record["delivered"] = ", ".join(delivered)
     record["num_delivered"] = len(delivered)
 
-    store_json_data("jira-vendor-stats", record, day=str_end_date)
+    store_json_data("jira-vendor-stats", record, day=end_date)
 
 
 if __name__ == "__main__":

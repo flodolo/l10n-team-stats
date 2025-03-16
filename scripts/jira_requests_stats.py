@@ -141,7 +141,7 @@ def main():
     record["completed"] = ", ".join(completed)
     record["num_completed"] = len(completed)
 
-    store_json_data("jira-request-stats", record, day=str_end_date)
+    store_json_data("jira-request-stats", record, day=end_date)
 
 
 if __name__ == "__main__":

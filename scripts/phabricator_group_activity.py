@@ -187,7 +187,7 @@ def main():
                 f"{user} ({len(user_stats)}, {perc}%): average (h) {round(statistics.mean(user_stats), 2)}"
             )
 
-    store_json_data("phab_groups", stats)
+    store_json_data("phab_groups", stats, day=args.end)
 
 
 if __name__ == "__main__":
