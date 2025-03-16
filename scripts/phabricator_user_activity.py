@@ -61,7 +61,7 @@ def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
     )
     modified_revisions = revisions_response.get("results", [])
 
-    # Remove duplicates
+    # Remove duplicates.
     unique_revisions = {d["id"]: d for d in created_revisions + modified_revisions}
     revisions = list(unique_revisions.values())
     if not revisions:
@@ -86,6 +86,9 @@ def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
             transactions = transactions_response.get("results", [])
             reviewed = False
             for txn in transactions:
+                # For groups it's possible to look when the review was
+                # requested. For individual users that's not reliable, as the
+                # request might happen as part of a group.
                 # The review has to happen within the range.
                 if (
                     txn["type"] == "accept"

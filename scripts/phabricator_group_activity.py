@@ -54,7 +54,7 @@ def get_revisions_review_data(
     )
     modified_revisions = revisions_response.get("results", [])
 
-    # Remove duplicates
+    # Remove duplicates.
     unique_revisions = {d["id"]: d for d in created_revisions + modified_revisions}
     revisions = list(unique_revisions.values())
     if not revisions:
@@ -82,6 +82,7 @@ def get_revisions_review_data(
                 txn["type"] == "accept"
                 and txn["authorPHID"] in group_members
                 and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
+                and not reviewed
             ):
                 reviewed = True
                 revision_data = results_data.setdefault(revision_id, {})
@@ -91,8 +92,20 @@ def get_revisions_review_data(
                     review_ts
                 ).strftime("%Y-%m-%d %H:%M")
                 revision_data["reviewer"] = group_members[txn["authorPHID"]]
-                # Can break after finding the first review.
-                break
+
+            # Store also when the review was requested.
+            if txn["type"] == "reviewers":
+                operations = txn["fields"].get("operations", [])
+                try:
+                    op = operations[0]
+                    if (
+                        op.get("operation", "") == "add"
+                        and op.get("phid", "") == group_phid
+                    ):
+                        review_request_timestamp = txn["dateCreated"]
+                except Exception as e:
+                    print(e)
+                    pass
 
         # If there was no review yet, ignore this diff.
         if not reviewed:
@@ -100,18 +113,17 @@ def get_revisions_review_data(
 
         create_ts = revision["fields"]["dateCreated"]
         revision_data["create_timestamp"] = create_ts
+        revision_data["review_request_timestamp"] = review_request_timestamp
         revision_data["create_date"] = datetime.fromtimestamp(create_ts).strftime(
             "%Y-%m-%d %H:%M"
         )
         revision_data["title"] = f"{revision_id}: {revision['fields']['title']}"
 
-        # If review_timestamp is set, calculate the time difference.
-        if "review_timestamp" in revision_data:
-            time_diff = (
-                revision_data["review_timestamp"] - revision_data["create_timestamp"]
-            )
-            revision_data["time_to_review_h"] = round(time_diff / 3600, 2)
-            revision_data["time_to_review"] = format_time(time_diff)
+        # Fall back to creation date if there is no review request timestamp.
+        review_request = revision_data.get("review_request_timestamp", create_ts)
+        time_diff = revision_data["review_timestamp"] - review_request
+        revision_data["time_to_review_h"] = round(time_diff / 3600, 2)
+        revision_data["time_to_review"] = format_time(time_diff)
 
 
 def main():
