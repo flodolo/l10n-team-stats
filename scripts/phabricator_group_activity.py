@@ -21,33 +21,47 @@ from functions import (
 )
 
 
-def get_revisions_review_data(group_members, results_data, search_constraints):
-    """
-    Retrieves differential revisions based on given constraints,
-    processes transactions to identify review events from group members,
-    and updates results_data with relevant timestamps and reviewer info.
-
-    Args:
-        group_members (dict): Mapping of user PHIDs to usernames.
-        results_data (dict): Dictionary to store processed revision data.
-        search_constraints (dict): Constraints for querying revisions.
-    """
-    # Query revisions reviewed by the group.
+def get_revisions_review_data(
+    group_members, results_data, group_phid, start_timestamp, end_timestamp
+):
+    # Query revisions for the group.
     revisions_response = {}
-    print("Getting revisions for group...")
+    print("Getting revisions created within the date range...")
+    search_constraints = {
+        "reviewerPHIDs": [group_phid],
+        "createdStart": start_timestamp,
+        "createdEnd": end_timestamp,
+    }
     phab_query(
         "differential.revision.search",
         revisions_response,
         constraints=search_constraints,
         order="newest",
     )
-    revisions = revisions_response.get("results", [])
+    created_revisions = revisions_response.get("results", [])
+
+    print("Getting revisions modified within the date range...")
+    search_constraints = {
+        "reviewerPHIDs": [group_phid],
+        "modifiedStart": start_timestamp,
+        "modifiedEnd": end_timestamp,
+    }
+    phab_query(
+        "differential.revision.search",
+        revisions_response,
+        constraints=search_constraints,
+        order="newest",
+    )
+    modified_revisions = revisions_response.get("results", [])
+
+    # Remove duplicates
+    unique_revisions = {d["id"]: d for d in created_revisions + modified_revisions}
+    revisions = list(unique_revisions.values())
     if not revisions:
         return
 
     # Sort revisions by creation date.
     revisions = sorted(revisions, key=lambda rev: rev["fields"]["dateCreated"])
-
     for revision in revisions:
         revision_id = f"D{revision['id']}"
         # Fetch transactions related to the revision.
@@ -63,7 +77,12 @@ def get_revisions_review_data(group_members, results_data, search_constraints):
         transactions = transactions_response.get("results", [])
         reviewed = False
         for txn in transactions:
-            if txn["type"] == "accept" and txn["authorPHID"] in group_members:
+            # The review has to happen within the range.
+            if (
+                txn["type"] == "accept"
+                and txn["authorPHID"] in group_members
+                and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
+            ):
                 reviewed = True
                 revision_data = results_data.setdefault(revision_id, {})
                 review_ts = txn["dateCreated"]
@@ -72,7 +91,7 @@ def get_revisions_review_data(group_members, results_data, search_constraints):
                     review_ts
                 ).strftime("%Y-%m-%d %H:%M")
                 revision_data["reviewer"] = group_members[txn["authorPHID"]]
-                # Once we've found the first valid review, we can break.
+                # Can break after finding the first review.
                 break
 
         # If there was no review yet, ignore this diff.
@@ -104,7 +123,7 @@ def main():
     if args.group:
         groups = [args.group]
     else:
-        # Check all relevant groups
+        # Check all relevant groups.
         groups = ["android-l10n-reviewers", "fluent-reviewers"]
 
     print(
@@ -149,13 +168,8 @@ def main():
         }
 
         revisions_data = {}
-        revision_search_constraints = {
-            "reviewerPHIDs": [group_phid],
-            "createdStart": start_timestamp,
-            "createdEnd": end_timestamp,
-        }
         get_revisions_review_data(
-            group_members, revisions_data, revision_search_constraints
+            group_members, revisions_data, group_phid, start_timestamp, end_timestamp
         )
 
         group_stats = {}
