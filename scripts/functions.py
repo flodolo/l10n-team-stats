@@ -43,13 +43,9 @@ def parse_arguments(
             "--repo", "-r", help="Repository (e.g. mozilla/pontoon))", required=True
         )
     if end_date:
-        parser.add_argument(
-            "--end", "-e", help="End date for analysis (YYYY-MM-DD)", required=False
-        )
+        parser.add_argument("--end", "-e", help="End date for analysis (YYYY-MM-DD)")
     if group:
-        parser.add_argument(
-            "--group", "-g", help="Group name on Phabricator", required=True
-        )
+        parser.add_argument("--group", "-g", help="Group name on Phabricator")
     if user:
         parser.add_argument("--user", "-u", help="Username on GitHub")
     args = parser.parse_args()
@@ -195,6 +191,13 @@ def get_gh_usernames():
         "Delphine": "Delphine",
         "flodolo": "Flod",
         "peiying2": "Peiying",
+    }
+
+def get_phab_usernames():
+    return {
+        "bolsson": "Bryan",
+        "delphine": "Delphine",
+        "flod": "Flod",
     }
 
 

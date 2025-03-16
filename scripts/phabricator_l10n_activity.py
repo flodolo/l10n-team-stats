@@ -10,10 +10,10 @@ from functions import parse_arguments, phab_query, store_json_data
 
 
 def get_revisions(type, user, data, constraints):
-    revisions = {}
+    revisions_response = {}
     phab_query(
         "differential.revision.search",
-        revisions,
+        revisions_response,
         constraints=constraints,
         order="newest",
     )
