@@ -16,6 +16,23 @@ import urllib.request as url_request
 import urllib3
 
 
+class InlineListEncoder(json.JSONEncoder):
+    def encode(self, o):
+        # First, encode using the parent class to respect indent and sort_keys.
+        json_str = super().encode(o)
+        # Define a regex pattern that matches arrays containing one or more nested arrays.
+        pattern = re.compile(r"\[\s*((?:\[[^\[\]]+\](?:,\s*)?)+)\s*\]")
+
+        def collapse(match):
+            inner = match.group(1)
+            # Replace newlines and extra whitespace inside the array with a single space.
+            inner = re.sub(r"\s*\n\s*", " ", inner)
+            return "[" + inner + "]"
+
+        # Apply the regex substitution to collapse nested arrays.
+        return pattern.sub(collapse, json_str)
+
+
 def ymd(value):
     try:
         return datetime.strptime(value, "%Y-%m-%d")
@@ -206,18 +223,8 @@ def get_phab_usernames():
 def write_json_data(json_data):
     json_file = get_json_file()
 
-    # Pretty-print with indent.
-    json_str = json.dumps(json_data, indent=2, sort_keys=True)
-
-    # Collapse arrays onto one line.
-    json_str = re.sub(
-        r'\[\s+([^\]]+?)\s+\]',
-        lambda m: '[' + ' '.join(m.group(1).split()) + ']',
-        json_str
-    )
-
     with open(json_file, "w+") as f:
-        f.write(json_str)
+        f.write(json.dumps(json_data, cls=InlineListEncoder, indent=2, sort_keys=True))
 
 
 def store_json_data(key, record, day=None, extend=False):
