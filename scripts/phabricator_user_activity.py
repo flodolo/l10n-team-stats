@@ -149,10 +149,11 @@ def get_user_phids():
 
 
 def main():
-    args = parse_arguments(end_date=True)
+    args = parse_arguments()
     # Convert start/end dates to a Unix timestamp.
     start_timestamp = int(args.start.timestamp())
-    end_timestamp = int(args.end.timestamp())
+    end_date = args.end
+    end_timestamp = int(end_date.timestamp())
 
     print(
         f"Revisions between {args.start.strftime('%Y-%m-%d')} and {args.end.strftime('%Y-%m-%d')}"
@@ -181,11 +182,14 @@ def main():
         "phab-details": phab_data,
     }
 
-    start_date = args.start.strftime("%Y-%m-%d")
+    str_start_date = args.start.strftime("%Y-%m-%d")
+    end_date = args.end
+    str_end_date = end_date.strftime("%Y-%m-%d")
+
     total_authored = 0
     all_reviews = []
     for user, user_data in phab_data.items():
-        print(f"\n\nActivity for {user} since {start_date}")
+        print(f"\n\nActivity for {user} between {str_start_date} and {str_end_date}")
         authored = len(user_data.get("authored", []))
         reviewed = len(user_data.get("reviewed", []))
         print(f"Total authored: {authored}")
@@ -203,7 +207,7 @@ def main():
     avg_review = round(statistics.mean(all_reviews), 2)
     print(f"Average time to review: {avg_review}")
     stats["phab-avg-time-to-reviews"] = avg_review
-    store_json_data("epm-reviews", stats, extend=True, day=args.end)
+    store_json_data("epm-reviews", stats, extend=True, day=end_date)
 
 
 if __name__ == "__main__":

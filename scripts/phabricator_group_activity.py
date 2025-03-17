@@ -127,10 +127,11 @@ def get_revisions_review_data(
 
 
 def main():
-    args = parse_arguments(group=True, end_date=True)
+    args = parse_arguments(group=True)
     # Convert start/end dates to a Unix timestamp.
     start_timestamp = int(args.start.timestamp())
-    end_timestamp = int(args.end.timestamp())
+    end_date = args.end
+    end_timestamp = int(end_date.timestamp())
 
     if args.group:
         groups = [args.group]
@@ -222,7 +223,7 @@ def main():
                 f"{user} ({num_user_reviews}, {perc}%): average (h) {round(statistics.mean(user_reviews), 2)}"
             )
 
-    store_json_data("phab_groups", stats, day=args.end)
+    store_json_data("phab_groups", stats, day=end_date)
 
 
 if __name__ == "__main__":

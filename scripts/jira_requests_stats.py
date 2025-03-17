@@ -36,7 +36,7 @@ def store_date(issue_data, issue, field, dt):
 
 
 def main():
-    args = parse_arguments(end_date=True)
+    args = parse_arguments()
     start_date = args.start
     str_start_date = start_date.strftime("%Y-%m-%d")
     end_date = args.end

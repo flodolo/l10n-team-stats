@@ -48,7 +48,9 @@ def build_summary(issues, type, summary, summary_output, project):
 
 def main():
     args = parse_arguments()
-    since_date = args.start.strftime("%Y-%m-%d")
+    str_since_date = args.start.strftime("%Y-%m-%d")
+    end_date = args.end
+    str_end_date = end_date.strftime("%Y-%m-%d")
 
     jira = get_jira_object()
     record = {}
@@ -56,15 +58,21 @@ def main():
     summary = {
         "backlog": {"label": "in backlog", "issues": []},
         "blocked": {"label": "blocked", "issues": []},
-        "closed": {"label": f"closed since {since_date}", "issues": []},
-        "created": {"label": f"opened since {since_date}", "issues": []},
+        "closed": {
+            "label": f"closed between {str_since_date} and {str_end_date}",
+            "issues": [],
+        },
+        "created": {
+            "label": f"opened between {str_since_date} and {str_end_date}",
+            "issues": [],
+        },
         "in-progress": {"label": "in progress", "issues": []},
     }
     summary_output = {
         "backlog": ["Issues in backlog for:"],
         "blocked": ["Issues blocked for:"],
-        "closed": [f"Issues closed since {since_date} for:"],
-        "created": [f"Issues created since {since_date} for:"],
+        "closed": [f"Issues closed between {str_since_date} and {str_end_date} for:"],
+        "created": [f"Issues created between {str_since_date} and {str_end_date} for:"],
         "in-progress": ["Issues in progress for:"],
     }
     projects = ["l10n-requests", "l10n-vendor"]
@@ -137,7 +145,7 @@ def main():
 
     for k, v in summary.items():
         record[k] = len(v["issues"])
-    store_json_data("jira-issues", record)
+    store_json_data("jira-issues", record, day=end_date)
 
 
 if __name__ == "__main__":

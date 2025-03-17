@@ -44,7 +44,6 @@ def parse_arguments(
     repo=False,
     user=False,
     group=False,
-    end_date=False,
 ):
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -53,6 +52,7 @@ def parse_arguments(
         type=ymd,
         help="Start date (YYYY-MM-DD, defaults to 1 week ago)",
     )
+    parser.add_argument("--end", "-e", help="End date for analysis (YYYY-MM-DD)")
     parser.add_argument(
         "--verbose", "-v", help="Print list of revisions", action="store_true"
     )
@@ -60,8 +60,6 @@ def parse_arguments(
         parser.add_argument(
             "--repo", "-r", help="Repository (e.g. mozilla/pontoon))", required=True
         )
-    if end_date:
-        parser.add_argument("--end", "-e", help="End date for analysis (YYYY-MM-DD)")
     if group:
         parser.add_argument("--group", "-g", help="Group name on Phabricator")
     if user:
@@ -74,12 +72,11 @@ def parse_arguments(
 
     # By default, the period is 1 week (7 days) from the start date (or from
     # today, if not provided).
-    if end_date:
-        if args.end:
-            args.end = datetime.strptime(args.end, "%Y-%m-%d")
-        else:
-            args.end = args.start + timedelta(weeks=1)
-        args.end = args.end.replace(hour=0, minute=0, second=0, microsecond=0)
+    if args.end:
+        args.end = datetime.strptime(args.end, "%Y-%m-%d")
+    else:
+        args.end = args.start + timedelta(weeks=1)
+    args.end = args.end.replace(hour=0, minute=0, second=0, microsecond=0)
 
     return args
 
@@ -338,14 +335,12 @@ def get_user_pr_collection(period_data, start_date):
             print(e)
 
 
-def get_pr_details(
-    repos, usernames, start_date, pr_stats, end_date=None, single_repo=False
-):
+def get_pr_details(repos, usernames, start_date, end_date, pr_stats, single_repo=False):
     query_prs = """
 {
   search(
     first: 100
-    query: "repo:%REPO% is:pr created:>=%START%"
+    query: "repo:%REPO% is:pr created:%START%..%END%"
     type: ISSUE
     %CURSOR%
   ) {
@@ -379,9 +374,6 @@ def get_pr_details(
   }
 }
 """
-
-    if end_date:
-        query_prs = query_prs.replace(">=%START%", "%START%..%END%")
 
     start_query = start_date - timedelta(weeks=6)
     query_prs = query_prs.replace("%START%", start_query.strftime("%Y-%m-%d"))

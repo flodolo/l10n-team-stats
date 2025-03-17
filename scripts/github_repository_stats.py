@@ -9,7 +9,7 @@ from functions import format_time, get_gh_usernames, get_pr_details, parse_argum
 
 
 def main():
-    args = parse_arguments(repo=True, user=True, end_date=True)
+    args = parse_arguments(repo=True, user=True)
     start_date = args.start
     end_date = args.end
 
@@ -37,8 +37,8 @@ def main():
             [repo],
             usernames,
             period_start,
+            period_end,
             pr_stats,
-            end_date=period_end,
             single_repo=True,
         )
         overall_data[period_name] = pr_stats

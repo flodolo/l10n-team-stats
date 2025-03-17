@@ -14,7 +14,9 @@ from functions import (
 
 def main():
     args = parse_arguments()
-    since_date = args.start.strftime("%Y-%m-%d")
+    str_start_date = args.start.strftime("%Y-%m-%d")
+    end_date = args.end
+    str_end_date = end_date.strftime("%Y-%m-%d")
     repo = "mozilla/pontoon"
 
     g = get_github_object()
@@ -22,7 +24,7 @@ def main():
 
     print(f"Analysis of repository: {repo}\n")
 
-    # Analyze all open issues
+    # Analyze all open issues.
     stats = {
         "Total": 0,
         "P1": 0,
@@ -54,9 +56,9 @@ def main():
             print(f"- {k}: {v}")
             record[k] = v
 
-    # Analyze issues opened since the specified date
+    # Analyze issues opened within the requested range.
     opened = g.search_issues(
-        query=f"repo:{repo} is:issue created:>={since_date}",
+        query=f"repo:{repo} is:issue created:{str_start_date}..{str_end_date}",
         sort="created",
         order="desc",
     )
@@ -73,15 +75,15 @@ def main():
             )
         issue_ids = list(issues.keys())
         print(
-            f"Issues opened after {since_date} ({len(issue_ids)}): {', '.join(issue_ids)}"
+            f"Issues opened between {str_start_date} and {str_end_date} ({len(issue_ids)}): {', '.join(issue_ids)}"
         )
         record["opened"] = len(issue_ids)
         if args.verbose:
             print("\n".join(issues.values()))
 
-    # Analyze issues closed since the specified date
+    # Analyze issues closed within the requested range.
     closed = g.search_issues(
-        query=f"repo:{repo} is:issue closed:>={since_date}",
+        query=f"repo:{repo} is:issue closed:{str_start_date}..{str_end_date}",
         sort="created",
         order="desc",
     )
@@ -101,16 +103,18 @@ def main():
         issue_ids = list(issues.keys())
         count = len(issue_ids)
         avg_age = round(age / count) if count > 0 else 0
-        print(f"Issues closed after {since_date} ({count}): {', '.join(issue_ids)}")
+        print(
+            f"Issues closed between {str_start_date} and {str_end_date} ({count}): {', '.join(issue_ids)}"
+        )
         record["closed"] = count
-        # Store value in hours
+        # Store value in hours.
         record["avg-time-to-close"] = round(avg_age / 3600, 1)
         if avg_age > 0:
             print(f"Average age of closed issues: {format_time(avg_age)}")
         if args.verbose:
             print("\n".join(issues.values()))
 
-    store_json_data("pontoon-issues", record)
+    store_json_data("pontoon-issues", record, day=end_date)
 
 
 if __name__ == "__main__":
