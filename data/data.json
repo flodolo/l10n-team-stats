@@ -2533,7 +2533,7 @@
       "triaged": "L10NV-274, L10NV-275"
     }
   },
-  "phab_groups": {
+  "phab-groups": {
     "2024-02-09": {
       "fluent-reviewers": {
         "average_review_time": 33.53,

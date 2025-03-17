@@ -147,6 +147,47 @@ def main():
     connection = gspread.service_account_from_dict(credentials)
     sh = connection.open_by_key(config["spreadsheet_key"])
 
+    # Export Phabricator group data
+    export = []
+    export.append(
+        [
+            "Date",
+            "Android Reviewed",
+            "Android Avg Review Time (h)",
+            "Android Distribution",
+            "Fluent Reviewed",
+            "Fluent Avg Review Time (h)",
+            "Fluent Distribution",
+        ]
+    )
+
+    def get_distribution(day_data, group):
+        total = 0
+        distribution = {}
+        details = day_data.get(group, {}).get("details", {})
+        if not details:
+            return ""
+
+        for user, user_data in details.items():
+            distribution[user] = len(user_data)
+            total += len(user_data)
+        distribution = {k: round(v * 100 / total, 2) for k, v in distribution.items()}
+
+        return ", ".join([f"{user}: {perc}%" for user, perc in distribution.items()])
+
+    for day, day_data in data["phab-groups"].items():
+        _row = [
+            day,
+            day_data.get("android-l10n-reviewers", {}).get("total_reviews", 0),
+            day_data.get("android-l10n-reviewers", {}).get("average_review_time", ""),
+            get_distribution(day_data, "android-l10n-reviewers"),
+            day_data.get("fluent-reviewers", {}).get("total_reviews", 0),
+            day_data.get("fluent-reviewers", {}).get("average_review_time", ""),
+            get_distribution(day_data, "fluent-reviewers"),
+        ]
+        export.append(_row)
+    update_sheet(sh, "raw_phab_groups", export)
+
     # Export Jira LSP (vendor) stats
     export = []
     export.append(
