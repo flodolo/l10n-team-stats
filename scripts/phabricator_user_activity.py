@@ -209,7 +209,7 @@ def main():
     if all_reviews:
         avg_review = round(statistics.mean(all_reviews), 2)
         print(f"Average time to review: {avg_review}")
-        stats["phab-avg-time-to-reviews"] = avg_review
+        stats["phab-avg-time-to-review"] = avg_review
     store_json_data("epm-reviews", stats, extend=True, day=end_date)
 
 
