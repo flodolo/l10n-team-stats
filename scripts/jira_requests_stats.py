@@ -18,7 +18,7 @@ from functions import (
 def store_date(issue_data, issue, field, dt):
     issue_id = issue.key
     if issue_id not in issue_data:
-        # If deadline is not defined, assume 1 week from filing
+        # If deadline is not defined, assume 1 week from filing.
         if issue.fields.duedate:
             deadline = issue.fields.duedate
         else:
@@ -37,12 +37,11 @@ def store_date(issue_data, issue, field, dt):
 
 def main():
     args = parse_arguments()
-    since_date = args.start
-    str_since_date = since_date.strftime("%Y-%m-%d")
-    # Consider a period of 7 days from the start date.
-    end_date = args.start + datetime.timedelta(days=7)
+    start_date = args.start
+    str_start_date = start_date.strftime("%Y-%m-%d")
+    end_date = args.end
     str_end_date = end_date.strftime("%Y-%m-%d")
-    print(f"Checking issues changed between {str_since_date} and {str_end_date}")
+    print(f"Checking issues changed between {str_start_date} and {str_end_date}")
 
     jira = get_jira_object()
 
@@ -50,7 +49,7 @@ def main():
     # not just created.
     issues = search_jira_issues(
         jira,
-        f"project = 'l10n-requests' AND status != Blocked AND status CHANGED FROM 'BACKLOG' DURING ('{str_since_date}', '{str_end_date}')",
+        f"project = 'l10n-requests' AND status != Blocked AND status CHANGED FROM 'BACKLOG' DURING ('{str_start_date}', '{str_end_date}')",
         changelog=True,
     )
 
@@ -62,17 +61,17 @@ def main():
             continue
         for history in reversed(issue.changelog.histories):
             for item in history.items:
-                # Ignore changes without a fieldId (e.g. parent change)
+                # Ignore changes without a fieldId (e.g. issue's parent change).
                 if not hasattr(item, "fieldId"):
                     continue
 
-                # Don't reset fields if an issue was reopened
+                # Don't reset fields if an issue was reopened.
                 if (
                     item.fieldId == "status"
                     and item.toString == "In Progress"
                     and not issue_data.get(issue.key, {}).get("triaged", None)
                 ):
-                    if check_date_interval(since_date, end_date, history.created):
+                    if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "triaged", history.created)
                     else:
                         print(f"Ignored triage date out of bounds {history.created}")
@@ -81,7 +80,7 @@ def main():
                     and item.toString == "Done"
                     and not issue_data.get(issue.key, {}).get("completed", None)
                 ):
-                    if check_date_interval(since_date, end_date, history.created):
+                    if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "completed", history.created)
                     else:
                         print(f"Ignored completed date out of bounds {history.created}")
@@ -118,7 +117,7 @@ def main():
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
             )
-            # Add timezone, consider end of day
+            # Add timezone, assume end of day.
             deadline_dt = deadline_dt.replace(
                 tzinfo=datetime.timezone.utc, hour=23, minute=59, second=59
             )
@@ -141,7 +140,7 @@ def main():
     record["completed"] = ", ".join(completed)
     record["num_completed"] = len(completed)
 
-    store_json_data("jira-request-stats", record, day=str_end_date)
+    store_json_data("jira-request-stats", record, day=end_date)
 
 
 if __name__ == "__main__":

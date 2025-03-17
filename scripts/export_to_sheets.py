@@ -300,8 +300,9 @@ def main():
             "Date",
             "Phabricator\nAuthored",
             "Phabricator\nReviewed",
+            "Phabricator\nAvg Review\nTime (h)",
             "GitHub\nReviewed",
-            "Avg Review\nTime (h)",
+            "GitHub\nAvg Review\nTime (h)",
             "GitHub\nPR Opened",
             "Active\nRepositories",
         ]
@@ -311,6 +312,7 @@ def main():
             day,
             day_data["phab-authored"],
             day_data["phab-reviewed"],
+            day_data.get("phab-avg-time-to-review", ""),
             day_data["github-reviews"],
             day_data["github-avg-time-to-review"],
             day_data["github-pr-created"],

@@ -19,6 +19,7 @@ from functions import (
 def main():
     args = parse_arguments()
     start_date = args.start
+    end_date = args.end
 
     usernames = get_gh_usernames()
     record = {}
@@ -44,7 +45,7 @@ def main():
     repos.remove("total")
     repos.sort()
 
-    get_pr_details(repos, active_usernames, start_date, pr_stats)
+    get_pr_details(repos, active_usernames, start_date, end_date, pr_stats)
 
     print("\n-----------\n")
     for username, name in usernames.items():
@@ -96,7 +97,7 @@ def main():
     print(f"\nNumber of pull requests created: {total_created}")
     print(f"\nNumber of repositories: {len(period_data['repositories'])}")
 
-    store_json_data("epm-reviews", record, extend=True)
+    store_json_data("epm-reviews", record, extend=True, day=end_date)
 
 
 if __name__ == "__main__":

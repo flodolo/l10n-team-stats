@@ -15,15 +15,17 @@ from functions import (
 
 def main():
     args = parse_arguments(repo=True)
-    date_since = args.start.strftime("%Y-%m-%d")
+    str_start_date = args.start.strftime("%Y-%m-%d")
+    end_date = args.end
+    str_end_date = end_date.strftime("%Y-%m-%d")
     repo = args.repo
 
     g = get_github_object()
     record = {}
 
-    ## Opened pull requests
+    # Opened pull requests.
     opened = g.search_issues(
-        query=f"repo:{repo} is:pr created:>={date_since}",
+        query=f"repo:{repo} is:pr created:{str_start_date}..{str_end_date}",
         sort="created",
         order="desc",
     )
@@ -39,12 +41,14 @@ def main():
                 print(f"Created: {created_at}")
 
         count = len(prs)
-        print(f"Opened PRs since {date_since} ({count}): {', '.join(prs)}")
+        print(
+            f"Opened PRs between {str_start_date} and {str_end_date} ({count}): {', '.join(prs)}"
+        )
         record["opened"] = count
 
-    ## Closed pull requests
+    # Closed pull requests.
     closed = g.search_issues(
-        query=f"repo:{repo} is:pr is:closed closed:>={date_since}",
+        query=f"repo:{repo} is:pr is:closed closed:{str_start_date}..{str_end_date}",
         sort="created",
         order="desc",
     )
@@ -66,14 +70,16 @@ def main():
 
         count = len(prs)
         avg_time = round(overall_time / count) if count > 0 else 0
-        print(f"Closed PRs since {date_since} ({count}): {', '.join(prs)}")
+        print(
+            f"Closed PRs between {str_start_date} and {str_end_date} ({count}): {', '.join(prs)}"
+        )
         record["closed"] = count
-        # Store value in hours
+        # Store value in hours.
         record["avg-time-to-close"] = round(avg_time / 3600, 1)
         if avg_time > 0:
             print(f"Average time to close: {format_time(avg_time)}")
 
-    ## Open pull requests
+    # Pull requests currently open.
     open = g.search_issues(
         query=f"repo:{repo} is:pr is:open",
         sort="created",
@@ -96,13 +102,13 @@ def main():
         count = len(prs)
         avg_age = round(age / count) if count > 0 else 0
         record["open"] = count
-        # Store value in hours
+        # Store value in hours.
         record["avg-age-open"] = round(avg_age / 3600, 1)
         print(f"Open PRs as of {today.strftime('%Y-%m-%d')}: {count}")
         if avg_age > 0:
             print(f"Average age: {format_time(avg_age)}")
 
-    store_json_data("pontoon-prs", record)
+    store_json_data("pontoon-prs", record, day=end_date)
 
 
 if __name__ == "__main__":

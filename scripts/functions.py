@@ -9,10 +9,28 @@ import argparse
 import configparser
 import json
 import os
+import re
 import requests
 import urllib.parse as url_parse
 import urllib.request as url_request
 import urllib3
+
+
+class InlineListEncoder(json.JSONEncoder):
+    def encode(self, o):
+        # First, encode using the parent class to respect indent and sort_keys.
+        json_str = super().encode(o)
+        # Define a regex pattern that matches arrays containing one or more nested arrays.
+        pattern = re.compile(r"\[\s*((?:\[[^\[\]]+\](?:,\s*)?)+)\s*\]")
+
+        def collapse(match):
+            inner = match.group(1)
+            # Replace newlines and extra whitespace inside the array with a single space.
+            inner = re.sub(r"\s*\n\s*", " ", inner)
+            return "[" + inner + "]"
+
+        # Apply the regex substitution to collapse nested arrays.
+        return pattern.sub(collapse, json_str)
 
 
 def ymd(value):
@@ -26,7 +44,6 @@ def parse_arguments(
     repo=False,
     user=False,
     group=False,
-    end_date=False,
 ):
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -35,6 +52,7 @@ def parse_arguments(
         type=ymd,
         help="Start date (YYYY-MM-DD, defaults to 1 week ago)",
     )
+    parser.add_argument("--end", "-e", help="End date for analysis (YYYY-MM-DD)")
     parser.add_argument(
         "--verbose", "-v", help="Print list of revisions", action="store_true"
     )
@@ -42,8 +60,6 @@ def parse_arguments(
         parser.add_argument(
             "--repo", "-r", help="Repository (e.g. mozilla/pontoon))", required=True
         )
-    if end_date:
-        parser.add_argument("--end", "-e", help="End date for analysis (YYYY-MM-DD)")
     if group:
         parser.add_argument("--group", "-g", help="Group name on Phabricator")
     if user:
@@ -54,14 +70,13 @@ def parse_arguments(
         args.start = datetime.today() - timedelta(weeks=1)
     args.start = args.start.replace(hour=0, minute=0, second=0, microsecond=0)
 
-    if end_date:
-        if args.end:
-            args.end = datetime.strptime(args.end, "%Y-%m-%d")
-            args.end = args.end.replace(
-                hour=23, minute=59, second=59, microsecond=999999
-            )
-        else:
-            args.end = datetime.now()
+    # By default, the period is 1 week (7 days) from the start date (or from
+    # today, if not provided).
+    if args.end:
+        args.end = datetime.strptime(args.end, "%Y-%m-%d")
+    else:
+        args.end = args.start + timedelta(weeks=1)
+    args.end = args.end.replace(hour=0, minute=0, second=0, microsecond=0)
 
     return args
 
@@ -204,22 +219,24 @@ def get_phab_usernames():
 
 def write_json_data(json_data):
     json_file = get_json_file()
+
     with open(json_file, "w+") as f:
-        f.write(json.dumps(json_data, indent=2, sort_keys=True))
+        f.write(json.dumps(json_data, cls=InlineListEncoder, indent=2, sort_keys=True))
 
 
 def store_json_data(key, record, day=None, extend=False):
     json_data = get_json_data()
     if not day:
-        day = datetime.today().strftime("%Y-%m-%d")
+        day = datetime.today()
+    day_str = day.strftime("%Y-%m-%d")
     if key not in json_data:
         json_data[key] = {}
     if extend:
-        data = json_data[key].get(day, {})
+        data = json_data[key].get(day_str, {})
         data.update(record)
-        json_data[key][day] = data
+        json_data[key][day_str] = data
     else:
-        json_data[key][day] = record
+        json_data[key][day_str] = record
 
     write_json_data(json_data)
 
@@ -318,14 +335,12 @@ def get_user_pr_collection(period_data, start_date):
             print(e)
 
 
-def get_pr_details(
-    repos, usernames, start_date, pr_stats, end_date=None, single_repo=False
-):
+def get_pr_details(repos, usernames, start_date, end_date, pr_stats, single_repo=False):
     query_prs = """
 {
   search(
     first: 100
-    query: "repo:%REPO% is:pr created:>=%START%"
+    query: "repo:%REPO% is:pr created:%START%..%END%"
     type: ISSUE
     %CURSOR%
   ) {
@@ -359,9 +374,6 @@ def get_pr_details(
   }
 }
 """
-
-    if end_date:
-        query_prs = query_prs.replace(">=%START%", "%START%..%END%")
 
     start_query = start_date - timedelta(weeks=6)
     query_prs = query_prs.replace("%START%", start_query.strftime("%Y-%m-%d"))
