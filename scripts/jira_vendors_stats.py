@@ -59,6 +59,7 @@ def main():
         print(f"Checking issue {issue.key}")
         if issue.key in ignored_issues:
             continue
+        triaged_issue = False
         for history in reversed(issue.changelog.histories):
             for item in history.items:
                 # Ignore changes without a fieldId (e.g. issue's parent change).
@@ -69,12 +70,28 @@ def main():
                     item.fieldId == "status"
                     and item.fromString == "Backlog"
                     and item.toString == "To Do"
-                    and not issue_data.get(issue.key, {}).get("triaged", None)
+                    and not triaged_issue
                 ):
+                    triaged_issue = True
                     if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "triaged", history.created)
                     else:
                         print(f"Ignored triage date out of bounds {history.created}")
+
+                if (
+                    item.fieldId == "status"
+                    and item.toString == "Scheduled"
+                    and not issue_data.get(issue.key, {}).get("scheduled", None)
+                ):
+                    # If the issue moved from Backlog to Scheduled without going
+                    # trough To Do, store the scheduled date as triaged.
+                    if check_date_interval(start_date, end_date, history.created):
+                        if item.fromString == "Backlog" and not triaged_issue:
+                            store_date(issue_data, issue, "triaged", history.created)
+                        store_date(issue_data, issue, "scheduled", history.created)
+                    else:
+                        print(f"Ignored scheduled date out of bounds {history.created}")
+
                 if (
                     item.fieldId == "status"
                     and item.toString == "Vendor Delivery"
@@ -84,15 +101,6 @@ def main():
                         store_date(issue_data, issue, "delivered", history.created)
                     else:
                         print(f"Ignored delivered date out of bounds {history.created}")
-                if (
-                    item.fieldId == "status"
-                    and item.toString == "Scheduled"
-                    and not issue_data.get(issue.key, {}).get("scheduled", None)
-                ):
-                    if check_date_interval(start_date, end_date, history.created):
-                        store_date(issue_data, issue, "scheduled", history.created)
-                    else:
-                        print(f"Ignored scheduled date out of bounds {history.created}")
 
     times = {
         "triage": [],
@@ -105,7 +113,7 @@ def main():
         create_dt = datetime.datetime.strptime(
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
         )
-        triage_str = issue_details.get("triaged", issue_details.get("scheduled", None))
+        triage_str = issue_details.get("triaged", None)
         if triage_str is not None:
             triage_dt = datetime.datetime.strptime(triage_str, "%Y-%m-%dT%H:%M:%S.%f%z")
             delta = triage_dt - create_dt

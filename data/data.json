@@ -2060,9 +2060,9 @@
       "deliver": 2.86,
       "delivered": "L10NV-185",
       "num_delivered": 1,
-      "num_triaged": 3,
-      "triage": 0.3,
-      "triaged": "L10NV-184, L10NV-185, L10NV-186"
+      "num_triaged": 2,
+      "triage": 0.05,
+      "triaged": "L10NV-185, L10NV-186"
     },
     "2024-03-22": {
       "deadline": -0.22,
@@ -2078,9 +2078,9 @@
       "deliver": 5.67,
       "delivered": "L10NV-186, L10NV-188, L10NV-191",
       "num_delivered": 3,
-      "num_triaged": 5,
-      "triage": 0.41,
-      "triaged": "L10NV-189, L10NV-191, L10NV-193, L10NV-197, L10NV-198"
+      "num_triaged": 3,
+      "triage": 0.07,
+      "triaged": "L10NV-193, L10NV-197, L10NV-198"
     },
     "2024-04-05": {
       "deadline": -1.62,
@@ -2204,9 +2204,9 @@
       "deliver": 0,
       "delivered": "",
       "num_delivered": 0,
-      "num_triaged": 3,
-      "triage": 0.56,
-      "triaged": "L10NV-214, L10NV-215, L10NV-216"
+      "num_triaged": 1,
+      "triage": 0.19,
+      "triaged": "L10NV-216"
     },
     "2024-07-12": {
       "deadline": 2.63,
@@ -2357,18 +2357,18 @@
       "deliver": 5.85,
       "delivered": "L10NV-246, L10NV-247, L10NV-251, L10NV-252, L10NV-253",
       "num_delivered": 5,
-      "num_triaged": 3,
-      "triage": 18.41,
-      "triaged": "L10NV-230, L10NV-253, L10NV-254"
+      "num_triaged": 2,
+      "triage": 0.97,
+      "triaged": "L10NV-253, L10NV-254"
     },
     "2024-11-08": {
       "deadline": 0,
       "deliver": 0,
       "delivered": "",
       "num_delivered": 0,
-      "num_triaged": 1,
-      "triage": 1.05,
-      "triaged": "L10NV-254"
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     },
     "2024-11-15": {
       "deadline": 0.52,
@@ -2470,7 +2470,7 @@
       "triaged": "L10NV-263, L10NV-264"
     },
     "2025-01-31": {
-      "deadline": -5.2,
+      "deadline": -9.87,
       "deliver": 7.24,
       "delivered": "L10NV-263, L10NV-264, L10NV-266",
       "num_delivered": 3,
