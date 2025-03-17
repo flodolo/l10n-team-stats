@@ -6,7 +6,16 @@
       "github-repositories": 15,
       "github-reviews": 22,
       "phab-authored": 0,
-      "phab-reviewed": 9
+      "phab-avg-time-to-reviews": 41.7,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D200328", 99.28 ], [ "D200689", 77.02 ], [ "D200729", 72.73 ], [ "D201157", 1.11 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D200388", 31.06 ], [ "D200927", 2.0 ], [ "D201010", 8.69 ]]
+        }
+      },
+      "phab-reviewed": 7
     },
     "2024-02-16": {
       "github-avg-time-to-review": 70.2,
@@ -14,6 +23,15 @@
       "github-repositories": 15,
       "github-reviews": 25,
       "phab-authored": 0,
+      "phab-avg-time-to-reviews": 192.31,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D197954", 769.85 ], [ "D201225", 72.66 ], [ "D201251", 124.37 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D201025", 126.45 ], [ "D201652", 57.33 ], [ "D201664", 3.21 ]]
+        }
+      },
       "phab-reviewed": 6
     },
     "2024-02-23": {
@@ -22,6 +40,15 @@
       "github-repositories": 15,
       "github-reviews": 16,
       "phab-authored": 0,
+      "phab-avg-time-to-reviews": 235.27,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D198828", 703.37 ], [ "D202335", 0.83 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D202205", 1.61 ]]
+        }
+      },
       "phab-reviewed": 3
     },
     "2024-03-01": {
@@ -30,7 +57,13 @@
       "github-repositories": 15,
       "github-reviews": 21,
       "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 32.52,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D202747", 49.16 ], [ "D203075", 15.87 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-03-08": {
       "github-avg-time-to-review": 45.3,
@@ -38,7 +71,16 @@
       "github-repositories": 14,
       "github-reviews": 17,
       "phab-authored": 0,
-      "phab-reviewed": 6
+      "phab-avg-time-to-reviews": 27.03,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D203331", 69.62 ], [ "D203615", 29.43 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D203753", 1.04 ], [ "D203877", 8.01 ]]
+        }
+      },
+      "phab-reviewed": 4
     },
     "2024-03-15": {
       "github-avg-time-to-review": 132.4,
@@ -46,7 +88,16 @@
       "github-repositories": 12,
       "github-reviews": 25,
       "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 43.85,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D204142", 100.35 ], [ "D204557", 22.98 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D204302", 8.21 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-03-22": {
       "github-avg-time-to-review": 35.7,
@@ -54,7 +105,13 @@
       "github-repositories": 15,
       "github-reviews": 29,
       "phab-authored": 0,
-      "phab-reviewed": 5
+      "phab-avg-time-to-reviews": 20.79,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D204978", 33.9 ], [ "D205121", 22.22 ], [ "D205157", 6.26 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-03-29": {
       "github-avg-time-to-review": 24.0,
@@ -62,6 +119,15 @@
       "github-repositories": 12,
       "github-reviews": 21,
       "phab-authored": 0,
+      "phab-avg-time-to-reviews": 185.23,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D202678", 717.3 ], [ "D205611", 25.22 ], [ "D205614", 24.48 ], [ "D205618", 24.12 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D205090", 135.02 ]]
+        }
+      },
       "phab-reviewed": 5
     },
     "2024-04-05": {
@@ -70,6 +136,15 @@
       "github-repositories": 10,
       "github-reviews": 15,
       "phab-authored": 0,
+      "phab-avg-time-to-reviews": 6.33,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D206678", 3.74 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D206246", 15.02 ], [ "D206654", 0.23 ]]
+        }
+      },
       "phab-reviewed": 3
     },
     "2024-04-12": {
@@ -78,7 +153,16 @@
       "github-repositories": 12,
       "github-reviews": 35,
       "phab-authored": 0,
-      "phab-reviewed": 8
+      "phab-avg-time-to-reviews": 44.92,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D206813", 1.47 ], [ "D207148", 5.46 ], [ "D207199", 22.23 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D206746", 107.22 ], [ "D206828", 127.27 ], [ "D207092", 5.9 ]]
+        }
+      },
+      "phab-reviewed": 6
     },
     "2024-04-19": {
       "github-avg-time-to-review": 46.0,
@@ -86,7 +170,16 @@
       "github-repositories": 14,
       "github-reviews": 18,
       "phab-authored": 0,
-      "phab-reviewed": 13
+      "phab-avg-time-to-reviews": 12.94,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D207436", 2.89 ], [ "D207480", 22.88 ], [ "D207602", 3.68 ], [ "D207731", 6.08 ], [ "D207770", 26.54 ], [ "D207840", 11.93 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D207823", 16.59 ]]
+        }
+      },
+      "phab-reviewed": 7
     },
     "2024-04-26": {
       "github-avg-time-to-review": 36.9,
@@ -94,7 +187,16 @@
       "github-repositories": 13,
       "github-reviews": 31,
       "phab-authored": 0,
-      "phab-reviewed": 9
+      "phab-avg-time-to-reviews": 36.04,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D207824", 39.08 ], [ "D207949", 16.75 ], [ "D208057", 65.16 ], [ "D208195", 22.78 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D208383", 36.42 ]]
+        }
+      },
+      "phab-reviewed": 5
     },
     "2024-05-03": {
       "github-avg-time-to-review": 48.9,
@@ -102,7 +204,16 @@
       "github-repositories": 16,
       "github-reviews": 23,
       "phab-authored": 0,
-      "phab-reviewed": 5
+      "phab-avg-time-to-reviews": 16.39,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D208678", 3.57 ], [ "D208701", 15.53 ], [ "D208750", 3.37 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D208929", 20.05 ], [ "D208934", 46.42 ], [ "D209055", 9.4 ]]
+        }
+      },
+      "phab-reviewed": 6
     },
     "2024-05-10": {
       "github-avg-time-to-review": 56.1,
@@ -110,7 +221,20 @@
       "github-repositories": 15,
       "github-reviews": 23,
       "phab-authored": 2,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 81.48,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D207775", 460.27 ], [ "D209636", 9.93 ], [ "D209653", 7.96 ]]
+        },
+        "flod": {
+          "authored": [
+            "D209352",
+            "D209495"
+          ],
+          "reviewed": [[ "D209636", 2.12 ], [ "D209639", 0.14 ], [ "D209653", 8.44 ]]
+        }
+      },
+      "phab-reviewed": 6
     },
     "2024-05-17": {
       "github-avg-time-to-review": 51.6,
@@ -118,23 +242,61 @@
       "github-repositories": 14,
       "github-reviews": 20,
       "phab-authored": 1,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 9.23,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D210580"
+          ],
+          "reviewed": [[ "D210221", 2.93 ], [ "D210231", 1.2 ], [ "D210381", 26.27 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D210580", 6.51 ]]
+        }
+      },
+      "phab-reviewed": 4
     },
     "2024-05-24": {
       "github-avg-time-to-review": 35.3,
       "github-pr-created": 0,
       "github-repositories": 11,
       "github-reviews": 26,
-      "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-authored": 1,
+      "phab-avg-time-to-reviews": 58.23,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D210753", 116.19 ], [ "D211060", 0.26 ]]
+        },
+        "flod": {
+          "authored": [
+            "D209495"
+          ]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-05-31": {
       "github-avg-time-to-review": 22.8,
       "github-pr-created": 3,
       "github-repositories": 14,
       "github-reviews": 21,
-      "phab-authored": 2,
-      "phab-reviewed": 14
+      "phab-authored": 1,
+      "phab-avg-time-to-reviews": 29.51,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D211542", 7.1 ], [ "D211565", 125.65 ], [ "D211819", 38.43 ], [ "D212158", 1.82 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D211933", 1.79 ]]
+        },
+        "flod": {
+          "authored": [
+            "D211819"
+          ],
+          "reviewed": [[ "D211663", 50.8 ], [ "D211779", 10.47 ], [ "D211855", 0.02 ]]
+        }
+      },
+      "phab-reviewed": 8
     },
     "2024-06-07": {
       "github-avg-time-to-review": 19.3,
@@ -142,7 +304,23 @@
       "github-repositories": 16,
       "github-reviews": 32,
       "phab-authored": 2,
-      "phab-reviewed": 14
+      "phab-avg-time-to-reviews": 64.72,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D212203",
+            "D212341"
+          ],
+          "reviewed": [[ "D210040", 577.66 ], [ "D212157", 95.02 ], [ "D212472", 0.19 ], [ "D212480", 0.22 ], [ "D212686", 4.82 ], [ "D212852", 0.57 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D212175", 93.11 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D212203", 7.64 ], [ "D212341", 5.28 ], [ "D212621", 30.89 ], [ "D212647", 3.22 ], [ "D212737", 10.44 ], [ "D212756", 12.26 ]]
+        }
+      },
+      "phab-reviewed": 13
     },
     "2024-06-14": {
       "github-avg-time-to-review": 74.1,
@@ -150,7 +328,19 @@
       "github-repositories": 10,
       "github-reviews": 17,
       "phab-authored": 1,
-      "phab-reviewed": 6
+      "phab-avg-time-to-reviews": 14.24,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D212784", 16.79 ], [ "D212994", 42.72 ], [ "D213072", 4.42 ]]
+        },
+        "flod": {
+          "authored": [
+            "D212900"
+          ],
+          "reviewed": [[ "D213328", 7.2 ], [ "D213434", 0.06 ]]
+        }
+      },
+      "phab-reviewed": 5
     },
     "2024-06-21": {
       "github-avg-time-to-review": 21.2,
@@ -158,7 +348,18 @@
       "github-repositories": 13,
       "github-reviews": 18,
       "phab-authored": 1,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 4.17,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D214158", 4.17 ]]
+        },
+        "flod": {
+          "authored": [
+            "D213761"
+          ]
+        }
+      },
+      "phab-reviewed": 1
     },
     "2024-06-28": {
       "github-avg-time-to-review": 34.5,
@@ -166,15 +367,33 @@
       "github-repositories": 11,
       "github-reviews": 17,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-avg-time-to-reviews": 206.37,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D213974", 171.49 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D212470", 441.57 ], [ "D214489", 6.04 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-07-05": {
       "github-avg-time-to-review": 14.9,
       "github-pr-created": 7,
       "github-repositories": 15,
       "github-reviews": 19,
-      "phab-authored": 0,
-      "phab-reviewed": 13
+      "phab-authored": 1,
+      "phab-avg-time-to-reviews": 17.69,
+      "phab-details": {
+        "flod": {
+          "authored": [
+            "D110012"
+          ],
+          "reviewed": [[ "D215262", 7.94 ], [ "D215263", 7.97 ], [ "D215299", 55.39 ], [ "D215399", 0.13 ], [ "D215429", 32.91 ], [ "D215476", 27.68 ], [ "D215543", 9.11 ], [ "D215633", 2.22 ], [ "D215642", 23.77 ], [ "D215677", 9.81 ]]
+        }
+      },
+      "phab-reviewed": 10
     },
     "2024-07-12": {
       "github-avg-time-to-review": 34.8,
@@ -182,6 +401,12 @@
       "github-repositories": 12,
       "github-reviews": 20,
       "phab-authored": 0,
+      "phab-avg-time-to-reviews": 342.3,
+      "phab-details": {
+        "flod": {
+          "reviewed": [[ "D212647", 845.3 ], [ "D215273", 289.25 ], [ "D215399", 165.31 ], [ "D215972", 69.35 ]]
+        }
+      },
       "phab-reviewed": 4
     },
     "2024-07-19": {
@@ -190,7 +415,13 @@
       "github-repositories": 9,
       "github-reviews": 16,
       "phab-authored": 0,
-      "phab-reviewed": 6
+      "phab-avg-time-to-reviews": 159.28,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D215471", 343.88 ], [ "D216473", 112.66 ], [ "D216845", 21.31 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-07-26": {
       "github-avg-time-to-review": 66.8,
@@ -198,7 +429,16 @@
       "github-repositories": 14,
       "github-reviews": 27,
       "phab-authored": 1,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 80.57,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D217148"
+          ],
+          "reviewed": [[ "D216886", 43.62 ], [ "D217045", 117.52 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-08-02": {
       "github-avg-time-to-review": 42.1,
@@ -206,7 +446,16 @@
       "github-repositories": 12,
       "github-reviews": 19,
       "phab-authored": 0,
-      "phab-reviewed": 10
+      "phab-avg-time-to-reviews": 66.27,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D217646", 114.16 ], [ "D217743", 95.91 ], [ "D217770", 91.65 ], [ "D217793", 156.54 ], [ "D218325", 4.46 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D218075", 0.59 ], [ "D218319", 0.6 ]]
+        }
+      },
+      "phab-reviewed": 7
     },
     "2024-08-09": {
       "github-avg-time-to-review": 60.0,
@@ -214,7 +463,21 @@
       "github-repositories": 16,
       "github-reviews": 25,
       "phab-authored": 3,
-      "phab-reviewed": 3
+      "phab-avg-time-to-reviews": 32.61,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D218279", 39.97 ], [ "D218358", 93.86 ]]
+        },
+        "flod": {
+          "authored": [
+            "D218628",
+            "D218709",
+            "D218710"
+          ],
+          "reviewed": [[ "D218360", 21.54 ], [ "D218620", 2.21 ], [ "D218804", 5.49 ]]
+        }
+      },
+      "phab-reviewed": 5
     },
     "2024-08-16": {
       "github-avg-time-to-review": 21.7,
@@ -222,7 +485,16 @@
       "github-repositories": 8,
       "github-reviews": 7,
       "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-avg-time-to-reviews": 232.24,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D218311", 179.17 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D217777", 470.95 ], [ "D219015", 46.59 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-08-23": {
       "github-avg-time-to-review": 58.8,
@@ -230,7 +502,16 @@
       "github-repositories": 12,
       "github-reviews": 10,
       "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 24.57,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D219712", 39.08 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D219324", 45.97 ], [ "D219370", 3.25 ], [ "D219543", 9.97 ]]
+        }
+      },
+      "phab-reviewed": 4
     },
     "2024-08-30": {
       "github-avg-time-to-review": 25.5,
@@ -238,7 +519,16 @@
       "github-repositories": 17,
       "github-reviews": 30,
       "phab-authored": 1,
-      "phab-reviewed": 6
+      "phab-avg-time-to-reviews": 6.65,
+      "phab-details": {
+        "flod": {
+          "authored": [
+            "D218628"
+          ],
+          "reviewed": [[ "D220165", 15.38 ], [ "D220222", 4.52 ], [ "D220597", 0.04 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-09-06": {
       "github-avg-time-to-review": 65.3,
@@ -246,7 +536,21 @@
       "github-repositories": 14,
       "github-reviews": 25,
       "phab-authored": 2,
-      "phab-reviewed": 4
+      "phab-avg-time-to-reviews": 79.42,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D220638"
+          ]
+        },
+        "flod": {
+          "authored": [
+            "D221113"
+          ],
+          "reviewed": [[ "D220638", 79.42 ]]
+        }
+      },
+      "phab-reviewed": 1
     },
     "2024-09-13": {
       "github-avg-time-to-review": 64.7,
@@ -254,15 +558,43 @@
       "github-repositories": 18,
       "github-reviews": 28,
       "phab-authored": 3,
-      "phab-reviewed": 5
+      "phab-avg-time-to-reviews": 13.48,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D221677", 24.92 ], [ "D221992", 6.59 ]]
+        },
+        "flod": {
+          "authored": [
+            "D221287",
+            "D221918",
+            "D221992"
+          ],
+          "reviewed": [[ "D221421", 8.94 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-09-20": {
       "github-avg-time-to-review": 29.1,
       "github-pr-created": 8,
       "github-repositories": 17,
       "github-reviews": 36,
-      "phab-authored": 1,
-      "phab-reviewed": 6
+      "phab-authored": 3,
+      "phab-avg-time-to-reviews": 50.78,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D222143", 73.26 ], [ "D222173", 98.44 ], [ "D222682", 25.98 ]]
+        },
+        "flod": {
+          "authored": [
+            "D221918",
+            "D221992",
+            "D222111"
+          ],
+          "reviewed": [[ "D222569", 5.45 ]]
+        }
+      },
+      "phab-reviewed": 4
     },
     "2024-09-27": {
       "github-avg-time-to-review": 28.2,
@@ -270,7 +602,19 @@
       "github-repositories": 17,
       "github-reviews": 39,
       "phab-authored": 1,
-      "phab-reviewed": 10
+      "phab-avg-time-to-reviews": 95.64,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D220155", 678.71 ], [ "D223113", 29.18 ], [ "D223153", 24.75 ], [ "D223314", 5.05 ], [ "D223417", 0.59 ]]
+        },
+        "flod": {
+          "authored": [
+            "D223048"
+          ],
+          "reviewed": [[ "D223064", 19.16 ], [ "D223280", 7.64 ], [ "D223775", 0.01 ]]
+        }
+      },
+      "phab-reviewed": 8
     },
     "2024-10-04": {
       "github-avg-time-to-review": 16.1,
@@ -278,7 +622,13 @@
       "github-repositories": 15,
       "github-reviews": 34,
       "phab-authored": 0,
-      "phab-reviewed": 4
+      "phab-avg-time-to-reviews": 62.09,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D223959", 73.45 ], [ "D224236", 50.73 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-10-11": {
       "github-avg-time-to-review": 24.5,
@@ -286,7 +636,16 @@
       "github-repositories": 12,
       "github-reviews": 19,
       "phab-authored": 0,
-      "phab-reviewed": 4
+      "phab-avg-time-to-reviews": 9.53,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D225047", 19.02 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D224756", 0.04 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-10-18": {
       "github-avg-time-to-review": 62.4,
@@ -294,7 +653,16 @@
       "github-repositories": 16,
       "github-reviews": 23,
       "phab-authored": 0,
-      "phab-reviewed": 6
+      "phab-avg-time-to-reviews": 127.86,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D223640", 381.26 ], [ "D225541", 51.1 ], [ "D225550", 23.72 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D225047", 55.37 ]]
+        }
+      },
+      "phab-reviewed": 4
     },
     "2024-10-25": {
       "github-avg-time-to-review": 29.0,
@@ -302,7 +670,16 @@
       "github-repositories": 18,
       "github-reviews": 28,
       "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 29.07,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D226042", 98.07 ], [ "D226346", 5.29 ], [ "D226677", 5.72 ], [ "D226698", 3.09 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D226205", 61.99 ], [ "D226622", 0.24 ]]
+        }
+      },
+      "phab-reviewed": 6
     },
     "2024-11-01": {
       "github-avg-time-to-review": 24.5,
@@ -310,15 +687,41 @@
       "github-repositories": 15,
       "github-reviews": 21,
       "phab-authored": 1,
-      "phab-reviewed": 3
+      "phab-avg-time-to-reviews": 0.53,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D227413"
+          ]
+        },
+        "flod": {
+          "reviewed": [[ "D227343", 0.53 ]]
+        }
+      },
+      "phab-reviewed": 1
     },
     "2024-11-08": {
       "github-avg-time-to-review": 81.6,
       "github-pr-created": 6,
       "github-repositories": 12,
       "github-reviews": 14,
-      "phab-authored": 1,
-      "phab-reviewed": 8
+      "phab-authored": 2,
+      "phab-avg-time-to-reviews": 44.32,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D227413"
+          ],
+          "reviewed": [[ "D227809", 8.35 ]]
+        },
+        "flod": {
+          "authored": [
+            "D227809"
+          ],
+          "reviewed": [[ "D227413", 116.85 ], [ "D227759", 7.76 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-11-15": {
       "github-avg-time-to-review": 41.6,
@@ -326,7 +729,13 @@
       "github-repositories": 16,
       "github-reviews": 18,
       "phab-authored": 0,
-      "phab-reviewed": 4
+      "phab-avg-time-to-reviews": 24.51,
+      "phab-details": {
+        "flod": {
+          "reviewed": [[ "D228235", 41.64 ], [ "D228576", 7.38 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-11-22": {
       "github-avg-time-to-review": 51.0,
@@ -334,7 +743,16 @@
       "github-repositories": 15,
       "github-reviews": 25,
       "phab-authored": 1,
-      "phab-reviewed": 5
+      "phab-avg-time-to-reviews": 33.97,
+      "phab-details": {
+        "flod": {
+          "authored": [
+            "D229752"
+          ],
+          "reviewed": [[ "D228729", 66.02 ], [ "D229123", 1.92 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2024-11-29": {
       "github-avg-time-to-review": 61.5,
@@ -342,7 +760,13 @@
       "github-repositories": 15,
       "github-reviews": 22,
       "phab-authored": 0,
-      "phab-reviewed": 9
+      "phab-avg-time-to-reviews": 30.44,
+      "phab-details": {
+        "flod": {
+          "reviewed": [[ "D229838", 12.65 ], [ "D229839", 12.66 ], [ "D229904", 119.79 ], [ "D230153", 61.06 ], [ "D230237", 1.16 ], [ "D230251", 4.42 ], [ "D230434", 1.33 ]]
+        }
+      },
+      "phab-reviewed": 7
     },
     "2024-12-06": {
       "github-avg-time-to-review": 68.8,
@@ -350,7 +774,16 @@
       "github-repositories": 14,
       "github-reviews": 23,
       "phab-authored": 0,
-      "phab-reviewed": 10
+      "phab-avg-time-to-reviews": 28.07,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D230727", 69.09 ], [ "D230958", 31.29 ], [ "D230959", 28.31 ], [ "D231031", 0.27 ], [ "D231311", 2.8 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D230721", 63.03 ], [ "D230760", 1.72 ]]
+        }
+      },
+      "phab-reviewed": 7
     },
     "2024-12-13": {
       "github-avg-time-to-review": 24.4,
@@ -358,7 +791,13 @@
       "github-repositories": 13,
       "github-reviews": 25,
       "phab-authored": 0,
-      "phab-reviewed": 7
+      "phab-avg-time-to-reviews": 186.29,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D229954", 437.87 ], [ "D231206", 107.94 ], [ "D231501", 13.05 ]]
+        }
+      },
+      "phab-reviewed": 3
     },
     "2024-12-20": {
       "github-avg-time-to-review": 24.3,
@@ -366,7 +805,16 @@
       "github-repositories": 17,
       "github-reviews": 31,
       "phab-authored": 0,
-      "phab-reviewed": 11
+      "phab-avg-time-to-reviews": 58.59,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D232050", 153.07 ], [ "D232275", 1.29 ], [ "D232389", 2.45 ], [ "D232540", 26.37 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D231964", 85.02 ], [ "D232008", 78.61 ], [ "D232090", 61.27 ], [ "D232100", 60.6 ]]
+        }
+      },
+      "phab-reviewed": 8
     },
     "2024-12-27": {
       "github-avg-time-to-review": 57.1,
@@ -374,7 +822,13 @@
       "github-repositories": 10,
       "github-reviews": 10,
       "phab-authored": 0,
-      "phab-reviewed": 2
+      "phab-avg-time-to-reviews": 12.21,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D232703", 12.21 ]]
+        }
+      },
+      "phab-reviewed": 1
     },
     "2025-01-03": {
       "github-avg-time-to-review": 94.2,
@@ -382,15 +836,36 @@
       "github-repositories": 12,
       "github-reviews": 11,
       "phab-authored": 2,
-      "phab-reviewed": 4
+      "phab-details": {
+        "flod": {
+          "authored": [
+            "D233030",
+            "D233074"
+          ]
+        }
+      },
+      "phab-reviewed": 0
     },
     "2025-01-10": {
       "github-avg-time-to-review": 60.1,
       "github-pr-created": 11,
       "github-repositories": 13,
       "github-reviews": 21,
-      "phab-authored": 0,
-      "phab-reviewed": 1
+      "phab-authored": 2,
+      "phab-avg-time-to-reviews": 92.12,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D233030", 183.86 ]]
+        },
+        "flod": {
+          "authored": [
+            "D233030",
+            "D233074"
+          ],
+          "reviewed": [[ "D233339", 0.39 ]]
+        }
+      },
+      "phab-reviewed": 2
     },
     "2025-01-17": {
       "github-avg-time-to-review": 49.3,
@@ -398,7 +873,22 @@
       "github-repositories": 13,
       "github-reviews": 29,
       "phab-authored": 1,
-      "phab-reviewed": 8
+      "phab-avg-time-to-reviews": 200.2,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D231182", 863.53 ], [ "D234074", 0.38 ], [ "D234104", 19.75 ], [ "D234219", 23.1 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D234089", 23.11 ]]
+        },
+        "flod": {
+          "authored": [
+            "D234046"
+          ],
+          "reviewed": [[ "D233023", 271.32 ]]
+        }
+      },
+      "phab-reviewed": 6
     },
     "2025-01-24": {
       "github-avg-time-to-review": 122.2,
@@ -406,7 +896,19 @@
       "github-repositories": 14,
       "github-reviews": 16,
       "phab-authored": 1,
-      "phab-reviewed": 16
+      "phab-avg-time-to-reviews": 31.91,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D234683", 110.29 ], [ "D234965", 15.87 ], [ "D234974", 30.17 ], [ "D234997", 29.02 ], [ "D235003", 12.99 ], [ "D235120", 10.59 ], [ "D235178", 3.9 ], [ "D235203", 0.63 ]]
+        },
+        "flod": {
+          "authored": [
+            "D235203"
+          ],
+          "reviewed": [[ "D234593", 105.3 ], [ "D235313", 0.29 ]]
+        }
+      },
+      "phab-reviewed": 10
     },
     "2025-01-31": {
       "github-avg-time-to-review": 32.2,
@@ -414,15 +916,47 @@
       "github-repositories": 16,
       "github-reviews": 34,
       "phab-authored": 2,
-      "phab-reviewed": 17
+      "phab-avg-time-to-reviews": 34.15,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D234905", 100.31 ], [ "D235422", 12.3 ], [ "D235464", 5.0 ], [ "D235715", 23.41 ], [ "D235741", 15.18 ], [ "D235836", 5.54 ], [ "D235995", 27.77 ], [ "D236013", 3.19 ], [ "D236035", 1.11 ], [ "D236063", 20.31 ], [ "D236167", 4.16 ]]
+        },
+        "flod": {
+          "authored": [
+            "D235741",
+            "D235914"
+          ],
+          "reviewed": [[ "D234678", 279.28 ], [ "D235056", 143.33 ], [ "D235337", 18.25 ], [ "D235376", 13.02 ], [ "D235640", 0.48 ], [ "D235666", 0.08 ], [ "D235697", 8.99 ], [ "D235782", 1.08 ], [ "D236023", 0.13 ]]
+        }
+      },
+      "phab-reviewed": 20
     },
     "2025-02-07": {
       "github-avg-time-to-review": 23.1,
       "github-pr-created": 7,
       "github-repositories": 11,
       "github-reviews": 21,
-      "phab-authored": 2,
-      "phab-reviewed": 17
+      "phab-authored": 5,
+      "phab-avg-time-to-reviews": 9.6,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D236461", 52.38 ], [ "D236504", 15.65 ], [ "D236551", 6.1 ], [ "D236588", 3.0 ], [ "D236873", 9.36 ], [ "D236910", 6.82 ], [ "D237127", 0.29 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D236389", 0.8 ]]
+        },
+        "flod": {
+          "authored": [
+            "D235203",
+            "D235741",
+            "D235914",
+            "D236472",
+            "D237000"
+          ],
+          "reviewed": [[ "D236333", 0.68 ], [ "D237082", 0.96 ]]
+        }
+      },
+      "phab-reviewed": 10
     },
     "2025-02-14": {
       "github-avg-time-to-review": 67.4,
@@ -430,22 +964,69 @@
       "github-repositories": 14,
       "github-reviews": 20,
       "phab-authored": 3,
-      "phab-reviewed": 17
+      "phab-avg-time-to-reviews": 25.82,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D237059", 147.12 ], [ "D237130", 23.49 ], [ "D237209", 10.54 ], [ "D237264", 4.08 ], [ "D237626", 47.43 ], [ "D237784", 0.73 ], [ "D237838", 18.55 ], [ "D237893", 6.86 ], [ "D237898", 2.8 ], [ "D238075", 0.88 ]]
+        },
+        "flod": {
+          "authored": [
+            "D237177",
+            "D237319",
+            "D237320"
+          ],
+          "reviewed": [[ "D237661", 6.91 ], [ "D237743", 47.41 ], [ "D237830", 44.12 ], [ "D237913", 0.54 ]]
+        }
+      },
+      "phab-reviewed": 14
     },
     "2025-02-21": {
       "github-avg-time-to-review": 47.1,
       "github-pr-created": 4,
       "github-repositories": 16,
       "github-reviews": 17,
-      "phab-authored": 0,
-      "phab-reviewed": 15
+      "phab-authored": 1,
+      "phab-avg-time-to-reviews": 53.75,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D237277", 169.28 ], [ "D238276", 100.84 ], [ "D238277", 100.84 ], [ "D238393", 62.16 ], [ "D238837", 5.0 ], [ "D238847", 3.48 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D238283", 7.14 ], [ "D238338", 118.54 ], [ "D238381", 76.4 ], [ "D238842", 0.14 ]]
+        },
+        "flod": {
+          "authored": [
+            "D7990"
+          ],
+          "reviewed": [[ "D238267", 0.04 ], [ "D238933", 1.1 ]]
+        }
+      },
+      "phab-reviewed": 12
     },
     "2025-02-28": {
       "github-avg-time-to-review": 17.9,
       "github-pr-created": 20,
       "github-repositories": 14,
       "github-reviews": 27,
-      "phab-authored": 1,
+      "phab-authored": 2,
+      "phab-avg-time-to-reviews": 49.11,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D239957"
+          ],
+          "reviewed": [[ "D238089", 267.95 ], [ "D238963", 6.82 ], [ "D238975", 5.86 ], [ "D239213", 73.95 ], [ "D239220", 4.04 ], [ "D239233", 0.51 ], [ "D239369", 3.31 ], [ "D239441", 69.14 ], [ "D239546", 29.28 ], [ "D239671", 45.01 ], [ "D239916", 5.56 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D238338", 163.6 ], [ "D239094", 9.88 ], [ "D239278", 27.28 ], [ "D239505", 7.91 ], [ "D239774", 0.2 ], [ "D239839", 15.56 ]]
+        },
+        "flod": {
+          "authored": [
+            "D237177"
+          ],
+          "reviewed": [[ "D239132", 143.65 ], [ "D239134", 143.65 ], [ "D239405", 0.02 ], [ "D239428", 8.21 ]]
+        }
+      },
       "phab-reviewed": 21
     },
     "2025-03-07": {
@@ -453,8 +1034,23 @@
       "github-pr-created": 17,
       "github-repositories": 21,
       "github-reviews": 32,
-      "phab-authored": 0,
-      "phab-reviewed": 14
+      "phab-authored": 1,
+      "phab-avg-time-to-reviews": 169.04,
+      "phab-details": {
+        "bolsson": {
+          "authored": [
+            "D239957"
+          ],
+          "reviewed": [[ "D232846", 1708.9 ], [ "D239816", 143.96 ], [ "D239881", 13.75 ], [ "D240071", 126.45 ], [ "D240076", 0.27 ], [ "D240214", 2.24 ], [ "D240303", 12.11 ], [ "D240502", 7.72 ], [ "D240522", 4.96 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D236659", 596.34 ], [ "D238071", 483.21 ], [ "D239960", 17.85 ], [ "D240038", 7.88 ], [ "D240212", 2.65 ], [ "D240230", 0.52 ], [ "D240231", 0.51 ], [ "D240369", 0.22 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D239957", 82.19 ], [ "D240487", 0.06 ]]
+        }
+      },
+      "phab-reviewed": 19
     },
     "2025-03-14": {
       "github-avg-time-to-review": 11.1,
@@ -462,7 +1058,23 @@
       "github-repositories": 18,
       "github-reviews": 37,
       "phab-authored": 2,
-      "phab-reviewed": 16
+      "phab-avg-time-to-reviews": 126.91,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D232292", 2065.97 ], [ "D240503", 32.55 ], [ "D240845", 57.35 ], [ "D240846", 9.38 ], [ "D240935", 0.47 ], [ "D240964", 21.84 ], [ "D241129", 20.55 ], [ "D241270", 2.76 ], [ "D241315", 22.8 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D240817", 17.33 ], [ "D240897", 6.83 ], [ "D240955", 51.09 ], [ "D241211", 3.1 ]]
+        },
+        "flod": {
+          "authored": [
+            "D240817",
+            "D241340"
+          ],
+          "reviewed": [[ "D240487", 111.28 ], [ "D240634", 112.59 ], [ "D240906", 0.09 ], [ "D240991", 1.3 ], [ "D241021", 0.39 ], [ "D241146", 0.34 ], [ "D241417", 0.21 ]]
+        }
+      },
+      "phab-reviewed": 20
     }
   },
   "jira-issues": {
