@@ -194,19 +194,22 @@ def main():
         reviewed = len(user_data.get("reviewed", []))
         print(f"Total authored: {authored}")
         print(f"Total reviewed: {reviewed}")
-        user_reviews = [rev_time for _, rev_time in user_data["reviewed"]]
+        user_reviews = [rev_time for _, rev_time in user_data.get("reviewed", [])]
         all_reviews += user_reviews
         total_authored += authored
-        print(f"Average time to review: {round(statistics.mean(user_reviews), 2)}")
+        avg_review_time = round(statistics.mean(user_reviews), 2) if user_reviews else 0
+        print(f"Average time to review: {avg_review_time}")
 
         stats["phab-authored"] += authored
         stats["phab-reviewed"] += reviewed
 
     print(f"\n\n-----\nTotal authored: {total_authored}")
     print(f"Total reviewed: {len(all_reviews)}")
-    avg_review = round(statistics.mean(all_reviews), 2)
-    print(f"Average time to review: {avg_review}")
-    stats["phab-avg-time-to-reviews"] = avg_review
+    # Only store average review time if there actually are reviews.
+    if all_reviews:
+        avg_review = round(statistics.mean(all_reviews), 2)
+        print(f"Average time to review: {avg_review}")
+        stats["phab-avg-time-to-reviews"] = avg_review
     store_json_data("epm-reviews", stats, extend=True, day=end_date)
 
 
