@@ -1500,9 +1500,9 @@
       "completed": "LR-70, LR-74, LR-75, LR-78",
       "deadline": 2.18,
       "num_completed": 4,
-      "num_triaged": 4,
-      "triage": 7.73,
-      "triaged": "LR-70, LR-74, LR-75, LR-78"
+      "num_triaged": 2,
+      "triage": 13.15,
+      "triaged": "LR-70, LR-75"
     },
     "2024-02-23": {
       "complete": 6.6,
@@ -1599,9 +1599,9 @@
       "completed": "LR-95, LR-96",
       "deadline": -2.84,
       "num_completed": 2,
-      "num_triaged": 2,
-      "triage": 3.12,
-      "triaged": "LR-95, LR-96"
+      "num_triaged": 1,
+      "triage": 0.33,
+      "triaged": "LR-96"
     },
     "2024-05-10": {
       "complete": 3.74,
@@ -1986,9 +1986,9 @@
       "completed": "LR-184, LR-185, LR-187",
       "deadline": -0.05,
       "num_completed": 3,
-      "num_triaged": 4,
-      "triage": 2.12,
-      "triaged": "LR-184, LR-185, LR-186, LR-187"
+      "num_triaged": 3,
+      "triage": 1.56,
+      "triaged": "LR-185, LR-186, LR-187"
     },
     "2025-03-07": {
       "complete": 1.6,
