@@ -395,7 +395,7 @@ def query_pr_data(start_date, repo, usernames, query, pr_stats, single_repo, cur
     r = github_api_request(repo_query)
     r_data = r.json()["data"]["search"]
     for node in r_data["nodes"]:
-        pr_author = node.get("author", {}).get("login", "")
+        pr_author = (node.get("author") or {}).get("login", "")
         pr_date = datetime.strptime(node["createdAt"], "%Y-%m-%dT%H:%M:%SZ")
         pr_number = node.get("number", None)
         for review_node in node["reviews"]["nodes"]:
