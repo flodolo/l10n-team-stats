@@ -1171,7 +1171,7 @@
       "github-repositories": 18,
       "github-reviews": 26,
       "phab-authored": 2,
-      "phab-avg-time-to-review": 52.36,
+      "phab-avg-time-to-review": 52.37,
       "phab-details": {
         "bolsson": {
           "authored": [
@@ -3385,7 +3385,7 @@
         "total_reviews": 6
       },
       "fluent-reviewers": {
-        "average_review_time": 36.15,
+        "average_review_time": 35.76,
         "details": {
           "bolsson": [[ "D153837", 9.37 ], [ "D243226", 119.21 ], [ "D243243", 44.64 ], [ "D243441", 80.51 ], [ "D243450", 6.44 ], [ "D243484", 147.32 ], [ "D243551", 0.22 ], [ "D243691", 4.8 ]],
           "flod": [[ "D243025", 79.62 ], [ "D243185", 41.14 ], [ "D243668", 0.02 ], [ "D243671", 64.49 ], [ "D243795", 0.08 ], [ "D243796", 0.1 ], [ "D243797", 0.14 ], [ "D243798", 0.2 ], [ "D244069", 9.64 ]]
