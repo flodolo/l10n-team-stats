@@ -76,10 +76,12 @@ def main():
                     if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "triaged", history.created)
                     else:
-                        print(f"Ignored triage date out of bounds {history.created}")
+                        print(
+                            f"{issue.key}: Ignored triage date out of bounds {history.created}"
+                        )
                 if (
                     item.fieldId == "status"
-                    and item.toString == "Done"
+                    and (item.toString == "Done" or item.toString == "Reviewed")
                     and not issue_data.get(issue.key, {}).get("completed", None)
                 ):
                     if check_date_interval(start_date, end_date, history.created):
@@ -87,8 +89,14 @@ def main():
                         # If a ticket moves from Backlog to Done, store also as Triage date.
                         if not triaged_issue:
                             store_date(issue_data, issue, "triaged", history.created)
+                        if item.fromString == "Backlog":
+                            print(
+                                f"Ticket {issue.key} moved directly from Backlog to {item.toString}."
+                            )
                     else:
-                        print(f"Ignored completed date out of bounds {history.created}")
+                        print(
+                            f"{issue.key}: Ignored completed date out of bounds {history.created}"
+                        )
 
     times = {
         "triage": [],
