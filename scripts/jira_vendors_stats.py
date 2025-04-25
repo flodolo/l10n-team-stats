@@ -25,7 +25,8 @@ def store_date(issue_data, issue, field, dt):
             issue.fields.created, "%Y-%m-%dT%H:%M:%S.%f%z"
         )
         deadline = (create_dt + datetime.timedelta(days=7)).strftime("%Y-%m-%d")
-        print(f"Missing deadline for {issue_id}: assuming {deadline}")
+        create_str = create_dt.strftime("%Y-%m-%d")
+        print(f"  - Missing deadline, assuming {deadline} (created on {create_str})")
     if issue_id not in issue_data:
         issue_data[issue_id] = {
             "created": issue.fields.created,
@@ -76,7 +77,7 @@ def main():
                     if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "triaged", history.created)
                     else:
-                        print(f"Ignored triage date out of bounds {history.created}")
+                        print(f"  - Ignored triage date out of bounds {history.created}")
 
                 if (
                     item.fieldId == "status"
@@ -90,7 +91,7 @@ def main():
                             store_date(issue_data, issue, "triaged", history.created)
                         store_date(issue_data, issue, "scheduled", history.created)
                     else:
-                        print(f"Ignored scheduled date out of bounds {history.created}")
+                        print(f"  - Ignored scheduled date out of bounds {history.created}")
 
                 if (
                     item.fieldId == "status"
@@ -100,7 +101,7 @@ def main():
                     if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "delivered", history.created)
                     else:
-                        print(f"Ignored delivered date out of bounds {history.created}")
+                        print(f"  - Ignored delivered date out of bounds {history.created}")
 
     times = {
         "triage": [],

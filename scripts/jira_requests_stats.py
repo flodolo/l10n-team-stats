@@ -26,7 +26,10 @@ def store_date(issue_data, issue, field, dt):
                 issue.fields.created, "%Y-%m-%dT%H:%M:%S.%f%z"
             )
             deadline = (create_dt + datetime.timedelta(days=7)).strftime("%Y-%m-%d")
-            print(f"Missing deadline for {issue_id}: assuming {deadline}")
+            create_str = create_dt.strftime("%Y-%m-%d")
+            print(
+                f"  - Missing deadline, assuming {deadline} (created on {create_str})"
+            )
         issue_data[issue_id] = {
             "created": issue.fields.created,
             "deadline": deadline,
@@ -77,7 +80,7 @@ def main():
                         store_date(issue_data, issue, "triaged", history.created)
                     else:
                         print(
-                            f"{issue.key}: Ignored triage date out of bounds {history.created}"
+                            f"  - Ignored triage date out of bounds {history.created}"
                         )
                 if (
                     item.fieldId == "status"
@@ -91,11 +94,11 @@ def main():
                             store_date(issue_data, issue, "triaged", history.created)
                         if item.fromString == "Backlog":
                             print(
-                                f"Ticket {issue.key} moved directly from Backlog to {item.toString}."
+                                f"  - Ticket moved directly from Backlog to {item.toString}."
                             )
                     else:
                         print(
-                            f"{issue.key}: Ignored completed date out of bounds {history.created}"
+                            f"  - Ignored completed date out of bounds {history.created}"
                         )
 
     times = {
