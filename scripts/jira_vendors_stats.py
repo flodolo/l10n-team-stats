@@ -77,7 +77,9 @@ def main():
                     if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "triaged", history.created)
                     else:
-                        print(f"  - Ignored triage date out of bounds {history.created}")
+                        print(
+                            f"  - Ignored triage date out of bounds {history.created}"
+                        )
 
                 if (
                     item.fieldId == "status"
@@ -91,7 +93,9 @@ def main():
                             store_date(issue_data, issue, "triaged", history.created)
                         store_date(issue_data, issue, "scheduled", history.created)
                     else:
-                        print(f"  - Ignored scheduled date out of bounds {history.created}")
+                        print(
+                            f"  - Ignored scheduled date out of bounds {history.created}"
+                        )
 
                 if (
                     item.fieldId == "status"
@@ -101,7 +105,9 @@ def main():
                     if check_date_interval(start_date, end_date, history.created):
                         store_date(issue_data, issue, "delivered", history.created)
                     else:
-                        print(f"  - Ignored delivered date out of bounds {history.created}")
+                        print(
+                            f"  - Ignored delivered date out of bounds {history.created}"
+                        )
 
     times = {
         "triage": [],
@@ -115,12 +121,18 @@ def main():
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
         )
         triage_str = issue_details.get("triaged", None)
+        print(f"Issue: {issue}")
+        print(f" - Created on {create_dt.strftime('%Y-%m-%d %H:%M:%S %z')}")
         if triage_str is not None:
             triage_dt = datetime.datetime.strptime(triage_str, "%Y-%m-%dT%H:%M:%S.%f%z")
             delta = triage_dt - create_dt
-            issue_details["time_triage"] = round(delta.total_seconds() / 86400, 3)
+            time_triage_str = round(delta.total_seconds() / 86400, 3)
+            issue_details["time_triage"] = time_triage_str
             times["triage"].append(issue_details["time_triage"])
             triaged.append(issue)
+            print(
+                f" - Triaged on {triage_dt.strftime('%Y-%m-%d %H:%M:%S %z')}. Time to triage: {time_triage_str}mdays"
+            )
 
         deliver_str = issue_details.get("delivered", None)
         if deliver_str is not None:
@@ -128,9 +140,13 @@ def main():
                 deliver_str, "%Y-%m-%dT%H:%M:%S.%f%z"
             )
             delta = deliver_dt - create_dt
-            issue_details["time_deliver"] = round(delta.total_seconds() / 86400, 3)
+            time_deliver_str = round(delta.total_seconds() / 86400, 3)
+            issue_details["time_deliver"] = time_deliver_str
             times["deliver"].append(issue_details["time_deliver"])
             delivered.append(issue)
+            print(
+                f" - Delivered on {triage_dt.strftime('%Y-%m-%d %H:%M:%S %z')}. Time to close: {time_deliver_str} days"
+            )
 
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
@@ -140,8 +156,12 @@ def main():
                 tzinfo=datetime.timezone.utc, hour=23, minute=59, second=59
             )
             delta = deliver_dt - deadline_dt
-            issue_details["time_deadline"] = round(delta.total_seconds() / 86400, 3)
+            deadline_perf_str = round(delta.total_seconds() / 86400, 3)
+            issue_details["time_deadline"] = deadline_perf_str
             times["deadline"].append(issue_details["time_deadline"])
+            print(
+                f" - Performance against deadline ({deadline_dt.strftime('%Y-%m-%d %H:%M:%S %z')}): {deadline_perf_str} days"
+            )
 
     record = {}
     for type, type_data in times.items():

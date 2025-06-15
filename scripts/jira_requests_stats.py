@@ -113,12 +113,18 @@ def main():
             issue_details["created"], "%Y-%m-%dT%H:%M:%S.%f%z"
         )
         triage_str = issue_details.get("triaged", None)
+        print(f"Issue: {issue}")
+        print(f" - Created on {create_dt.strftime('%Y-%m-%d %H:%M:%S %z')}")
         if triage_str is not None:
             triage_dt = datetime.datetime.strptime(triage_str, "%Y-%m-%dT%H:%M:%S.%f%z")
             delta = triage_dt - create_dt
-            issue_details["time_triage"] = round(delta.total_seconds() / 86400, 3)
+            time_triage_str = round(delta.total_seconds() / 86400, 3)
+            issue_details["time_triage"] = time_triage_str
             times["triage"].append(issue_details["time_triage"])
             triaged.append(issue)
+            print(
+                f" - Triaged on {triage_dt.strftime('%Y-%m-%d %H:%M:%S %z')}. Time to triage: {time_triage_str} days"
+            )
 
         complete_str = issue_details.get("completed", None)
         if complete_str is not None:
@@ -126,9 +132,13 @@ def main():
                 complete_str, "%Y-%m-%dT%H:%M:%S.%f%z"
             )
             delta = complete_dt - create_dt
-            issue_details["time_complete"] = round(delta.total_seconds() / 86400, 3)
+            time_close_str = round(delta.total_seconds() / 86400, 3)
+            issue_details["time_complete"] = time_close_str
             times["complete"].append(issue_details["time_complete"])
             completed.append(issue)
+            print(
+                f" - Completed on {triage_dt.strftime('%Y-%m-%d %H:%M:%S %z')}. Time to close: {time_close_str} days"
+            )
 
             deadline_dt = datetime.datetime.strptime(
                 issue_details["deadline"], "%Y-%m-%d"
@@ -138,8 +148,12 @@ def main():
                 tzinfo=datetime.timezone.utc, hour=23, minute=59, second=59
             )
             delta = complete_dt - deadline_dt
-            issue_details["time_deadline"] = round(delta.total_seconds() / 86400, 3)
+            deadline_perf_str = round(delta.total_seconds() / 86400, 3)
+            issue_details["time_deadline"] = deadline_perf_str
             times["deadline"].append(issue_details["time_deadline"])
+            print(
+                f" - Performance against deadline ({deadline_dt.strftime('%Y-%m-%d %H:%M:%S %z')}): {deadline_perf_str} days"
+            )
 
     record = {}
     for type, type_data in times.items():
