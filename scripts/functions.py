@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from datetime import datetime, time, timedelta
+from datetime import datetime, time as dt_time, timedelta
 from github import Github
 from jira import JIRA
 import argparse
@@ -11,8 +11,8 @@ import json
 import os
 import re
 import requests
-import urllib.parse as url_parse
-import urllib.request as url_request
+import time
+from requests.exceptions import RequestException, Timeout
 import urllib3
 
 
@@ -125,8 +125,8 @@ def format_time(interval):
 
 def check_date_interval(start_date, end_date, timestamp):
     dt = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f%z")
-    start_dt = datetime.combine(start_date, time.min).replace(tzinfo=dt.tzinfo)
-    end_dt = datetime.combine(end_date, time.min).replace(tzinfo=dt.tzinfo)
+    start_dt = datetime.combine(start_date, dt_time.min).replace(tzinfo=dt.tzinfo)
+    end_dt = datetime.combine(end_date, dt_time.min).replace(tzinfo=dt.tzinfo)
     return start_dt <= dt <= end_dt
 
 
@@ -242,39 +242,72 @@ def store_json_data(key, record, day=None, extend=False):
 
 
 def phab_query(method, data, after=None, **kwargs):
+    timeout = kwargs.pop("_timeout", 10)
+    retries = kwargs.pop("_retries", 3)
+    backoff = kwargs.pop("_backoff", 0.5)
+
     phab_token, server = read_config("phab")
     server = server.rstrip("/")
-    req = url_request.Request(
-        f"{server}/{method}",
-        method="POST",
-        data=url_parse.urlencode(
-            {
-                "params": json.dumps(
-                    {
-                        **kwargs,
-                        "__conduit__": {"token": phab_token},
-                        "after": after,
-                    }
-                ),
-                "output": "json",
-                "__conduit__": True,
-            }
-        ).encode(),
-    )
+    url = f"{server}/{method}"
 
-    with url_request.urlopen(req) as r:
-        res = json.load(r)
-    if res["error_code"] and res["error_info"]:
-        raise Exception(res["error_info"])
+    results = data.get("results", [])
+    cursor_after = after
 
-    if res["result"]["cursor"]["after"] is not None:
-        # print(f'Fetching new page (from {res["result"]["cursor"]["after"]})')
-        phab_query(method, data, res["result"]["cursor"]["after"], **kwargs)
+    while True:
+        payload = {
+            "params": json.dumps(
+                {
+                    **kwargs,
+                    "__conduit__": {"token": phab_token},
+                    "after": cursor_after,
+                }
+            ),
+            "output": "json",
+            "__conduit__": True,
+        }
 
-    if "results" in data:
-        data["results"].extend(res["result"]["data"])
-    else:
-        data["results"] = res["result"]["data"]
+        # Retry loop for transient network/parse issues
+        attempt = 0
+        while True:
+            try:
+                resp = requests.post(
+                    url,
+                    data=payload,
+                    headers={
+                        "User-Agent": "phab-query/requests",
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Accept": "application/json",
+                    },
+                    timeout=timeout,
+                )
+                resp.raise_for_status()
+                res = resp.json()
+                break
+            except (RequestException, Timeout, json.JSONDecodeError) as e:
+                if attempt >= retries:
+                    raise RuntimeError(
+                        f"Request failed after {retries + 1} attempts: {e}"
+                    )
+                time.sleep(backoff * (2**attempt))
+                attempt += 1
+
+        # Conduit-level error
+        if res.get("error_code") or res.get("error_info"):
+            raise RuntimeError(
+                f"Conduit error {res.get('error_code')}: {res.get('error_info')}"
+            )
+
+        # Collect results
+        result = res.get("result") or {}
+        results.extend(result.get("data") or [])
+
+        # Pagination
+        cursor_after = (result.get("cursor") or {}).get("after")
+        if not cursor_after:
+            break
+
+    data["results"] = results
+    return data
 
 
 def get_user_pr_collection(period_data, start_date):
