@@ -145,7 +145,7 @@ def main():
             times["deliver"].append(issue_details["time_deliver"])
             delivered.append(issue)
             print(
-                f" - Delivered on {triage_dt.strftime('%Y-%m-%d %H:%M:%S %z')}. Time to close: {time_deliver_str} days"
+                f" - Delivered on {deliver_dt.strftime('%Y-%m-%d %H:%M:%S %z')}. Time to close: {time_deliver_str} days"
             )
 
             deadline_dt = datetime.datetime.strptime(
