@@ -158,33 +158,14 @@ def get_jira_object():
     )
 
 
-def search_jira_issues(connection, query, changelog=False):
-    pagesize = 100
-    index = 0
-    issues = []
-    while True:
-        startAt = index * pagesize
-        # _issues = jira.search_issues('project=FXA and created > startOfDay(-5) order by id desc', startAt=startAt, maxResults=chunk)
-        if changelog:
-            _issues = connection.search_issues(
-                query,
-                startAt=startAt,
-                maxResults=pagesize,
-                expand="changelog",
-            )
-        else:
-            _issues = connection.search_issues(
-                query,
-                startAt=startAt,
-                maxResults=pagesize,
-            )
-        if _issues:
-            issues.extend(_issues)
-            index += 1
-        else:
-            break
-
-    return issues
+def search_jira_issues(connection, query, changelog=False, fields="*all"):
+    return connection.enhanced_search_issues(
+        jql_str=query,
+        maxResults=0,  # 0/False => fetch ALL pages internally
+        fields=fields,  # comma-separated string works best
+        expand="changelog" if changelog else None,
+        # use_post=True can help if your JQL is long
+    )
 
 
 def get_json_file():
