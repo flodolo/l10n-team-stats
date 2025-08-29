@@ -19,6 +19,7 @@ from functions import (
     phab_query,
     store_json_data,
 )
+from phab_cache import get_transactions, set_transactions
 
 
 def get_revisions_review_data(
@@ -65,13 +66,18 @@ def get_revisions_review_data(
     for revision in revisions:
         revision_id = f"D{revision['id']}"
         # Fetch transactions related to the revision.
-        transactions_response = {}
-        print(f"Getting transactions for {revision_id}...")
-        phab_query(
-            "transaction.search",
-            transactions_response,
-            objectIdentifier=revision["phid"],
-        )
+        transactions_response = get_transactions(revision_id)
+        if not transactions_response:
+            transactions_response = {}
+            print(f"Getting transactions for {revision_id}...")
+            phab_query(
+                "transaction.search",
+                transactions_response,
+                objectIdentifier=revision["phid"],
+            )
+            set_transactions(revision_id, transactions_response)
+        else:
+            print(f"Using cached transactions for {revision_id}...")
 
         # Process transactions to find review by a group member.
         transactions = transactions_response.get("results", [])
