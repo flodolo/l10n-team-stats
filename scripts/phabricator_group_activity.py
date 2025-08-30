@@ -16,30 +16,24 @@ from functions import (
     format_time,
     get_phab_usernames,
     parse_arguments,
+    phab_diff_transactions,
     phab_query,
+    phab_search_revisions,
     store_json_data,
 )
-from phab_cache import get_transactions, set_transactions
 
 
 def get_revisions_review_data(
     group_members, results_data, group_phid, start_timestamp, end_timestamp
 ):
     # Query revisions for the group.
-    revisions_response = {}
     print("Getting revisions created within the date range...")
     search_constraints = {
         "reviewerPHIDs": [group_phid],
         "createdStart": start_timestamp,
         "createdEnd": end_timestamp,
     }
-    phab_query(
-        "differential.revision.search",
-        revisions_response,
-        constraints=search_constraints,
-        order="newest",
-    )
-    created_revisions = revisions_response.get("results", [])
+    created_revisions = phab_search_revisions(search_constraints)
 
     print("Getting revisions modified within the date range...")
     search_constraints = {
@@ -47,13 +41,7 @@ def get_revisions_review_data(
         "modifiedStart": start_timestamp,
         "modifiedEnd": end_timestamp,
     }
-    phab_query(
-        "differential.revision.search",
-        revisions_response,
-        constraints=search_constraints,
-        order="newest",
-    )
-    modified_revisions = revisions_response.get("results", [])
+    modified_revisions = phab_search_revisions(search_constraints)
 
     # Remove duplicates.
     unique_revisions = {d["id"]: d for d in created_revisions + modified_revisions}
@@ -65,22 +53,9 @@ def get_revisions_review_data(
     revisions = sorted(revisions, key=lambda rev: rev["fields"]["dateCreated"])
     for revision in revisions:
         revision_id = f"D{revision['id']}"
-        # Fetch transactions related to the revision.
-        transactions_response = get_transactions(revision_id)
-        if not transactions_response:
-            transactions_response = {}
-            print(f"Getting transactions for {revision_id}...")
-            phab_query(
-                "transaction.search",
-                transactions_response,
-                objectIdentifier=revision["phid"],
-            )
-            set_transactions(revision_id, transactions_response)
-        else:
-            print(f"Using cached transactions for {revision_id}...")
 
         # Process transactions to find review by a group member.
-        transactions = transactions_response.get("results", [])
+        transactions = phab_diff_transactions(revision_id, revision["phid"])
         reviewed = False
         for txn in transactions:
             # The review has to happen within the range.

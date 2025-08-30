@@ -1,5 +1,5 @@
 from pathlib import Path
-import json, os, time
+import json, time
 
 CACHE_FILE = Path(__file__).resolve().parent / "phab_cache.json"
 
@@ -14,6 +14,7 @@ def _is_fresh(path: Path) -> bool:
 def _load() -> dict:
     if not _is_fresh(CACHE_FILE):
         try:
+            print("Cache is stale, removing...")
             CACHE_FILE.unlink(missing_ok=True)
         except Exception:
             pass

@@ -12,6 +12,7 @@ import os
 import re
 import requests
 import time
+from phab_cache import get_transactions, set_transactions
 from requests.exceptions import RequestException, Timeout
 import urllib3
 
@@ -220,6 +221,36 @@ def store_json_data(key, record, day=None, extend=False):
         json_data[key][day_str] = record
 
     write_json_data(json_data)
+
+
+def phab_search_revisions(search_constraints):
+    revisions_response = {}
+    phab_query(
+        "differential.revision.search",
+        revisions_response,
+        constraints=search_constraints,
+        order="newest",
+    )
+
+    return revisions_response.get("results", [])
+
+
+def phab_diff_transactions(id, phid):
+    # Fetch transactions related to the revision. Use local cache if available.
+    transactions_response = get_transactions(id)
+    if not transactions_response:
+        transactions_response = {}
+        print(f"Getting transactions for {id}...")
+        phab_query(
+            "transaction.search",
+            transactions_response,
+            objectIdentifier=phid,
+        )
+        set_transactions(id, transactions_response)
+    else:
+        print(f"Using cached transactions for {id}...")
+
+    return transactions_response.get("results", [])
 
 
 def phab_query(method, data, after=None, **kwargs):
