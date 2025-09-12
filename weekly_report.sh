@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+set -Eeu
+
 function interrupt_code()
 # This code runs if user hits control-c
 {
