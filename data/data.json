@@ -1244,13 +1244,13 @@
       "github-repositories": 12,
       "github-reviews": 15,
       "phab-authored": 0,
-      "phab-avg-time-to-review": 175.55,
+      "phab-avg-time-to-review": 25.97,
       "phab-details": {
         "bolsson": {
           "reviewed": [[ "D246528", 44.98 ], [ "D246624", 30.1 ], [ "D247089", 33.95 ], [ "D247193", 22.43 ]]
         },
         "delphine": {
-          "reviewed": [[ "D240634", 1346.16 ], [ "D246787", 70.91 ], [ "D247113", 1.74 ], [ "D247195", 23.16 ]]
+          "reviewed": [[ "D246787", 70.91 ], [ "D247113", 1.74 ], [ "D247195", 23.16 ]]
         },
         "flod": {
           "reviewed": [[ "D246697", 6.49 ]]
@@ -4586,9 +4586,9 @@
     },
     "2025-05-02": {
       "android-l10n-reviewers": {
-        "average_review_time": 354.16,
+        "average_review_time": 22.79,
         "details": {
-          "delphine": [[ "D240634", 1325.51 ], [ "D246787", 70.9 ], [ "D247113", 1.73 ], [ "D247195", 18.51 ]]
+          "delphine": [[ "D246787", 70.9 ], [ "D247113", 1.73 ], [ "D247195", 18.51 ]]
         },
         "total_reviews": 4
       },
