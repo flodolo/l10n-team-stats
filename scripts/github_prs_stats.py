@@ -5,6 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from datetime import datetime, timezone
+
 from functions import (
     format_time,
     get_github_object,

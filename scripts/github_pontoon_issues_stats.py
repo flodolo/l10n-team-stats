@@ -40,6 +40,7 @@ def main():
         sort="created",
         order="desc",
     )
+    untriaged = []
     if open:
         for issue in open:
             stats["Total"] += 1
@@ -50,11 +51,15 @@ def main():
                     triaged = True
             if not triaged:
                 stats["Untriaged"] += 1
+                untriaged.append(f"  - #{issue.number} {issue.title}")
 
         print("Overall statistics about open issues:")
         for k, v in stats.items():
             print(f"- {k}: {v}")
             record[k] = v
+        if untriaged:
+            print(f"\nUntriaged issues ({len(untriaged)}):")
+            print("\n".join(untriaged))
 
     # Analyze issues opened within the requested range.
     opened = g.search_issues(

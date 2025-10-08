@@ -11,7 +11,9 @@ calculates review times, and outputs the data in JSON format.
 
 import statistics
 import sys
+
 from datetime import datetime
+
 from functions import (
     format_time,
     get_phab_usernames,

@@ -2,19 +2,22 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from datetime import datetime, time as dt_time, timedelta
-from github import Github
-from jira import JIRA
 import argparse
 import configparser
 import json
 import os
 import re
-import requests
 import time
+
+from datetime import datetime, time as dt_time, timedelta
+
+import requests
+import urllib3
+
+from github import Github
+from jira import JIRA
 from phab_cache import get_transactions, set_transactions
 from requests.exceptions import RequestException, Timeout
-import urllib3
 
 
 class InlineListEncoder(json.JSONEncoder):

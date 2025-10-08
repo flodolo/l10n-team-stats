@@ -6,6 +6,7 @@
 
 import datetime
 import statistics
+
 from functions import (
     get_phab_usernames,
     parse_arguments,

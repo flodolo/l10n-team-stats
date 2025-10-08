@@ -6,6 +6,7 @@
 
 import datetime
 import statistics
+
 from functions import (
     check_date_interval,
     get_jira_object,

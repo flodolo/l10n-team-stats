@@ -9,8 +9,8 @@ from collections import defaultdict
 from functions import (
     format_time,
     get_gh_usernames,
-    get_user_pr_collection,
     get_pr_details,
+    get_user_pr_collection,
     parse_arguments,
     store_json_data,
 )

@@ -6,6 +6,7 @@
 
 import datetime
 import re
+
 from functions import get_jira_object, search_jira_issues
 
 

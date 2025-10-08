@@ -5,10 +5,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import gspread
+
 from functions import (
     get_json_data,
     read_config,
 )
+
 
 columns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 

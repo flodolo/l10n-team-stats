@@ -1,10 +1,11 @@
 #! /usr/bin/env python3
 
 import calendar
+
 from collections import defaultdict
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
+from dateutil.relativedelta import relativedelta
 from functions import format_time, get_gh_usernames, get_pr_details, parse_arguments
 
 
