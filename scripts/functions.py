@@ -191,6 +191,8 @@ def store_known_phab_diffs(diffs):
     filename = os.path.join(
         os.path.dirname(__file__), os.pardir, "data", "phab_diffs.json"
     )
+    diffs["authored"].sort()
+    diffs["reviewed"].sort()
     with open(filename, "w") as f:
         return json.dump(diffs, f, indent=2, sort_keys=True)
 
