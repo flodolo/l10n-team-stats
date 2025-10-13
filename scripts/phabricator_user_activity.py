@@ -8,16 +8,20 @@ import datetime
 import statistics
 
 from functions import (
+    get_known_phab_diffs,
     get_phab_usernames,
     parse_arguments,
     phab_diff_transactions,
     phab_query,
     phab_search_revisions,
     store_json_data,
+    store_known_phab_diffs,
 )
 
 
-def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
+def get_revisions(
+    type, user, results_data, start_timestamp, end_timestamp, known_phab_diffs
+):
     username = user["user"]
     print(f"Searching revisions {type} by {username}...")
 
@@ -62,6 +66,11 @@ def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
     for revision in revisions:
         revision_id = f"D{revision['id']}"
 
+        # Ignore diff that has been already authored or reviewed
+        if revision_id in known_phab_diffs.get("type", []):
+            print(f"Skipping known diff {revision_id} for type {type}")
+            continue
+
         if type == "reviewed":
             # Process transactions to find review by the user.
             transactions = phab_diff_transactions(revision_id, revision["phid"])
@@ -93,6 +102,7 @@ def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
             print(
                 f"{revision_id} {date_created.strftime('%Y-%m-%d')} {revision['fields']['title']}"
             )
+            known_phab_diffs["reviewed"].append(revision_id)
             if type not in results_data[username]:
                 results_data[username][type] = [revision_id]
             else:
@@ -103,6 +113,7 @@ def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
             print(
                 f"{revision_id} {date_created.strftime('%Y-%m-%d')} {revision['fields']['title']} (review hours: {time_to_review_h})"
             )
+            known_phab_diffs["reviewed"].append(revision_id)
             if type not in results_data[username]:
                 results_data[username][type] = [(revision_id, time_to_review_h)]
             else:
@@ -140,6 +151,7 @@ def main():
         f"Revisions between {args.start.strftime('%Y-%m-%d')} and {args.end.strftime('%Y-%m-%d')}"
     )
     users = get_user_phids()
+    known_phab_diffs = get_known_phab_diffs()
     phab_data = {}
     for user in users:
         get_revisions(
@@ -148,6 +160,7 @@ def main():
             phab_data,
             start_timestamp,
             end_timestamp,
+            known_phab_diffs,
         )
         get_revisions(
             "reviewed",
@@ -155,6 +168,7 @@ def main():
             phab_data,
             start_timestamp,
             end_timestamp,
+            known_phab_diffs,
         )
 
     stats = {
@@ -192,6 +206,8 @@ def main():
         print(f"Average time to review: {avg_review}")
         stats["phab-avg-time-to-review"] = avg_review
     store_json_data("epm-reviews", stats, extend=True, day=end_date)
+
+    store_known_phab_diffs(known_phab_diffs)
 
 
 if __name__ == "__main__":

@@ -176,6 +176,25 @@ def get_json_file():
     return os.path.join(os.path.dirname(__file__), os.pardir, "data", "data.json")
 
 
+def get_known_phab_diffs():
+    filename = os.path.join(
+        os.path.dirname(__file__), os.pardir, "data", "phab_diffs.json"
+    )
+    if not os.path.isfile(filename):
+        return {}
+
+    with open(filename, "r") as f:
+        return json.load(f)
+
+
+def store_known_phab_diffs(diffs):
+    filename = os.path.join(
+        os.path.dirname(__file__), os.pardir, "data", "phab_diffs.json"
+    )
+    with open(filename, "w") as f:
+        return json.dump(diffs, f, indent=2, sort_keys=True)
+
+
 def get_json_data():
     json_file = get_json_file()
     if not os.path.isfile(json_file):
