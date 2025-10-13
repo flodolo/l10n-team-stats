@@ -71,6 +71,8 @@ def get_revisions_review_data(
         # Process transactions to find review by a group member.
         transactions = phab_diff_transactions(revision_id, revision["phid"])
         reviewed = False
+        revision_data = {}
+        review_request_timestamp = None
         for txn in transactions:
             # The review has to happen within the range.
             if (

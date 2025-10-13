@@ -71,10 +71,11 @@ def get_revisions(
             print(f"Skipping known diff {revision_id} for type {type}")
             continue
 
+        reviewed = False
+        review_ts = None
         if type == "reviewed":
             # Process transactions to find review by the user.
             transactions = phab_diff_transactions(revision_id, revision["phid"])
-            reviewed = False
             for txn in transactions:
                 # For groups it's possible to look when the review was
                 # requested. For individual users that's not reliable, as the
