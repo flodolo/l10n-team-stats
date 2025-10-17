@@ -111,7 +111,8 @@ def get_revisions_review_data(
 
         create_ts = revision["fields"]["dateCreated"]
         revision_data["create_timestamp"] = create_ts
-        revision_data["review_request_timestamp"] = review_request_timestamp
+        if review_request_timestamp:
+            revision_data["review_request_timestamp"] = review_request_timestamp
         revision_data["create_date"] = datetime.fromtimestamp(create_ts).strftime(
             "%Y-%m-%d %H:%M"
         )
