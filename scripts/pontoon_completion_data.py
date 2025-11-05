@@ -41,7 +41,7 @@ def main():
     # Get stats from Pontoon
     locale_stats = {}
     for project in projects:
-        url = f"https://pontoon.mozilla.org/api/v2/projects/{project}"
+        url = f"https://pontoon.mozilla.org/api/v2/projects/{project}/?fields=localizations"
         page = 1
         try:
             while url:
