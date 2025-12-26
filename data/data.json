@@ -2022,6 +2022,23 @@
         }
       },
       "phab-reviewed": 40
+    },
+    "2025-12-26": {
+      "github-avg-time-to-review": 12.5,
+      "github-pr-created": 1,
+      "github-repositories": 6,
+      "github-reviews": 5,
+      "phab-authored": 0,
+      "phab-avg-time-to-review": 54.49,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D276739", 70.96 ], [ "D277081", 23.73 ], [ "D277118", 22.07 ]]
+        },
+        "flod": {
+          "reviewed": [[ "D275454", 351.77 ], [ "D277243", 80.73 ], [ "D277275", 2.13 ], [ "D277351", 13.86 ], [ "D277352", 0.43 ], [ "D277368", 11.32 ], [ "D277369", 11.3 ], [ "D277454", 11.14 ]]
+        }
+      },
+      "phab-reviewed": 11
     }
   },
   "jira-issues": {
@@ -2710,6 +2727,13 @@
       "closed": 4,
       "created": 4,
       "in-progress": 1
+    },
+    "2025-12-26": {
+      "backlog": 0,
+      "blocked": 0,
+      "closed": 0,
+      "created": 0,
+      "in-progress": 0
     }
   },
   "jira-request-stats": {
@@ -3594,6 +3618,15 @@
       "num_triaged": 1,
       "triage": 0.01,
       "triaged": "LR-276"
+    },
+    "2025-12-26": {
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     }
   },
   "jira-vendor-stats": {
@@ -4460,6 +4493,15 @@
       "num_triaged": 3,
       "triage": 0.1,
       "triaged": "L10NV-323, L10NV-324, L10NV-325"
+    },
+    "2025-12-26": {
+      "deadline": -3.3,
+      "deliver": 2.55,
+      "delivered": "L10NV-325",
+      "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     }
   },
   "phab-groups": {
@@ -5727,6 +5769,16 @@
         },
         "total_reviews": 34
       }
+    },
+    "2025-12-26": {
+      "fluent-reviewers": {
+        "average_review_time": 12.79,
+        "details": {
+          "bolsson": [[ "D276739", 44.58 ], [ "D277081", 3.86 ], [ "D277118", 22.07 ]],
+          "flod": [[ "D275454", 11.2 ], [ "D277243", 13.35 ], [ "D277275", 2.13 ], [ "D277351", 9.32 ], [ "D277352", 0.38 ], [ "D277368", 11.32 ], [ "D277369", 11.3 ], [ "D277454", 11.14 ]]
+        },
+        "total_reviews": 11
+      }
     }
   },
   "pontoon-issues": {
@@ -6905,6 +6957,18 @@
       "avg-time-to-close": 2334.1,
       "closed": 9,
       "opened": 0
+    },
+    "2025-12-26": {
+      "P1": 0,
+      "P2": 34,
+      "P3": 232,
+      "P4": 40,
+      "P5": 24,
+      "Total": 334,
+      "Untriaged": 4,
+      "avg-time-to-close": 10734.2,
+      "closed": 1,
+      "opened": 1
     }
   },
   "pontoon-prs": {
@@ -7593,6 +7657,13 @@
       "closed": 10,
       "open": 6,
       "opened": 8
+    },
+    "2025-12-26": {
+      "avg-age-open": 771.6,
+      "avg-time-to-close": 482.9,
+      "closed": 2,
+      "open": 7,
+      "opened": 3
     }
   }
 }
