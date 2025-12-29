@@ -7,8 +7,8 @@
 import gspread
 
 from functions import (
-    get_json_data,
     get_gsheet_object,
+    get_json_data,
 )
 
 
