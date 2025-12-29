@@ -22,8 +22,12 @@ PHABRICATOR_SERVER=XXX
 #   https://docs.google.com/spreadsheets/d/1ETExxxyyyzzzASLKJAIAFKJDLKSALKSJDFLAKoU/edit#gid=0
 # Then your key is:
 #   1ETExxxyyyzzzASLKJAIAFKJDLKSALKSJDFLAKoU
+# Main stats sheet
 SPREADSHEET_KEY=XXX
-
+# Jira L10n Vendors sheet
+SPREADSHEET_JIRA_VENDORS=YYY
+# Jira L10n Requests sheet
+SPREADSHEET_JIRA_REQUESTS=ZZZ
 # These are service account credentials from Google. See https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account
 GSPREAD_PROJECT_ID=XXX
 GSPREAD_PRIVATE_KEY_ID=XXX

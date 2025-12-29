@@ -4,6 +4,7 @@
 
 import argparse
 import configparser
+import gspread
 import json
 import os
 import re
@@ -511,3 +512,21 @@ def query_pr_data(start_date, repo, usernames, query, pr_stats, single_repo, cur
         query_pr_data(
             start_date, repo, usernames, query, pr_stats, single_repo, new_cursor
         )
+
+def get_gsheet_object(sheet_name):
+    config = read_config("gdocs")
+    credentials = {
+        "type": "service_account",
+        "project_id": config["gspread_project_id"],
+        "private_key_id": config["gspread_private_key_id"],
+        "private_key": config["gspread_private_key"].replace("\\n", "\n"),
+        "client_id": config["gspread_client_id"],
+        "client_email": config["gspread_client_email"],
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": config["client_x509_cert_url"],
+    }
+
+    connection = gspread.service_account_from_dict(credentials)
+    return connection.open_by_key(config[sheet_name])

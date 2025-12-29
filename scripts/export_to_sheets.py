@@ -8,7 +8,7 @@ import gspread
 
 from functions import (
     get_json_data,
-    read_config,
+    get_gsheet_object,
 )
 
 
@@ -132,22 +132,7 @@ def update_sheet(sh, sheet_name, export):
 
 def main():
     data = get_json_data()
-    config = read_config("gdocs")
-    credentials = {
-        "type": "service_account",
-        "project_id": config["gspread_project_id"],
-        "private_key_id": config["gspread_private_key_id"],
-        "private_key": config["gspread_private_key"].replace("\\n", "\n"),
-        "client_id": config["gspread_client_id"],
-        "client_email": config["gspread_client_email"],
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": config["client_x509_cert_url"],
-    }
-
-    connection = gspread.service_account_from_dict(credentials)
-    sh = connection.open_by_key(config["spreadsheet_key"])
+    sh = get_gsheet_object("spreadsheet_key")
 
     # Export Phabricator group data
     export = []
