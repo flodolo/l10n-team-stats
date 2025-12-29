@@ -7,7 +7,12 @@
 import datetime
 import re
 
-from functions import get_jira_object, search_jira_issues
+from functions import (
+    get_gsheet_object,
+    get_jira_object,
+    search_jira_issues,
+    update_stats_sheet,
+)
 
 
 def main():
@@ -84,6 +89,11 @@ def main():
     if errors:
         print("There are errors:")
         print("\n".join(errors))
+
+    # Export to Google Sheets
+    export = [row.split(",") for row in output]
+    sh = get_gsheet_object("spreadsheet_jira_vendors")
+    update_stats_sheet(sh, "Data", export)
 
 
 if __name__ == "__main__":

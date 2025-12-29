@@ -9,8 +9,9 @@ import os
 import re
 import time
 
-from datetime import datetime, time as dt_time, timedelta
+from datetime import date, datetime, time as dt_time, timedelta
 
+import gspread
 import requests
 import urllib3
 
@@ -511,3 +512,181 @@ def query_pr_data(start_date, repo, usernames, query, pr_stats, single_repo, cur
         query_pr_data(
             start_date, repo, usernames, query, pr_stats, single_repo, new_cursor
         )
+
+
+def get_gsheet_object(sheet_name):
+    config = read_config("gdocs")
+    credentials = {
+        "type": "service_account",
+        "project_id": config["gspread_project_id"],
+        "private_key_id": config["gspread_private_key_id"],
+        "private_key": config["gspread_private_key"].replace("\\n", "\n"),
+        "client_id": config["gspread_client_id"],
+        "client_email": config["gspread_client_email"],
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": config["client_x509_cert_url"],
+    }
+
+    connection = gspread.service_account_from_dict(credentials)
+    return connection.open_by_key(config[sheet_name])
+
+
+def update_stats_sheet(sh, sheet_name, export):
+    columns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    num_columns = len(export[0])
+    num_rows = len(export)
+    wks = sh.worksheet(sheet_name)
+
+    print(f"Updating sheet: {sheet_name}")
+
+    # Autoresize doesn't seem to widen the columns enough. To work around it,
+    # add spaces after each column header.
+    export[0] = [f"{label}   " for label in export[0]]
+
+    wks.update(export, "A1", value_input_option="USER_ENTERED")
+    wks.format(
+        f"A1:{columns[num_columns - 1]}1",
+        {
+            "backgroundColorStyle": {
+                "rgbColor": {"red": 0.85, "green": 0.85, "blue": 0.85}
+            },
+            "textFormat": {"bold": True},
+            "horizontalAlignment": "CENTER",
+            "verticalAlignment": "TOP",
+            "wrapStrategy": "WRAP",
+        },
+    )
+
+    data_sheet_id = wks._properties["sheetId"]
+    body = {
+        "requests": [
+            {
+                "autoResizeDimensions": {
+                    "dimensions": {
+                        "sheetId": data_sheet_id,
+                        "dimension": "COLUMNS",
+                        "startIndex": 0,
+                        "endIndex": num_columns,
+                    }
+                },
+            },
+            {
+                "autoResizeDimensions": {
+                    "dimensions": {
+                        "sheetId": data_sheet_id,
+                        "dimension": "ROWS",
+                        "startIndex": 0,
+                        "endIndex": num_rows,
+                    }
+                },
+            },
+        ]
+    }
+    sh.batch_update(body)
+
+    # Format as date the second column (minus header)
+    # Define the formatting request using Google Sheets API
+    body = {
+        "requests": [
+            {
+                "repeatCell": {
+                    "range": {
+                        "sheetId": data_sheet_id,
+                        "startRowIndex": 1,
+                        "endRowIndex": 999,
+                        "startColumnIndex": 0,
+                        "endColumnIndex": 1,
+                    },
+                    "cell": {
+                        "userEnteredFormat": {
+                            "numberFormat": {"type": "DATE", "pattern": "yyyy-MM-dd"}
+                        }
+                    },
+                    "fields": "userEnteredFormat.numberFormat",
+                }
+            }
+        ]
+    }
+    sh.batch_update(body)
+
+    # Fetch sheet metadata to identify pivot tables
+    requests = []
+    meta = sh.fetch_sheet_metadata(
+        params={
+            "includeGridData": True,
+            "fields": (
+                "sheets(properties(sheetId,title),data(rowData(values(pivotTable))))"
+            ),
+        }
+    )
+    new_source_gridrange = {
+        "sheetId": data_sheet_id,
+        "startRowIndex": 0,
+        "endRowIndex": num_rows,
+        "startColumnIndex": 0,
+        "endColumnIndex": num_columns,
+    }
+    for sheet in meta.get("sheets", []):
+        props = sheet.get("properties", {})
+        sheet_id = props.get("sheetId")
+
+        if sheet_id == data_sheet_id:
+            continue
+
+        for grid in sheet.get("data", []):
+            for r, row in enumerate(grid.get("rowData", []) or []):
+                values = row.get("values") or []
+                for c, cell in enumerate(values):
+                    pivot = cell.get("pivotTable")
+                    if not pivot:
+                        continue
+
+                    # Replace the pivot source with new data range
+                    pivot["source"] = new_source_gridrange
+
+                    requests.append(
+                        {
+                            "updateCells": {
+                                "range": {
+                                    "sheetId": sheet_id,
+                                    "startRowIndex": r,
+                                    "endRowIndex": r + 1,
+                                    "startColumnIndex": c,
+                                    "endColumnIndex": c + 1,
+                                },
+                                "rows": [{"values": [{"pivotTable": pivot}]}],
+                                "fields": "pivotTable",
+                            }
+                        }
+                    )
+    if requests:
+        sh.batch_update({"requests": requests})
+        print(
+            f"Updated {len(requests)} pivot table(s) to source Data!A1:{columns[num_columns - 1]}{num_rows}."
+        )
+    else:
+        print("No pivot tables found outside the data sheet.")
+
+    # Update spreadsheet title
+    current_title = sh.title
+    today = date.today().isoformat()
+
+    new_title = re.sub(r"\(\d{4}-\d{2}-\d{2}\)", f"({today})", current_title)
+    if new_title != current_title:
+        sh.batch_update(
+            {
+                "requests": [
+                    {
+                        "updateSpreadsheetProperties": {
+                            "properties": {"title": new_title},
+                            "fields": "title",
+                        }
+                    }
+                ]
+            }
+        )
+        print(f"Spreadsheet renamed to: {new_title}")
+    else:
+        print("No date found to replace in spreadsheet title.")
