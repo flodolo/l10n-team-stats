@@ -146,7 +146,7 @@ def main():
             )
             # Add timezone, assume end of day.
             deadline_dt = deadline_dt.replace(
-                tzinfo=datetime.timezone.utc, hour=23, minute=59, second=59
+                tzinfo=datetime.UTC, hour=23, minute=59, second=59
             )
             delta = complete_dt - deadline_dt
             deadline_perf_str = round(delta.total_seconds() / 86400, 3)

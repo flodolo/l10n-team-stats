@@ -184,7 +184,7 @@ def get_known_phab_diffs():
     if not os.path.isfile(filename):
         return {}
 
-    with open(filename, "r") as f:
+    with open(filename) as f:
         return json.load(f)
 
 
