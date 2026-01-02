@@ -2039,6 +2039,20 @@
         }
       },
       "phab-reviewed": 11
+    },
+    "2026-01-02": {
+      "github-avg-time-to-review": 48.4,
+      "github-pr-created": 4,
+      "github-repositories": 10,
+      "github-reviews": 8,
+      "phab-authored": 0,
+      "phab-avg-time-to-review": 188.37,
+      "phab-details": {
+        "flod": {
+          "reviewed": [[ "D275514", 443.63 ], [ "D277363", 189.82 ], [ "D277463", 83.24 ], [ "D277560", 36.78 ]]
+        }
+      },
+      "phab-reviewed": 4
     }
   },
   "jira-issues": {
@@ -2729,6 +2743,13 @@
       "in-progress": 1
     },
     "2025-12-26": {
+      "backlog": 0,
+      "blocked": 0,
+      "closed": 0,
+      "created": 0,
+      "in-progress": 0
+    },
+    "2026-01-02": {
       "backlog": 0,
       "blocked": 0,
       "closed": 0,
@@ -3627,6 +3648,15 @@
       "num_triaged": 0,
       "triage": 0,
       "triaged": ""
+    },
+    "2026-01-02": {
+      "complete": 0,
+      "completed": "",
+      "deadline": 0,
+      "num_completed": 0,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
     }
   },
   "jira-vendor-stats": {
@@ -4499,6 +4529,15 @@
       "deliver": 2.55,
       "delivered": "L10NV-325",
       "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
+    },
+    "2026-01-02": {
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
       "num_triaged": 0,
       "triage": 0,
       "triaged": ""
@@ -5779,6 +5818,22 @@
         },
         "total_reviews": 11
       }
+    },
+    "2026-01-02": {
+      "android-l10n-reviewers": {
+        "average_review_time": 9.92,
+        "details": {
+          "flod": [[ "D277363", 9.92 ]]
+        },
+        "total_reviews": 1
+      },
+      "fluent-reviewers": {
+        "average_review_time": 53.81,
+        "details": {
+          "flod": [[ "D275514", 41.4 ], [ "D277463", 83.24 ], [ "D277560", 36.78 ]]
+        },
+        "total_reviews": 3
+      }
     }
   },
   "pontoon-issues": {
@@ -6969,6 +7024,18 @@
       "avg-time-to-close": 10734.2,
       "closed": 1,
       "opened": 1
+    },
+    "2026-01-02": {
+      "P1": 0,
+      "P2": 39,
+      "P3": 233,
+      "P4": 40,
+      "P5": 24,
+      "Total": 336,
+      "Untriaged": 0,
+      "avg-time-to-close": 0.0,
+      "closed": 0,
+      "opened": 2
     }
   },
   "pontoon-prs": {
@@ -7664,6 +7731,13 @@
       "closed": 2,
       "open": 7,
       "opened": 3
+    },
+    "2026-01-02": {
+      "avg-age-open": 1085.4,
+      "avg-time-to-close": 262.0,
+      "closed": 4,
+      "open": 5,
+      "opened": 2
     }
   }
 }
