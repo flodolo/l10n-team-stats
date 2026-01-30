@@ -13,13 +13,12 @@ fi
 uv pip install -r requirements.txt
 
 if [[ -f "./weekly_report.sh" ]]; then
-  chmod +x ./weekly_report.sh
   uv run ./weekly_report.sh "$@"
 else
   echo "Error: ./weekly_report.sh not found."
   exit 1
 fi
 
-uv run python scripts/export_to_gsheets.py
+uv run python scripts/export_to_sheets.py
 uv run python scripts/jira_requests_data.py
 uv run python scripts/jira_vendors_data.py
