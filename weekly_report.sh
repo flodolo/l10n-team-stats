@@ -1,79 +1,51 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 set -Eeu
 
-function interrupt_code()
-# This code runs if user hits control-c
-{
+interrupt_code() {
   printf "\n*** Operation interrupted ***\n"
   exit $?
 }
 
-# Trap keyboard interrupt (control-c)
 trap interrupt_code SIGINT
 
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Pontoon stats
-echo -e "\n--------------\n"
-echo "Pontoon PR stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/github_prs_stats.py" --repo mozilla/pontoon
-else
-  python "${script_path}/scripts/github_prs_stats.py" --start $1 --repo mozilla/pontoon
+# Optional --start argument
+ARGS=()
+if [[ $# -ge 1 ]]; then
+  ARGS+=(--start "$1")
 fi
 
-echo -e "\n--------------\n"
-echo "Pontoon issues stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/github_pontoon_issues_stats.py"
-else
-  python "${script_path}/scripts/github_pontoon_issues_stats.py" --start $1
-fi
+section() {
+  echo -e "\n--------------\n"
+  echo "$1"
+}
 
-# Jira stats
-echo -e "\n--------------\n"
-echo "Jira stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/jira_l10n_stats.py"
-else
-  python "${script_path}/scripts/jira_l10n_stats.py" --start $1
-fi
+run_py() {
+  local script_name=$1
+  shift
+  python "${script_path}/scripts/${script_name}" "$@" ${ARGS[@]+"${ARGS[@]}"}
+}
 
-# Phabricator stats
-echo -e "\n--------------\n"
-echo "Phabricator stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/phabricator_user_activity.py"
-  python "${script_path}/scripts/phabricator_group_activity.py"
-else
-  python "${script_path}/scripts/phabricator_user_activity.py" --start $1
-  python "${script_path}/scripts/phabricator_group_activity.py" --start $1
-fi
+section "Pontoon PR stats"
+run_py "github_prs_stats.py" --repo mozilla/pontoon
 
-# GitHub review stats
-echo -e "\n--------------\n"
-echo "GitHub EPM review stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/github_review_stats_weekly.py"
-else
-  python "${script_path}/scripts/github_review_stats_weekly.py" --start $1
-fi
+section "Pontoon issues stats"
+run_py "github_pontoon_issues_stats.py"
 
-# Jira vendor stats
-echo -e "\n--------------\n"
-echo "Jira vendor stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/jira_vendors_stats.py"
-else
-  python "${script_path}/scripts/jira_vendors_stats.py" --start $1
-fi
+section "Jira stats"
+run_py "jira_l10n_stats.py"
 
-# Jira request stats
-echo -e "\n--------------\n"
-echo "Jira vendor stats"
-if [ $# -eq 0 ]; then
-  python "${script_path}/scripts/jira_requests_stats.py"
-else
-  python "${script_path}/scripts/jira_requests_stats.py" --start $1
-fi
+section "Phabricator stats"
+run_py "phabricator_user_activity.py"
+run_py "phabricator_group_activity.py"
+
+section "GitHub EPM review stats"
+run_py "github_review_stats_weekly.py"
+
+section "Jira vendor stats"
+run_py "jira_vendors_stats.py"
+
+section "Jira request stats"
+run_py "jira_requests_stats.py"
