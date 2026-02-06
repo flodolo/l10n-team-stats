@@ -37,9 +37,9 @@ run_py "github_pontoon_issues_stats.py"
 section "Jira stats"
 run_py "jira_l10n_stats.py"
 
-#section "Phabricator stats"
-#run_py "phabricator_user_activity.py"
-#run_py "phabricator_group_activity.py"
+section "Phabricator stats"
+run_py "phabricator_user_activity.py"
+run_py "phabricator_group_activity.py"
 
 section "GitHub EPM review stats"
 run_py "github_review_stats_weekly.py"
