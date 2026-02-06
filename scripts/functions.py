@@ -6,8 +6,10 @@ import argparse
 import configparser
 import json
 import os
+import random
 import re
 import time
+import urllib.parse
 
 from datetime import date, datetime, time as dt_time, timedelta
 
@@ -18,7 +20,6 @@ import urllib3
 from github import Github
 from jira import JIRA
 from phab_cache import get_transactions, set_transactions
-from requests.exceptions import RequestException, Timeout
 
 
 class InlineListEncoder(json.JSONEncoder):
@@ -278,67 +279,107 @@ def phab_diff_transactions(id, phid):
     return transactions_response.get("results", [])
 
 
-def phab_query(method, data, after=None, **kwargs):
+def phab_query(method: str, data: dict, after=None, **kwargs) -> dict:
     timeout = kwargs.pop("_timeout", 10)
     retries = kwargs.pop("_retries", 3)
-    backoff = kwargs.pop("_backoff", 0.5)
+    backoff = kwargs.pop("_backoff", 0.8)
 
     phab_token, server = read_config("phab")
-    server = server.rstrip("/")
-    url = f"{server}/{method}"
+    # Ensure no trailing slash or /api suffix
+    server = server.rstrip("/").removesuffix("/api")
+    url = f"{server}/api/{method}"
 
     results = data.get("results", [])
     cursor_after = after
 
+    http = urllib3.PoolManager(
+        timeout=urllib3.Timeout(total=timeout),
+        retries=False,
+        headers={
+            "User-Agent": "phab-query/urllib3",
+            "Accept": "application/json",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    )
+
     while True:
+        params_obj = dict(kwargs)
+        params_obj["__conduit__"] = {"token": phab_token}
+        if cursor_after is not None:
+            params_obj["after"] = cursor_after
+
         payload = {
-            "params": json.dumps(
-                {
-                    **kwargs,
-                    "__conduit__": {"token": phab_token},
-                    "after": cursor_after,
-                }
-            ),
+            "api.token": phab_token,
             "output": "json",
-            "__conduit__": True,
+            "params": json.dumps(params_obj),
+            "__conduit__": "true",
         }
 
-        # Retry loop for transient network/parse issues
+        body = urllib.parse.urlencode(payload)
+
         attempt = 0
         while True:
             try:
-                resp = requests.post(
-                    url,
-                    data=payload,
-                    headers={
-                        "User-Agent": "phab-query/requests",
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        "Accept": "application/json",
-                    },
-                    timeout=timeout,
-                )
-                resp.raise_for_status()
-                res = resp.json()
+                resp = http.request("POST", url, body=body, redirect=False)
+                status = resp.status
+                text = (resp.data or b"").decode("utf-8", errors="replace")
+
+                if status in (301, 302, 303, 307, 308):
+                    raise RuntimeError(
+                        f"HTTP redirect {status} calling {url}. "
+                        f"Location: {resp.headers.get('Location')}"
+                    )
+
+                if status == 429:
+                    retry_after = resp.headers.get("Retry-After")
+                    sleep_s = (
+                        int(retry_after)
+                        if retry_after and str(retry_after).isdigit()
+                        else backoff * (2**attempt) + random.uniform(0, 0.5)
+                    )
+                    if attempt >= retries:
+                        raise RuntimeError(
+                            f"HTTP 429 Too Many Requests calling {url}\n"
+                            f"Retry-After: {retry_after}\n"
+                            f"Body (first 1000 chars):\n{text[:1000]}"
+                        )
+                    time.sleep(sleep_s)
+                    attempt += 1
+                    continue
+
+                if not (200 <= status < 300):
+                    raise RuntimeError(
+                        f"HTTP {status} calling {url}\n"
+                        f"Body (first 1000 chars):\n{text[:1000]}"
+                    )
+
+                try:
+                    res = json.loads(text)
+                except json.JSONDecodeError as e:
+                    raise RuntimeError(
+                        f"JSON decode error calling {url}: {e}\n"
+                        f"Body (first 1000 chars):\n{text[:1000]}"
+                    ) from e
+
                 break
-            except (RequestException, Timeout, json.JSONDecodeError) as e:
+            except urllib3.exceptions.HTTPError as e:
                 if attempt >= retries:
                     raise RuntimeError(
-                        f"Request failed after {retries + 1} attempts: {e}"
-                    )
-                time.sleep(backoff * (2**attempt))
+                        f"Network error after {retries + 1} attempts calling {url}: {e}"
+                    ) from e
+                time.sleep(backoff * (2**attempt) + random.uniform(0, 0.5))
                 attempt += 1
 
-        # Conduit-level error
         if res.get("error_code") or res.get("error_info"):
             raise RuntimeError(
                 f"Conduit error {res.get('error_code')}: {res.get('error_info')}"
             )
 
-        # Collect results
         result = res.get("result") or {}
         results.extend(result.get("data") or [])
 
-        # Pagination
         cursor_after = (result.get("cursor") or {}).get("after")
         if not cursor_after:
             break
