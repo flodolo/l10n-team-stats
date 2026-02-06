@@ -338,8 +338,8 @@ def main():
     for day, day_data in data["epm-reviews"].items():
         _row = [
             day,
-            day_data["phab-authored"],
-            day_data["phab-reviewed"],
+            day_data.get("phab-authored", ""),
+            day_data.get("phab-reviewed", ""),
             day_data.get("phab-avg-time-to-review", ""),
             day_data["github-reviews"],
             day_data["github-avg-time-to-review"],
