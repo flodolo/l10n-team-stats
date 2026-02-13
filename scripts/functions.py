@@ -109,6 +109,7 @@ def read_config(key):
         return (
             config.get("KEYS", "PHABRICATOR_TOKEN"),
             config.get("URLS", "PHABRICATOR_SERVER"),
+            config.get("KEYS", "PHABRICATOR_USER_AGENT", fallback="phab-urllib3"),
         )
 
     if key == "gdocs":
@@ -284,7 +285,7 @@ def phab_query(method: str, data: dict, after=None, **kwargs) -> dict:
     retries = kwargs.pop("_retries", 3)
     backoff = kwargs.pop("_backoff", 0.8)
 
-    phab_token, server = read_config("phab")
+    phab_token, server, user_agent = read_config("phab")
     # Ensure no trailing slash or /api suffix
     server = server.rstrip("/").removesuffix("/api")
     url = f"{server}/api/{method}"
@@ -296,7 +297,7 @@ def phab_query(method: str, data: dict, after=None, **kwargs) -> dict:
         timeout=urllib3.Timeout(total=timeout),
         retries=False,
         headers={
-            "User-Agent": "phab-query/urllib3",
+            "User-Agent": user_agent,
             "Accept": "application/json",
             "Cache-Control": "no-cache",
             "Pragma": "no-cache",

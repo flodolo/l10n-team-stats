@@ -9,6 +9,7 @@ JIRA_EMAIL=XXX
 
 # Generate from account settings, Conduit API Tokens (Standard API Token)
 PHABRICATOR_TOKEN=XXX
+PHABRICATOR_USER_AGENT=l10n-phab-query/1.0
 
 [URLS]
 # e.g. https://mozilla-hub.atlassian.net
