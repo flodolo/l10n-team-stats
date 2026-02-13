@@ -2149,6 +2149,12 @@
         }
       },
       "phab-reviewed": 28
+    },
+    "2026-02-13": {
+      "github-avg-time-to-review": 37.3,
+      "github-pr-created": 5,
+      "github-repositories": 18,
+      "github-reviews": 37
     }
   },
   "jira-issues": {
@@ -2886,6 +2892,13 @@
       "closed": 3,
       "created": 3,
       "in-progress": 3
+    },
+    "2026-02-13": {
+      "backlog": 0,
+      "blocked": 0,
+      "closed": 2,
+      "created": 2,
+      "in-progress": 2
     }
   },
   "jira-request-stats": {
@@ -3833,6 +3846,15 @@
       "num_triaged": 2,
       "triage": 1.58,
       "triaged": "LR-282, LR-283"
+    },
+    "2026-02-13": {
+      "complete": 0.01,
+      "completed": "LR-285",
+      "deadline": -2.21,
+      "num_completed": 1,
+      "num_triaged": 2,
+      "triage": 0.0,
+      "triaged": "LR-284, LR-285"
     }
   },
   "jira-vendor-stats": {
@@ -4759,6 +4781,15 @@
       "deliver": 3.89,
       "delivered": "L10NV-330",
       "num_delivered": 1,
+      "num_triaged": 0,
+      "triage": 0,
+      "triaged": ""
+    },
+    "2026-02-13": {
+      "deadline": -1.82,
+      "deliver": 6.34,
+      "delivered": "L10NV-329, L10NV-331",
+      "num_delivered": 2,
       "num_triaged": 0,
       "triage": 0,
       "triaged": ""
@@ -7401,6 +7432,18 @@
       "avg-time-to-close": 8159.9,
       "closed": 7,
       "opened": 3
+    },
+    "2026-02-13": {
+      "P1": 0,
+      "P2": 36,
+      "P3": 233,
+      "P4": 40,
+      "P5": 24,
+      "Total": 334,
+      "Untriaged": 1,
+      "avg-time-to-close": 3885.3,
+      "closed": 5,
+      "opened": 8
     }
   },
   "pontoon-prs": {
@@ -8138,6 +8181,13 @@
       "closed": 7,
       "open": 6,
       "opened": 7
+    },
+    "2026-02-13": {
+      "avg-age-open": 815.5,
+      "avg-time-to-close": 51.2,
+      "closed": 9,
+      "open": 5,
+      "opened": 8
     }
   }
 }
