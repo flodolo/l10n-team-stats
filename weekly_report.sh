@@ -49,3 +49,8 @@ run_py "jira_vendors_stats.py"
 
 section "Jira request stats"
 run_py "jira_requests_stats.py"
+
+# Export to Google Sheets
+uv run python scripts/export_to_sheets.py
+uv run python scripts/jira_requests_data.py
+uv run python scripts/jira_vendors_data.py
