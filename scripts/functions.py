@@ -183,15 +183,28 @@ def get_json_file():
 
 
 def get_known_phab_group_diffs():
-    """Return the set of diff IDs already recorded in phab-groups output."""
+    """Return sets of diff IDs already recorded in phab-groups output.
+
+    Returns {"first_reviewed": set, "approved": set}.
+    Old-format entries (flat list per user) are treated as both.
+    """
     data = get_json_data()
-    known = set()
+    first_reviewed = set()
+    approved = set()
     for date_data in data.get("phab-groups", {}).values():
         for group_data in date_data.values():
-            for user_diffs in group_data.get("details", {}).values():
-                for diff_id, _ in user_diffs:
-                    known.add(diff_id)
-    return known
+            for user_data in group_data.get("details", {}).values():
+                if isinstance(user_data, list):
+                    # Old format: flat list of [diff_id, time_h]
+                    for diff_id, _ in user_data:
+                        first_reviewed.add(diff_id)
+                        approved.add(diff_id)
+                else:
+                    for diff_id, _ in user_data.get("first_reviews", []):
+                        first_reviewed.add(diff_id)
+                    for diff_id, _ in user_data.get("approvals", []):
+                        approved.add(diff_id)
+    return {"first_reviewed": first_reviewed, "approved": approved}
 
 
 def get_known_phab_user_diffs():

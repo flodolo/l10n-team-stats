@@ -63,33 +63,23 @@ def get_revisions_review_data(
     for revision in revisions:
         revision_id = f"D{revision['id']}"
 
-        if revision_id in known_diffs:
-            print(f"Skipping already recorded diff {revision_id}")
+        need_first_review = revision_id not in known_diffs["first_reviewed"]
+        need_approval = revision_id not in known_diffs["approved"]
+
+        if not need_first_review and not need_approval:
+            print(f"Skipping already fully recorded diff {revision_id}")
             continue
 
-        # Process transactions to find review by a group member.
         transactions = phab_diff_transactions(revision_id, revision["phid"])
-        reviewed = False
-        revision_data = {}
-        review_request_timestamp = None
-        for txn in transactions:
-            # The review has to happen within the range.
-            if (
-                txn["type"] in ("accept", "request-changes")
-                and txn["authorPHID"] in group_members
-                and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
-                and not reviewed
-            ):
-                reviewed = True
-                revision_data = results_data.setdefault(revision_id, {})
-                review_ts = txn["dateCreated"]
-                revision_data["review_timestamp"] = review_ts
-                revision_data["review_date"] = datetime.fromtimestamp(
-                    review_ts
-                ).strftime("%Y-%m-%d %H:%M")
-                revision_data["reviewer"] = group_members[txn["authorPHID"]]
 
-            # Store also when the review was requested.
+        first_review_ts = None
+        first_review_reviewer = None
+        approve_ts = None
+        approve_reviewer = None
+        review_request_timestamp = None
+
+        for txn in transactions:
+            # Track when the review was requested by the group.
             if txn["type"] == "reviewers":
                 operations = txn["fields"].get("operations", [])
                 try:
@@ -101,26 +91,59 @@ def get_revisions_review_data(
                         review_request_timestamp = txn["dateCreated"]
                 except Exception as e:
                     print(e)
-                    pass
 
-        # If there was no review yet, ignore this diff.
-        if not reviewed:
+            if (
+                txn["type"] in ("accept", "request-changes")
+                and txn["authorPHID"] in group_members
+                and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
+            ):
+                if need_first_review and first_review_ts is None:
+                    first_review_ts = txn["dateCreated"]
+                    first_review_reviewer = group_members[txn["authorPHID"]]
+
+                if need_approval and txn["type"] == "accept" and approve_ts is None:
+                    approve_ts = txn["dateCreated"]
+                    approve_reviewer = group_members[txn["authorPHID"]]
+
+        if first_review_ts is None and approve_ts is None:
             continue
 
         create_ts = revision["fields"]["dateCreated"]
-        revision_data["create_timestamp"] = create_ts
-        if review_request_timestamp:
-            revision_data["review_request_timestamp"] = review_request_timestamp
-        revision_data["create_date"] = datetime.fromtimestamp(create_ts).strftime(
-            "%Y-%m-%d %H:%M"
-        )
-        revision_data["title"] = f"{revision_id}: {revision['fields']['title']}"
+        review_request = review_request_timestamp or create_ts
+        title = f"{revision_id}: {revision['fields']['title']}"
+        create_date = datetime.fromtimestamp(create_ts).strftime("%Y-%m-%d %H:%M")
 
-        # Fall back to creation date if there is no review request timestamp.
-        review_request = revision_data.get("review_request_timestamp", create_ts)
-        time_diff = revision_data["review_timestamp"] - review_request
-        revision_data["time_to_review_h"] = round(time_diff / 3600, 2)
-        revision_data["time_to_review"] = format_time(time_diff)
+        revision_data = results_data.setdefault(
+            revision_id,
+            {
+                "create_timestamp": create_ts,
+                "create_date": create_date,
+                "title": title,
+                "review_request_timestamp": review_request,
+            },
+        )
+
+        if first_review_ts is not None:
+            time_diff = first_review_ts - review_request
+            revision_data["first_review"] = {
+                "timestamp": first_review_ts,
+                "date": datetime.fromtimestamp(first_review_ts).strftime(
+                    "%Y-%m-%d %H:%M"
+                ),
+                "reviewer": first_review_reviewer,
+                "time_to_review_h": round(time_diff / 3600, 2),
+                "time_to_review": format_time(time_diff),
+            }
+
+        if approve_ts is not None:
+            time_diff = approve_ts - review_request
+            revision_data["approval"] = {
+                "timestamp": approve_ts,
+                "date": datetime.fromtimestamp(approve_ts).strftime("%Y-%m-%d %H:%M"),
+                "reviewer": approve_reviewer,
+                "time_to_approve_h": round(time_diff / 3600, 2),
+                "time_to_approve": format_time(time_diff),
+            }
 
 
 def main():
@@ -150,7 +173,6 @@ def main():
             group_phid = cached["phid"]
             group_members = cached["members"]
         else:
-            # Retrieve group details by searching for the group (project) by name.
             group_query = {"query": group}
             group_response = {}
             print(f"\nGetting members of group {group}...")
@@ -165,20 +187,16 @@ def main():
 
             group_info = group_response["results"][0]
             group_phid = group_info["phid"]
-            # Extract the PHIDs of group members.
             group_member_phids = [
                 member["phid"]
                 for member in group_info["attachments"]["members"]["members"]
             ]
 
-            # Retrieve detailed user data for the group members.
             user_query = {"phids": group_member_phids}
             user_response = {}
             print("Getting info on members...")
             phab_query("user.search", user_response, constraints=user_query)
 
-            # Map user PHIDs to their usernames and exclude users that are not part
-            # of the l10n team.
             group_members = {
                 user["phid"]: user["fields"]["username"]
                 for user in user_response.get("results", [])
@@ -196,42 +214,82 @@ def main():
             known_diffs,
         )
 
+        # Aggregate per-reviewer stats.
         group_stats = {}
-        all_reviews = []
         for rev_id, rev_data in revisions_data.items():
-            if rev_data["reviewer"] not in group_stats:
-                group_stats[rev_data["reviewer"]] = [
-                    (rev_id, rev_data["time_to_review_h"])
-                ]
-            else:
-                group_stats[rev_data["reviewer"]].append(
-                    (rev_id, rev_data["time_to_review_h"])
+            if "first_review" in rev_data:
+                reviewer = rev_data["first_review"]["reviewer"]
+                entry = group_stats.setdefault(
+                    reviewer, {"first_reviews": [], "approvals": []}
                 )
-            all_reviews.append(rev_data["time_to_review_h"])
+                entry["first_reviews"].append(
+                    (rev_id, rev_data["first_review"]["time_to_review_h"])
+                )
+            if "approval" in rev_data:
+                reviewer = rev_data["approval"]["reviewer"]
+                entry = group_stats.setdefault(
+                    reviewer, {"first_reviews": [], "approvals": []}
+                )
+                entry["approvals"].append(
+                    (rev_id, rev_data["approval"]["time_to_approve_h"])
+                )
 
         if group_stats:
-            stats[group] = {
-                "details": group_stats,
-            }
+            stats[group] = {"details": group_stats}
 
     for group, group_stats in stats.items():
-        all_reviews = [
-            rev_time
-            for values in group_stats["details"].values()
-            for _, rev_time in values
+        all_first_reviews = [
+            t
+            for u in group_stats["details"].values()
+            for _, t in u["first_reviews"]
         ]
-        num_reviews = len(all_reviews)
-        group_stats["total_reviews"] = num_reviews
-        group_stats["average_review_time"] = round(statistics.mean(all_reviews), 2)
+        all_approvals = [
+            t
+            for u in group_stats["details"].values()
+            for _, t in u["approvals"]
+        ]
+        all_diff_ids = {
+            rev_id
+            for u in group_stats["details"].values()
+            for rev_id, _ in u["first_reviews"] + u["approvals"]
+        }
+
+        group_stats["total_reviews"] = len(all_diff_ids)
+        group_stats["total_first_reviews"] = len(all_first_reviews)
+        group_stats["total_approvals"] = len(all_approvals)
+        if all_first_reviews:
+            group_stats["average_time_to_first_review"] = round(
+                statistics.mean(all_first_reviews), 2
+            )
+        if all_approvals:
+            group_stats["average_time_to_approve"] = round(
+                statistics.mean(all_approvals), 2
+            )
+
         print(
-            f"Average time to review (h) for {group} ({group_stats['total_reviews']}): {group_stats['average_review_time']}"
+            f"1st reviews for {group} ({group_stats['total_first_reviews']}): "
+            f"avg {group_stats.get('average_time_to_first_review', 'n/a')} h"
+        )
+        print(
+            f"Approvals for {group} ({group_stats['total_approvals']}): "
+            f"avg {group_stats.get('average_time_to_approve', 'n/a')} h"
         )
         for user, user_stats in group_stats["details"].items():
-            user_reviews = [rev_time for _, rev_time in user_stats]
-            num_user_reviews = len(user_stats)
-            perc = round(num_user_reviews / num_reviews * 100, 2)
+            n_first = len(user_stats["first_reviews"])
+            n_approvals = len(user_stats["approvals"])
+            avg_first = (
+                round(statistics.mean([t for _, t in user_stats["first_reviews"]]), 2)
+                if user_stats["first_reviews"]
+                else "n/a"
+            )
+            avg_approve = (
+                round(statistics.mean([t for _, t in user_stats["approvals"]]), 2)
+                if user_stats["approvals"]
+                else "n/a"
+            )
             print(
-                f"{user} ({num_user_reviews}, {perc}%): average (h) {round(statistics.mean(user_reviews), 2)}"
+                f"  {user}: 1st reviews={n_first} (avg {avg_first} h), "
+                f"approvals={n_approvals} (avg {avg_approve} h)"
             )
 
     store_json_data("phab-groups", stats, day=end_date)
