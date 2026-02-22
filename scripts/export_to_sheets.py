@@ -25,6 +25,7 @@ def update_sheet(sh, sheet_name, export):
     # add spaces after each column header.
     export[0] = [f"{label}   " for label in export[0]]
 
+    wks.resize(rows=len(export), cols=num_columns)
     wks.update(export, "A1", value_input_option="USER_ENTERED")
     wks.format(
         f"A1:{columns[num_columns - 1]}1",
@@ -166,7 +167,12 @@ def main():
             if isinstance(user_data, list):
                 count = len(user_data)
             else:
-                count = len(user_data.get("first_reviews", []))
+                unique = {
+                    rev_id
+                    for rev_id, _ in user_data.get("first_reviews", [])
+                    + user_data.get("approvals", [])
+                }
+                count = len(unique)
             distribution[user] = count
             total += count
 

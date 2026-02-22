@@ -253,7 +253,6 @@ def main():
             for u in group_stats["details"].values()
             for rev_id, _ in u["first_reviews"] + u["approvals"]
         }
-
         group_stats["total_reviews"] = len(all_diff_ids)
         group_stats["total_first_reviews"] = len(all_first_reviews)
         group_stats["total_approvals"] = len(all_approvals)
