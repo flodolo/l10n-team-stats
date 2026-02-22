@@ -50,6 +50,7 @@ def parse_arguments(
     repo=False,
     user=False,
     group=False,
+    dry=False,
 ):
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -70,6 +71,8 @@ def parse_arguments(
         parser.add_argument("--group", "-g", help="Group name on Phabricator")
     if user:
         parser.add_argument("--user", "-u", help="Username on GitHub")
+    if dry:
+        parser.add_argument("--dry", help="Do not store JSON data", action="store_true")
     args = parser.parse_args()
 
     if not args.start:

@@ -13,7 +13,7 @@ from functions import (
 
 
 def main():
-    args = parse_arguments()
+    args = parse_arguments(dry=True)
     str_start_date = args.start.strftime("%Y-%m-%d")
     end_date = args.end
     str_end_date = end_date.strftime("%Y-%m-%d")
@@ -41,6 +41,7 @@ def main():
         order="desc",
     )
     untriaged = []
+    assigned = []
     if open:
         for issue in open:
             stats["Total"] += 1
@@ -49,6 +50,10 @@ def main():
                 if label.name in stats.keys():
                     stats[label.name] += 1
                     triaged = True
+                    if issue.assignee:
+                        assigned.append(
+                            f"  - {label.name} #{issue.number} {issue.title} (@{issue.assignee.login})"
+                        )
             if not triaged:
                 stats["Untriaged"] += 1
                 untriaged.append(f"  - #{issue.number} {issue.title}")
@@ -57,6 +62,10 @@ def main():
         for k, v in stats.items():
             print(f"- {k}: {v}")
             record[k] = v
+        if assigned:
+            assigned.sort()
+            print(f"\nIssues with an assignee ({len(assigned)}):")
+            print("\n".join(assigned))
         if untriaged:
             print(f"\nUntriaged issues ({len(untriaged)}):")
             print("\n".join(untriaged))
@@ -119,7 +128,8 @@ def main():
         if args.verbose:
             print("\n".join(issues.values()))
 
-    store_json_data("pontoon-issues", record, day=end_date)
+    if not args.dry:
+        store_json_data("pontoon-issues", record, day=end_date)
 
 
 if __name__ == "__main__":
