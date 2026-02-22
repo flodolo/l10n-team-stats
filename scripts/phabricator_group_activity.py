@@ -16,14 +16,12 @@ from datetime import datetime
 
 from functions import (
     format_time,
-    get_known_phab_diffs,
     get_phab_usernames,
     parse_arguments,
     phab_diff_transactions,
     phab_query,
     phab_search_revisions,
     store_json_data,
-    store_known_phab_diffs,
 )
 
 
@@ -33,7 +31,6 @@ def get_revisions_review_data(
     group_phid,
     start_timestamp,
     end_timestamp,
-    known_phab_diffs,
 ):
     # Query revisions for the group.
     print("Getting revisions created within the date range...")
@@ -63,11 +60,6 @@ def get_revisions_review_data(
     for revision in revisions:
         revision_id = f"D{revision['id']}"
 
-        # Ignore diff that has been already authored or reviewed
-        if revision_id in known_phab_diffs.get("type", []):
-            print(f"Skipping known diff {revision_id} for type {type}")
-            continue
-
         # Process transactions to find review by a group member.
         transactions = phab_diff_transactions(revision_id, revision["phid"])
         reviewed = False
@@ -89,7 +81,6 @@ def get_revisions_review_data(
                     review_ts
                 ).strftime("%Y-%m-%d %H:%M")
                 revision_data["reviewer"] = group_members[txn["authorPHID"]]
-                known_phab_diffs["reviewed"].append(revision_id)
 
             # Store also when the review was requested.
             if txn["type"] == "reviewers":
@@ -144,7 +135,6 @@ def main():
 
     stats = {}
     l10n_users = get_phab_usernames().keys()
-    known_phab_diffs = get_known_phab_diffs()
     for group in groups:
         # Retrieve group details by searching for the group (project) by name.
         group_query = {"query": group}
@@ -187,7 +177,6 @@ def main():
             group_phid,
             start_timestamp,
             end_timestamp,
-            known_phab_diffs,
         )
 
         group_stats = {}
@@ -229,7 +218,6 @@ def main():
             )
 
     store_json_data("phab-groups", stats, day=end_date)
-    store_known_phab_diffs(known_phab_diffs)
 
 
 if __name__ == "__main__":
