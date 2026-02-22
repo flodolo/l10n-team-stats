@@ -39,11 +39,37 @@ def _save(cache: dict) -> None:
 def get_transactions(diff_identifier: str):
     """Return cached transactions for a given diff/revision id, or None."""
     cache = _load()
-    return cache.get(diff_identifier)
+    return cache.get(f"txn:{diff_identifier}")
 
 
 def set_transactions(diff_identifier: str, transactions) -> None:
     """Save transactions for a given diff/revision id."""
     cache = _load()
-    cache[diff_identifier] = transactions
+    cache[f"txn:{diff_identifier}"] = transactions
+    _save(cache)
+
+
+def get_group(group_name: str):
+    """Return cached group info (phid + filtered members) or None."""
+    cache = _load()
+    return cache.get(f"group:{group_name}")
+
+
+def set_group(group_name: str, group_data: dict) -> None:
+    """Save group info (phid + filtered members)."""
+    cache = _load()
+    cache[f"group:{group_name}"] = group_data
+    _save(cache)
+
+
+def get_user_phids():
+    """Return cached list of user phid dicts, or None."""
+    cache = _load()
+    return cache.get("user_phids")
+
+
+def set_user_phids(users: list) -> None:
+    """Save list of user phid dicts."""
+    cache = _load()
+    cache["user_phids"] = users
     _save(cache)

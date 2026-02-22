@@ -182,25 +182,43 @@ def get_json_file():
     return os.path.join(os.path.dirname(__file__), os.pardir, "data", "data.json")
 
 
-def get_known_phab_diffs():
-    filename = os.path.join(
-        os.path.dirname(__file__), os.pardir, "data", "phab_diffs.json"
-    )
-    if not os.path.isfile(filename):
-        return {}
+def get_known_phab_group_diffs():
+    """Return sets of diff IDs already recorded in phab-groups output.
 
-    with open(filename) as f:
-        return json.load(f)
+    Returns {"first_reviewed": set, "approved": set}.
+    Old-format entries (flat list per user) are treated as both.
+    """
+    data = get_json_data()
+    first_reviewed = set()
+    approved = set()
+    for date_data in data.get("phab-groups", {}).values():
+        for group_data in date_data.values():
+            for user_data in group_data.get("details", {}).values():
+                if isinstance(user_data, list):
+                    # Old format: flat list of [diff_id, time_h]
+                    for diff_id, _ in user_data:
+                        first_reviewed.add(diff_id)
+                        approved.add(diff_id)
+                else:
+                    for diff_id, _ in user_data.get("first_reviews", []):
+                        first_reviewed.add(diff_id)
+                    for diff_id, _ in user_data.get("approvals", []):
+                        approved.add(diff_id)
+    return {"first_reviewed": first_reviewed, "approved": approved}
 
 
-def store_known_phab_diffs(diffs):
-    filename = os.path.join(
-        os.path.dirname(__file__), os.pardir, "data", "phab_diffs.json"
-    )
-    diffs["authored"].sort()
-    diffs["reviewed"].sort()
-    with open(filename, "w") as f:
-        return json.dump(diffs, f, indent=2, sort_keys=True)
+def get_known_phab_user_diffs():
+    """Return sets of diff IDs already recorded in epm-reviews output."""
+    data = get_json_data()
+    authored = set()
+    reviewed = set()
+    for date_data in data.get("epm-reviews", {}).values():
+        for user_data in date_data.get("phab-details", {}).values():
+            for diff_id in user_data.get("authored", []):
+                authored.add(diff_id)
+            for diff_id, _ in user_data.get("reviewed", []):
+                reviewed.add(diff_id)
+    return {"authored": authored, "reviewed": reviewed}
 
 
 def get_json_data():

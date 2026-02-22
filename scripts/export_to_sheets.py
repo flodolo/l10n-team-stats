@@ -25,6 +25,7 @@ def update_sheet(sh, sheet_name, export):
     # add spaces after each column header.
     export[0] = [f"{label}   " for label in export[0]]
 
+    wks.resize(rows=len(export), cols=num_columns)
     wks.update(export, "A1", value_input_option="USER_ENTERED")
     wks.format(
         f"A1:{columns[num_columns - 1]}1",
@@ -139,37 +140,69 @@ def main():
     export.append(
         [
             "Date",
-            "Android Reviewed",
-            "Android Avg Review Time (h)",
+            "Android\nTotal Reviews",
+            "Android\n1st Reviews",
+            "Android Avg\n1st Review Time (h)",
+            "Android\nApprovals",
+            "Android Avg\nApproval Time (h)",
             "Android Distribution",
-            "Fluent Reviewed",
-            "Fluent Avg Review Time (h)",
+            "Fluent\nTotal Reviews",
+            "Fluent\n1st Reviews",
+            "Fluent Avg\n1st Review Time (h)",
+            "Fluent\nApprovals",
+            "Fluent Avg\nApproval Time (h)",
             "Fluent Distribution",
         ]
     )
 
     def get_distribution(day_data, group):
-        total = 0
-        distribution = {}
         details = day_data.get(group, {}).get("details", {})
         if not details:
             return ""
 
+        distribution = {}
+        total = 0
         for user, user_data in details.items():
-            distribution[user] = len(user_data)
-            total += len(user_data)
-        distribution = {k: round(v * 100 / total, 2) for k, v in distribution.items()}
+            # Support both old format (flat list) and new format (dict with lists).
+            if isinstance(user_data, list):
+                count = len(user_data)
+            else:
+                unique = {
+                    rev_id
+                    for rev_id, _ in user_data.get("first_reviews", [])
+                    + user_data.get("approvals", [])
+                }
+                count = len(unique)
+            distribution[user] = count
+            total += count
 
+        if not total:
+            return ""
+        distribution = {k: round(v * 100 / total, 2) for k, v in distribution.items()}
         return ", ".join([f"{user}: {perc}%" for user, perc in distribution.items()])
+
+    def get_group_value(day_data, group, key, old_key=None):
+        group_data = day_data.get(group, {})
+        value = group_data.get(key, "")
+        # Fall back to old key for existing data that predates the new format.
+        if value == "" and old_key:
+            value = group_data.get(old_key, "")
+        return value
 
     for day, day_data in data["phab-groups"].items():
         _row = [
             day,
-            day_data.get("android-l10n-reviewers", {}).get("total_reviews", 0),
-            day_data.get("android-l10n-reviewers", {}).get("average_review_time", ""),
+            get_group_value(day_data, "android-l10n-reviewers", "total_reviews"),
+            get_group_value(day_data, "android-l10n-reviewers", "total_first_reviews"),
+            get_group_value(day_data, "android-l10n-reviewers", "average_time_to_first_review", "average_review_time"),
+            get_group_value(day_data, "android-l10n-reviewers", "total_approvals"),
+            get_group_value(day_data, "android-l10n-reviewers", "average_time_to_approve"),
             get_distribution(day_data, "android-l10n-reviewers"),
-            day_data.get("fluent-reviewers", {}).get("total_reviews", 0),
-            day_data.get("fluent-reviewers", {}).get("average_review_time", ""),
+            get_group_value(day_data, "fluent-reviewers", "total_reviews"),
+            get_group_value(day_data, "fluent-reviewers", "total_first_reviews"),
+            get_group_value(day_data, "fluent-reviewers", "average_time_to_first_review", "average_review_time"),
+            get_group_value(day_data, "fluent-reviewers", "total_approvals"),
+            get_group_value(day_data, "fluent-reviewers", "average_time_to_approve"),
             get_distribution(day_data, "fluent-reviewers"),
         ]
         export.append(_row)
