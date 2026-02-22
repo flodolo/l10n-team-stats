@@ -82,7 +82,7 @@ def get_revisions(
                 # request might happen as part of a group.
                 # The review has to happen within the range.
                 if (
-                    txn["type"] == "accept"
+                    txn["type"] in ("accept", "request-changes")
                     and txn["authorPHID"] == user["phid"]
                     and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
                 ):

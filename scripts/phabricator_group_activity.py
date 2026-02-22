@@ -76,7 +76,7 @@ def get_revisions_review_data(
         for txn in transactions:
             # The review has to happen within the range.
             if (
-                txn["type"] == "accept"
+                txn["type"] in ("accept", "request-changes")
                 and txn["authorPHID"] in group_members
                 and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
                 and not reviewed
