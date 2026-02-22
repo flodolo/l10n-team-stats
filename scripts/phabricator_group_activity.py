@@ -82,15 +82,13 @@ def get_revisions_review_data(
             # Track when the review was requested by the group.
             if txn["type"] == "reviewers":
                 operations = txn["fields"].get("operations", [])
-                try:
+                if operations:
                     op = operations[0]
                     if (
                         op.get("operation", "") == "add"
                         and op.get("phid", "") == group_phid
                     ):
                         review_request_timestamp = txn["dateCreated"]
-                except Exception as e:
-                    print(e)
 
             if (
                 txn["type"] in ("accept", "request-changes")
@@ -183,7 +181,7 @@ def main():
                 attachments={"members": True},
             )
             if not group_response.get("results"):
-                sys.exit(f"Group {args.group} not found.")
+                sys.exit(f"Group {group} not found.")
 
             group_info = group_response["results"][0]
             group_phid = group_info["phid"]
@@ -239,14 +237,10 @@ def main():
 
     for group, group_stats in stats.items():
         all_first_reviews = [
-            t
-            for u in group_stats["details"].values()
-            for _, t in u["first_reviews"]
+            t for u in group_stats["details"].values() for _, t in u["first_reviews"]
         ]
         all_approvals = [
-            t
-            for u in group_stats["details"].values()
-            for _, t in u["approvals"]
+            t for u in group_stats["details"].values() for _, t in u["approvals"]
         ]
         all_diff_ids = {
             rev_id

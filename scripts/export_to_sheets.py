@@ -12,7 +12,45 @@ from functions import (
 )
 
 
-columns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def col_letter(n):
+    """Return the A1-notation column letter for a 1-based column index."""
+    return chr(ord("A") + n - 1)
+
+
+def get_distribution(day_data, group):
+    details = day_data.get(group, {}).get("details", {})
+    if not details:
+        return ""
+
+    distribution = {}
+    total = 0
+    for user, user_data in details.items():
+        # Support both old format (flat list) and new format (dict with lists).
+        if isinstance(user_data, list):
+            count = len(user_data)
+        else:
+            unique = {
+                rev_id
+                for rev_id, _ in user_data.get("first_reviews", [])
+                + user_data.get("approvals", [])
+            }
+            count = len(unique)
+        distribution[user] = count
+        total += count
+
+    if not total:
+        return ""
+    distribution = {k: round(v * 100 / total, 2) for k, v in distribution.items()}
+    return ", ".join([f"{user}: {perc}%" for user, perc in distribution.items()])
+
+
+def get_group_value(day_data, group, key, old_key=None):
+    group_data = day_data.get(group, {})
+    value = group_data.get(key, "")
+    # Fall back to old key for existing data that predates the new format.
+    if value == "" and old_key:
+        value = group_data.get(old_key, "")
+    return value
 
 
 def update_sheet(sh, sheet_name, export):
@@ -28,7 +66,7 @@ def update_sheet(sh, sheet_name, export):
     wks.resize(rows=len(export), cols=num_columns)
     wks.update(export, "A1", value_input_option="USER_ENTERED")
     wks.format(
-        f"A1:{columns[num_columns - 1]}1",
+        f"A1:{col_letter(num_columns)}1",
         {
             "backgroundColorStyle": {
                 "rgbColor": {"red": 0.85, "green": 0.85, "blue": 0.85}
@@ -97,13 +135,13 @@ def update_sheet(sh, sheet_name, export):
     try:
         named_ranges = sh.list_named_ranges()
         named_range_id = None
-        for range in named_ranges:
-            if range["name"] == range_name:
-                named_range_id = range["namedRangeId"]
+        for named_range in named_ranges:
+            if named_range["name"] == range_name:
+                named_range_id = named_range["namedRangeId"]
                 break
         # Create a new one if missing
         if not named_range_id:
-            end_cell = f"{columns[num_columns - 1]}{len(export)}"
+            end_cell = f"{col_letter(num_columns)}{len(export)}"
             wks.define_named_range(f"A1:{end_cell}", range_name)
         else:
             body = {
@@ -128,7 +166,7 @@ def update_sheet(sh, sheet_name, export):
             }
             sh.batch_update(body)
     except gspread.exceptions.APIError as e:
-        print(f"Error removing named range {range_name}: {e}")
+        print(f"Error updating named range {range_name}: {e}")
 
 
 def main():
@@ -155,52 +193,30 @@ def main():
         ]
     )
 
-    def get_distribution(day_data, group):
-        details = day_data.get(group, {}).get("details", {})
-        if not details:
-            return ""
-
-        distribution = {}
-        total = 0
-        for user, user_data in details.items():
-            # Support both old format (flat list) and new format (dict with lists).
-            if isinstance(user_data, list):
-                count = len(user_data)
-            else:
-                unique = {
-                    rev_id
-                    for rev_id, _ in user_data.get("first_reviews", [])
-                    + user_data.get("approvals", [])
-                }
-                count = len(unique)
-            distribution[user] = count
-            total += count
-
-        if not total:
-            return ""
-        distribution = {k: round(v * 100 / total, 2) for k, v in distribution.items()}
-        return ", ".join([f"{user}: {perc}%" for user, perc in distribution.items()])
-
-    def get_group_value(day_data, group, key, old_key=None):
-        group_data = day_data.get(group, {})
-        value = group_data.get(key, "")
-        # Fall back to old key for existing data that predates the new format.
-        if value == "" and old_key:
-            value = group_data.get(old_key, "")
-        return value
-
     for day, day_data in data["phab-groups"].items():
         _row = [
             day,
             get_group_value(day_data, "android-l10n-reviewers", "total_reviews"),
             get_group_value(day_data, "android-l10n-reviewers", "total_first_reviews"),
-            get_group_value(day_data, "android-l10n-reviewers", "average_time_to_first_review", "average_review_time"),
+            get_group_value(
+                day_data,
+                "android-l10n-reviewers",
+                "average_time_to_first_review",
+                "average_review_time",
+            ),
             get_group_value(day_data, "android-l10n-reviewers", "total_approvals"),
-            get_group_value(day_data, "android-l10n-reviewers", "average_time_to_approve"),
+            get_group_value(
+                day_data, "android-l10n-reviewers", "average_time_to_approve"
+            ),
             get_distribution(day_data, "android-l10n-reviewers"),
             get_group_value(day_data, "fluent-reviewers", "total_reviews"),
             get_group_value(day_data, "fluent-reviewers", "total_first_reviews"),
-            get_group_value(day_data, "fluent-reviewers", "average_time_to_first_review", "average_review_time"),
+            get_group_value(
+                day_data,
+                "fluent-reviewers",
+                "average_time_to_first_review",
+                "average_review_time",
+            ),
             get_group_value(day_data, "fluent-reviewers", "total_approvals"),
             get_group_value(day_data, "fluent-reviewers", "average_time_to_approve"),
             get_distribution(day_data, "fluent-reviewers"),
@@ -374,10 +390,10 @@ def main():
             day_data.get("phab-authored", ""),
             day_data.get("phab-reviewed", ""),
             day_data.get("phab-avg-time-to-review", ""),
-            day_data["github-reviews"],
-            day_data["github-avg-time-to-review"],
-            day_data["github-pr-created"],
-            day_data["github-repositories"],
+            day_data.get("github-reviews", ""),
+            day_data.get("github-avg-time-to-review", ""),
+            day_data.get("github-pr-created", ""),
+            day_data.get("github-repositories", ""),
         ]
         export.append(_row)
     update_sheet(sh, "raw_epm_reviews", export)
