@@ -24,6 +24,7 @@ from functions import (
     phab_search_revisions,
     store_json_data,
 )
+from phab_cache import get_group, set_group
 
 
 def get_revisions_review_data(
@@ -143,39 +144,47 @@ def main():
     l10n_users = get_phab_usernames().keys()
     known_diffs = get_known_phab_group_diffs()
     for group in groups:
-        # Retrieve group details by searching for the group (project) by name.
-        group_query = {"query": group}
-        group_response = {}
-        print(f"\nGetting members of group {group}...")
-        phab_query(
-            "project.search",
-            group_response,
-            constraints=group_query,
-            attachments={"members": True},
-        )
-        if not group_response.get("results"):
-            sys.exit(f"Group {args.group} not found.")
+        cached = get_group(group)
+        if cached:
+            print(f"\nUsing cached info for group {group}...")
+            group_phid = cached["phid"]
+            group_members = cached["members"]
+        else:
+            # Retrieve group details by searching for the group (project) by name.
+            group_query = {"query": group}
+            group_response = {}
+            print(f"\nGetting members of group {group}...")
+            phab_query(
+                "project.search",
+                group_response,
+                constraints=group_query,
+                attachments={"members": True},
+            )
+            if not group_response.get("results"):
+                sys.exit(f"Group {args.group} not found.")
 
-        group_info = group_response["results"][0]
-        group_phid = group_info["phid"]
-        # Extract the PHIDs of group members.
-        group_member_phids = [
-            member["phid"] for member in group_info["attachments"]["members"]["members"]
-        ]
+            group_info = group_response["results"][0]
+            group_phid = group_info["phid"]
+            # Extract the PHIDs of group members.
+            group_member_phids = [
+                member["phid"]
+                for member in group_info["attachments"]["members"]["members"]
+            ]
 
-        # Retrieve detailed user data for the group members.
-        user_query = {"phids": group_member_phids}
-        user_response = {}
-        print("Getting info on members...")
-        phab_query("user.search", user_response, constraints=user_query)
+            # Retrieve detailed user data for the group members.
+            user_query = {"phids": group_member_phids}
+            user_response = {}
+            print("Getting info on members...")
+            phab_query("user.search", user_response, constraints=user_query)
 
-        # Map user PHIDs to their usernames and exclude users that are not part
-        # of the l10n team.
-        group_members = {
-            user["phid"]: user["fields"]["username"]
-            for user in user_response.get("results", [])
-            if user["fields"]["username"] in l10n_users
-        }
+            # Map user PHIDs to their usernames and exclude users that are not part
+            # of the l10n team.
+            group_members = {
+                user["phid"]: user["fields"]["username"]
+                for user in user_response.get("results", [])
+                if user["fields"]["username"] in l10n_users
+            }
+            set_group(group, {"phid": group_phid, "members": group_members})
 
         revisions_data = {}
         get_revisions_review_data(

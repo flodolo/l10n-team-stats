@@ -16,6 +16,7 @@ from functions import (
     phab_search_revisions,
     store_json_data,
 )
+from phab_cache import get_user_phids as get_cached_user_phids, set_user_phids
 
 
 def get_revisions(
@@ -118,6 +119,11 @@ def get_revisions(
 
 
 def get_user_phids():
+    cached = get_cached_user_phids()
+    if cached:
+        print("Using cached user details...")
+        return cached
+
     constraints = {
         "usernames": list(get_phab_usernames().keys()),
     }
@@ -133,7 +139,7 @@ def get_user_phids():
                 "phid": u["phid"],
             }
         )
-
+    set_user_phids(users)
     return users
 
 
