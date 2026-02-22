@@ -182,6 +182,31 @@ def get_json_file():
     return os.path.join(os.path.dirname(__file__), os.pardir, "data", "data.json")
 
 
+def get_known_phab_group_diffs():
+    """Return the set of diff IDs already recorded in phab-groups output."""
+    data = get_json_data()
+    known = set()
+    for date_data in data.get("phab-groups", {}).values():
+        for group_data in date_data.values():
+            for user_diffs in group_data.get("details", {}).values():
+                for diff_id, _ in user_diffs:
+                    known.add(diff_id)
+    return known
+
+
+def get_known_phab_user_diffs():
+    """Return sets of diff IDs already recorded in epm-reviews output."""
+    data = get_json_data()
+    authored = set()
+    reviewed = set()
+    for date_data in data.get("epm-reviews", {}).values():
+        for user_data in date_data.get("phab-details", {}).values():
+            for diff_id in user_data.get("authored", []):
+                authored.add(diff_id)
+            for diff_id, _ in user_data.get("reviewed", []):
+                reviewed.add(diff_id)
+    return {"authored": authored, "reviewed": reviewed}
+
 
 def get_json_data():
     json_file = get_json_file()

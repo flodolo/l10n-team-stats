@@ -16,6 +16,7 @@ from datetime import datetime
 
 from functions import (
     format_time,
+    get_known_phab_group_diffs,
     get_phab_usernames,
     parse_arguments,
     phab_diff_transactions,
@@ -31,6 +32,7 @@ def get_revisions_review_data(
     group_phid,
     start_timestamp,
     end_timestamp,
+    known_diffs,
 ):
     # Query revisions for the group.
     print("Getting revisions created within the date range...")
@@ -59,6 +61,10 @@ def get_revisions_review_data(
     revisions = sorted(revisions, key=lambda rev: rev["fields"]["dateCreated"])
     for revision in revisions:
         revision_id = f"D{revision['id']}"
+
+        if revision_id in known_diffs:
+            print(f"Skipping already recorded diff {revision_id}")
+            continue
 
         # Process transactions to find review by a group member.
         transactions = phab_diff_transactions(revision_id, revision["phid"])
@@ -135,6 +141,7 @@ def main():
 
     stats = {}
     l10n_users = get_phab_usernames().keys()
+    known_diffs = get_known_phab_group_diffs()
     for group in groups:
         # Retrieve group details by searching for the group (project) by name.
         group_query = {"query": group}
@@ -177,6 +184,7 @@ def main():
             group_phid,
             start_timestamp,
             end_timestamp,
+            known_diffs,
         )
 
         group_stats = {}

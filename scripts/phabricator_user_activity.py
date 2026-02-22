@@ -8,6 +8,7 @@ import datetime
 import statistics
 
 from functions import (
+    get_known_phab_user_diffs,
     get_phab_usernames,
     parse_arguments,
     phab_diff_transactions,
@@ -17,7 +18,9 @@ from functions import (
 )
 
 
-def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
+def get_revisions(
+    type, user, results_data, start_timestamp, end_timestamp, known_diffs
+):
     username = user["user"]
     print(f"Searching revisions {type} by {username}...")
 
@@ -61,6 +64,10 @@ def get_revisions(type, user, results_data, start_timestamp, end_timestamp):
     revisions = sorted(revisions, key=lambda d: d["fields"]["dateCreated"])
     for revision in revisions:
         revision_id = f"D{revision['id']}"
+
+        if revision_id in known_diffs.get(type, set()):
+            print(f"Skipping already recorded diff {revision_id} for type {type}")
+            continue
 
         reviewed = False
         review_ts = None
@@ -141,10 +148,15 @@ def main():
         f"Revisions between {args.start.strftime('%Y-%m-%d')} and {args.end.strftime('%Y-%m-%d')}"
     )
     users = get_user_phids()
+    known_diffs = get_known_phab_user_diffs()
     phab_data = {}
     for user in users:
-        get_revisions("authored", user, phab_data, start_timestamp, end_timestamp)
-        get_revisions("reviewed", user, phab_data, start_timestamp, end_timestamp)
+        get_revisions(
+            "authored", user, phab_data, start_timestamp, end_timestamp, known_diffs
+        )
+        get_revisions(
+            "reviewed", user, phab_data, start_timestamp, end_timestamp, known_diffs
+        )
 
     stats = {
         "phab-authored": 0,

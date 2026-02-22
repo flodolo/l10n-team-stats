@@ -9,7 +9,7 @@ CACHE_FILE = Path(__file__).resolve().parent / "phab_cache.json"
 
 def _is_fresh(path: Path) -> bool:
     try:
-        return (time.time() - path.stat().st_mtime) <= (2 * 60 * 60)
+        return (time.time() - path.stat().st_mtime) <= (6 * 60 * 60)
     except FileNotFoundError:
         return False
 
