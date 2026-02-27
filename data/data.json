@@ -2061,6 +2061,30 @@
         }
       },
       "phab-reviewed": 24
+    },
+    "2026-02-27": {
+      "github-avg-time-to-review": 22.1,
+      "github-pr-created": 6,
+      "github-repositories": 15,
+      "github-reviews": 25,
+      "phab-authored": 2,
+      "phab-avg-time-to-review": 95.32,
+      "phab-details": {
+        "bolsson": {
+          "reviewed": [[ "D282441", 265.44 ], [ "D283959", 46.71 ], [ "D284161", 21.23 ], [ "D284406", 24.95 ], [ "D284493", 6.98 ], [ "D284559", 2.39 ], [ "D284597", 13.76 ]]
+        },
+        "delphine": {
+          "reviewed": [[ "D280661", 719.47 ], [ "D284265", 151.66 ], [ "D284304", 0.58 ], [ "D284521", 5.14 ], [ "D284864", 29.68 ], [ "D284915", 24.82 ], [ "D284923", 23.87 ], [ "D285088", 5.68 ]]
+        },
+        "flod": {
+          "authored": [
+            "D284412",
+            "D284987"
+          ],
+          "reviewed": [[ "D282464", 395.58 ], [ "D282876", 324.65 ], [ "D284228", 140.43 ], [ "D284735", 11.53 ], [ "D284759", 26.99 ], [ "D284764", 16.66 ], [ "D284769", 6.71 ], [ "D284848", 5.16 ], [ "D284869", 17.54 ]]
+        }
+      },
+      "phab-reviewed": 24
     }
   },
   "jira-issues": {
@@ -2812,6 +2836,13 @@
       "closed": 3,
       "created": 3,
       "in-progress": 0
+    },
+    "2026-02-27": {
+      "backlog": 0,
+      "blocked": 0,
+      "closed": 5,
+      "created": 5,
+      "in-progress": 2
     }
   },
   "jira-request-stats": {
@@ -3777,6 +3808,15 @@
       "num_triaged": 3,
       "triage": 0.16,
       "triaged": "LR-286, LR-287, LR-288"
+    },
+    "2026-02-27": {
+      "complete": 0.32,
+      "completed": "LR-289, LR-292",
+      "deadline": -5.94,
+      "num_completed": 2,
+      "num_triaged": 3,
+      "triage": 0.21,
+      "triaged": "LR-289, LR-291, LR-292"
     }
   },
   "jira-vendor-stats": {
@@ -4724,6 +4764,15 @@
       "num_triaged": 0,
       "triage": 0,
       "triaged": ""
+    },
+    "2026-02-27": {
+      "deadline": 0,
+      "deliver": 0,
+      "delivered": "",
+      "num_delivered": 0,
+      "num_triaged": 1,
+      "triage": 0.0,
+      "triaged": "L10NV-332"
     }
   },
   "phab-groups": {
@@ -6871,6 +6920,38 @@
         "total_first_reviews": 18,
         "total_reviews": 18
       }
+    },
+    "2026-02-27": {
+      "android-l10n-reviewers": {
+        "average_time_to_approve": 17.88,
+        "average_time_to_first_review": 15.94,
+        "details": {
+          "delphine": {
+            "approvals": [[ "D280661", 53.35 ], [ "D284304", 0.57 ], [ "D284521", 5.11 ], [ "D284864", 29.67 ], [ "D284915", 24.82 ], [ "D284923", 5.97 ], [ "D285088", 5.65 ]],
+            "first_reviews": [[ "D280661", 53.35 ], [ "D284265", 2.4 ], [ "D284304", 0.57 ], [ "D284521", 5.11 ], [ "D284864", 29.67 ], [ "D284915", 24.82 ], [ "D284923", 5.97 ], [ "D285088", 5.65 ]]
+          }
+        },
+        "total_approvals": 7,
+        "total_first_reviews": 8,
+        "total_reviews": 8
+      },
+      "fluent-reviewers": {
+        "average_time_to_approve": 59.01,
+        "average_time_to_first_review": 55.4,
+        "details": {
+          "bolsson": {
+            "approvals": [[ "D282441", 264.75 ], [ "D283954", 126.2 ], [ "D283959", 46.7 ], [ "D284161", 21.2 ], [ "D284406", 24.95 ], [ "D284493", 6.98 ], [ "D284559", 2.37 ], [ "D284597", 13.76 ]],
+            "first_reviews": [[ "D282441", 264.75 ], [ "D283959", 46.7 ], [ "D284161", 21.2 ], [ "D284406", 24.95 ], [ "D284493", 6.98 ], [ "D284559", 2.39 ], [ "D284597", 13.76 ]]
+          },
+          "flod": {
+            "approvals": [[ "D282464", 395.58 ], [ "D282876", 36.85 ], [ "D284228", 14.81 ], [ "D284735", 11.53 ], [ "D284759", 3.15 ], [ "D284764", 7.18 ], [ "D284769", 6.71 ], [ "D284848", 3.26 ], [ "D284869", 17.11 ]],
+            "first_reviews": [[ "D282464", 395.58 ], [ "D282876", 36.85 ], [ "D284228", 14.81 ], [ "D284735", 11.53 ], [ "D284759", 3.15 ], [ "D284764", 16.66 ], [ "D284769", 6.71 ], [ "D284848", 3.26 ], [ "D284869", 17.11 ]]
+          }
+        },
+        "total_approvals": 17,
+        "total_first_reviews": 16,
+        "total_reviews": 17
+      }
     }
   },
   "pontoon-issues": {
@@ -8157,6 +8238,18 @@
       "avg-time-to-close": 3528.4,
       "closed": 8,
       "opened": 9
+    },
+    "2026-02-27": {
+      "P1": 0,
+      "P2": 33,
+      "P3": 233,
+      "P4": 41,
+      "P5": 25,
+      "Total": 333,
+      "Untriaged": 1,
+      "avg-time-to-close": 3472.5,
+      "closed": 5,
+      "opened": 3
     }
   },
   "pontoon-prs": {
@@ -8908,6 +9001,13 @@
       "closed": 14,
       "open": 3,
       "opened": 13
+    },
+    "2026-02-27": {
+      "avg-age-open": 490.0,
+      "avg-time-to-close": 26.5,
+      "closed": 6,
+      "open": 8,
+      "opened": 10
     }
   }
 }
