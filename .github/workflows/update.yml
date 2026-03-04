@@ -33,16 +33,13 @@ jobs:
       - name: Update data
         run: |
           ./weekly_report.sh
-      - name: git config
+      - name: git config, commit and push any changes
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: git commit and push any changes
-        run: |
           git add .
           git diff-index --quiet HEAD || (git commit -m "Update data" && git push)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update Google sheet
         run: |
           python scripts/export_to_sheets.py
