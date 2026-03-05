@@ -8245,10 +8245,12 @@
       "P3": 233,
       "P4": 41,
       "P5": 25,
+      "Regressions": 3,
       "Total": 333,
       "Untriaged": 1,
       "avg-time-to-close": 3472.5,
       "closed": 5,
+      "new-regressions": 0,
       "opened": 3
     }
   },

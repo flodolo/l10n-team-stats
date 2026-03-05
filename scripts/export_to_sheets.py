@@ -326,6 +326,8 @@ def main():
             "P4",
             "P5",
             "Untriaged",
+            "Regressions\n(open)",
+            "New\nRegressions",
             "Total Open",
         ]
     )
@@ -341,6 +343,8 @@ def main():
             day_data["P4"],
             day_data["P5"],
             day_data["Untriaged"],
+            day_data.get("Regressions", ""),
+            day_data.get("new-regressions", ""),
             day_data["Total"],
         ]
         export.append(_row)

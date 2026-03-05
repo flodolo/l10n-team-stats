@@ -33,6 +33,7 @@ def main():
         "P4": 0,
         "P5": 0,
         "Untriaged": 0,
+        "Regressions": 0,
     }
 
     open = g.search_issues(
@@ -42,12 +43,16 @@ def main():
     )
     untriaged = []
     assigned = []
+    regressions = []
     if open:
         for issue in open:
             stats["Total"] += 1
             triaged = False
             for label in issue.labels:
-                if label.name in stats.keys():
+                if label.name == "regression":
+                    stats["Regressions"] += 1
+                    regressions.append(f"  - #{issue.number} {issue.title}")
+                elif label.name in stats.keys():
                     stats[label.name] += 1
                     triaged = True
                     if issue.assignee:
@@ -69,6 +74,9 @@ def main():
         if untriaged:
             print(f"\nUntriaged issues ({len(untriaged)}):")
             print("\n".join(untriaged))
+        if regressions:
+            print(f"\nRegressions ({len(regressions)}):")
+            print("\n".join(regressions))
 
     # Analyze issues opened within the requested range.
     opened = g.search_issues(
@@ -127,6 +135,21 @@ def main():
             print(f"Average age of closed issues: {format_time(avg_age)}")
         if args.verbose:
             print("\n".join(issues.values()))
+
+    # Analyze regression issues filed during the requested range.
+    new_regressions = g.search_issues(
+        query=f"repo:{repo} is:issue label:regression created:{str_start_date}..{str_end_date}",
+        sort="created",
+        order="desc",
+    )
+    regression_issues = list(new_regressions)
+    count = len(regression_issues)
+    print(f"Regression issues filed between {str_start_date} and {str_end_date} ({count})")
+    record["new-regressions"] = count
+    if args.verbose and regression_issues:
+        for issue in regression_issues:
+            created_at = issue.created_at.strftime("%Y-%m-%d")
+            print(f"  - #{issue.number} {created_at}: {issue.title}")
 
     if not args.dry:
         store_json_data("pontoon-issues", record, day=end_date)
