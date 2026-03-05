@@ -5,7 +5,6 @@ import calendar
 from collections import defaultdict
 from datetime import datetime
 
-from dateutil.relativedelta import relativedelta
 from functions import format_time, get_gh_usernames, get_pr_details, parse_arguments
 
 
@@ -24,7 +23,10 @@ def main():
     d = start_date
     while d < end_date:
         periods.append(d)
-        d += relativedelta(months=1)
+        next_month = d.month % 12 + 1
+        next_year = d.year + (1 if d.month == 12 else 0)
+        last_day = calendar.monthrange(next_year, next_month)[1]
+        d = d.replace(year=next_year, month=next_month, day=min(d.day, last_day))
 
     overall_data = defaultdict(lambda: defaultdict(dict))
     for d in periods:
