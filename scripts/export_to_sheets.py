@@ -4,6 +4,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import os
+import time
+
 import gspread
 
 from functions import (
@@ -167,6 +170,9 @@ def update_sheet(sh, sheet_name, export):
             sh.batch_update(body)
     except gspread.exceptions.APIError as e:
         print(f"Error updating named range {range_name}: {e}")
+
+    if os.environ.get("CI"):
+        time.sleep(10)
 
 
 def main():

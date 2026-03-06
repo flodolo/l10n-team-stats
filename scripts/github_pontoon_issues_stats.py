@@ -144,7 +144,9 @@ def main():
     )
     regression_issues = list(new_regressions)
     count = len(regression_issues)
-    print(f"Regression issues filed between {str_start_date} and {str_end_date} ({count})")
+    print(
+        f"Regression issues filed between {str_start_date} and {str_end_date} ({count})"
+    )
     record["new-regressions"] = count
     if args.verbose and regression_issues:
         for issue in regression_issues:
