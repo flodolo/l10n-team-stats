@@ -233,7 +233,6 @@ def get_json_data():
 def get_gh_usernames():
     return {
         "bcolsson": "Bryan",
-        "Delphine": "Delphine",
         "flodolo": "Flod",
         "peiying2": "Peiying",
     }
@@ -242,7 +241,6 @@ def get_gh_usernames():
 def get_phab_usernames():
     return {
         "bolsson": "Bryan",
-        "delphine": "Delphine",
         "flod": "Flod",
     }
 
