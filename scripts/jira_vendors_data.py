@@ -25,7 +25,7 @@ def main():
 
     issues = search_jira_issues(
         jira,
-        "project = 'l10n-vendor' AND status != Canceled AND issuetype != Epic",
+        "project = 'l10n-vendor' AND status != Canceled",
     )
 
     output = []
@@ -69,17 +69,23 @@ def main():
 
         assignee = issue.fields.assignee.displayName if issue.fields.assignee else "-"
 
-        try:
-            type = issue.fields.parent.fields.summary.strip()
-        except AttributeError:
-            errors.insert(0, f"{issue_id}: no parent (epic) available")
+        components = issue.fields.components or []
+        if not components:
+            errors.insert(0, f"{issue_id}: no component set")
             type = "-"
+        else:
+            if len(components) > 1:
+                errors.insert(
+                    0,
+                    f"{issue_id}: multiple components, first was used ({', '.join(c.name for c in components)})",
+                )
+            type = components[0].name.strip()
         output.append(
             f"{issue_id},{date_created},{issue.fields.reporter},{issue.fields.reporter.emailAddress},{cc},{type},{invoiced},{assignee}"
         )
 
     output.append(
-        "Issue ID,Date,Reporter,Reporter Email,Cost Center,Epic,Invoiced,Assignee"
+        "Issue ID,Date,Reporter,Reporter Email,Cost Center,Component,Invoiced,Assignee"
     )
     output.reverse()
 
