@@ -55,9 +55,10 @@ def main():
                 elif label.name in stats.keys():
                     stats[label.name] += 1
                     triaged = True
-                    if issue.assignee:
+                    if issue.assignees:
+                        assignees = ", ".join(f"@{a.login}" for a in issue.assignees)
                         assigned.append(
-                            f"  - {label.name} #{issue.number} {issue.title} (@{issue.assignee.login})"
+                            f"  - {label.name} #{issue.number} {issue.title} ({assignees})"
                         )
             if not triaged:
                 stats["Untriaged"] += 1
