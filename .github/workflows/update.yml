@@ -17,23 +17,47 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - name: Skip if this workflow already ran today
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          today=$(date -u +%F)
+          ran=$(gh run list \
+            -R ${{ github.repository }} \
+            --workflow "${{ github.workflow }}" \
+            --status success \
+            --created "$today" \
+            --limit 1 \
+            --json databaseId \
+            --jq 'length')
+          if [ "$ran" -gt 0 ]; then
+            echo "Workflow already succeeded today; skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Checkout repository
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        if: steps.guard.outputs.skip != 'true'
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements.txt
-      - run: pip install -r requirements.txt
+      - if: steps.guard.outputs.skip != 'true'
+        run: pip install -r requirements.txt
       - name: Create env file
+        if: steps.guard.outputs.skip != 'true'
         run: |
           echo "${{ secrets.ENV_FILE }}" > api_config.env
       - name: Update data
+        if: steps.guard.outputs.skip != 'true'
         run: |
           ./weekly_report.sh
       - name: git config, commit and push any changes
+        if: steps.guard.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
