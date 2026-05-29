@@ -7943,17 +7943,17 @@
     },
     "2026-05-29": {
       "android-l10n-reviewers": {
-        "average_time_to_approve": 215.35,
+        "average_time_to_approve": 55.27,
         "average_time_to_first_review": 22.71,
         "details": {
           "flod": {
-            "approvals": [[ "D290029", 1495.98 ], [ "D300820", 283.23 ], [ "D301360", 10.13 ], [ "D301408", 104.15 ], [ "D302028", 4.24 ], [ "D302149", 10.26 ], [ "D302578", 0.21 ], [ "D302621", 21.81 ], [ "D302648", 8.14 ]],
+            "approvals": [[ "D300820", 283.23 ], [ "D301360", 10.13 ], [ "D301408", 104.15 ], [ "D302028", 4.24 ], [ "D302149", 10.26 ], [ "D302578", 0.21 ], [ "D302621", 21.81 ], [ "D302648", 8.14 ]],
             "first_reviews": [[ "D301360", 10.13 ], [ "D301408", 104.15 ], [ "D302028", 4.24 ], [ "D302149", 10.26 ], [ "D302578", 0.21 ], [ "D302621", 21.81 ], [ "D302648", 8.14 ]]
           }
         },
-        "total_approvals": 9,
+        "total_approvals": 8,
         "total_first_reviews": 7,
-        "total_reviews": 9
+        "total_reviews": 8
       },
       "fluent-reviewers": {
         "average_time_to_approve": 29.8,
