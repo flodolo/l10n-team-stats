@@ -8,6 +8,7 @@ import json
 import os
 import random
 import re
+import sys
 import time
 import urllib.parse
 
@@ -19,7 +20,7 @@ import urllib3
 
 from github import Github
 from jira import JIRA
-from phab_cache import get_transactions, set_transactions
+from phab_cache import get_group, get_transactions, set_group, set_transactions
 
 
 class InlineListEncoder(json.JSONEncoder):
@@ -299,6 +300,55 @@ def phab_diff_transactions(id, phid):
         print(f"Using cached transactions for {id}...")
 
     return transactions_response.get("results", [])
+
+
+def get_phab_review_groups(group_names):
+    """Return {group_name: {"phid": str, "members": {phid: username}}} with caching.
+
+    Members are restricted to known l10n users (get_phab_usernames()).
+    """
+    l10n_users = get_phab_usernames().keys()
+    groups = {}
+    for group in group_names:
+        cached = get_group(group)
+        if cached:
+            print(f"\nUsing cached info for group {group}...")
+            groups[group] = cached
+            continue
+
+        group_query = {"query": group}
+        group_response = {}
+        print(f"\nGetting members of group {group}...")
+        phab_query(
+            "project.search",
+            group_response,
+            constraints=group_query,
+            attachments={"members": True},
+        )
+        if not group_response.get("results"):
+            sys.exit(f"Group {group} not found.")
+
+        group_info = group_response["results"][0]
+        group_phid = group_info["phid"]
+        group_member_phids = [
+            member["phid"]
+            for member in group_info["attachments"]["members"]["members"]
+        ]
+
+        user_query = {"phids": group_member_phids}
+        user_response = {}
+        print("Getting info on members...")
+        phab_query("user.search", user_response, constraints=user_query)
+
+        group_members = {
+            user["phid"]: user["fields"]["username"]
+            for user in user_response.get("results", [])
+            if user["fields"]["username"] in l10n_users
+        }
+        set_group(group, {"phid": group_phid, "members": group_members})
+        groups[group] = {"phid": group_phid, "members": group_members}
+
+    return groups
 
 
 def phab_query(method: str, data: dict, after=None, **kwargs) -> dict:

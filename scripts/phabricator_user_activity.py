@@ -9,6 +9,7 @@ import statistics
 
 from functions import (
     get_known_phab_user_diffs,
+    get_phab_review_groups,
     get_phab_usernames,
     parse_arguments,
     phab_diff_transactions,
@@ -20,7 +21,7 @@ from phab_cache import get_user_phids as get_cached_user_phids, set_user_phids
 
 
 def get_revisions(
-    type, user, results_data, start_timestamp, end_timestamp, known_diffs
+    type, user, results_data, start_timestamp, end_timestamp, known_diffs, review_groups
 ):
     username = user["user"]
     print(f"Searching revisions {type} by {username}...")
@@ -72,22 +73,37 @@ def get_revisions(
 
         reviewed = False
         review_ts = None
+        review_request_ts = None
         if type == "reviewed":
+            # The review request happens when the user, or one of the l10n
+            # review groups they belong to, is added as a reviewer. Anchoring
+            # the review time to that event (instead of the diff creation date)
+            # avoids inflating the time for diffs that sat unreviewed long
+            # before the review was actually requested.
+            relevant_phids = {user["phid"]} | {
+                g["phid"]
+                for g in review_groups.values()
+                if user["user"] in g["members"].values()
+            }
             # Process transactions to find review by the user.
             transactions = phab_diff_transactions(revision_id, revision["phid"])
             for txn in transactions:
-                # For groups it's possible to look when the review was
-                # requested. For individual users that's not reliable, as the
-                # request might happen as part of a group.
+                if txn["type"] == "reviewers":
+                    for op in txn["fields"].get("operations", []):
+                        if (
+                            op.get("operation") == "add"
+                            and op.get("phid") in relevant_phids
+                        ):
+                            review_request_ts = txn["dateCreated"]
                 # The review has to happen within the range.
                 if (
                     txn["type"] in ("accept", "request-changes")
                     and txn["authorPHID"] == user["phid"]
                     and (start_timestamp <= txn["dateCreated"] <= end_timestamp)
+                    and review_ts is None
                 ):
                     reviewed = True
                     review_ts = txn["dateCreated"]
-                    break
 
         # If looking at reviews and there was no review yet, ignore this diff.
         if type == "reviewed" and not reviewed:
@@ -107,7 +123,13 @@ def get_revisions(
             else:
                 results_data[username][type].append(revision_id)
         else:
-            time_diff = review_ts - revision["fields"]["dateCreated"]
+            create_ts = revision["fields"]["dateCreated"]
+            review_request = (
+                review_request_ts
+                if (review_request_ts and review_request_ts <= review_ts)
+                else create_ts
+            )
+            time_diff = review_ts - review_request
             time_to_review_h = round(time_diff / 3600, 2)
             print(
                 f"{revision_id} {date_created.strftime('%Y-%m-%d')} {revision['fields']['title']} (review hours: {time_to_review_h})"
@@ -155,13 +177,28 @@ def main():
     )
     users = get_user_phids()
     known_diffs = get_known_phab_user_diffs()
+    review_groups = get_phab_review_groups(
+        ["android-l10n-reviewers", "fluent-reviewers"]
+    )
     phab_data = {}
     for user in users:
         get_revisions(
-            "authored", user, phab_data, start_timestamp, end_timestamp, known_diffs
+            "authored",
+            user,
+            phab_data,
+            start_timestamp,
+            end_timestamp,
+            known_diffs,
+            review_groups,
         )
         get_revisions(
-            "reviewed", user, phab_data, start_timestamp, end_timestamp, known_diffs
+            "reviewed",
+            user,
+            phab_data,
+            start_timestamp,
+            end_timestamp,
+            known_diffs,
+            review_groups,
         )
 
     stats = {
