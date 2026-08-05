@@ -61,9 +61,7 @@ def main():
         ]
         day_data["phab-reviewed"] = len(all_reviews)
         if all_reviews:
-            day_data["phab-avg-time-to-review"] = round(
-                statistics.mean(all_reviews), 2
-            )
+            day_data["phab-avg-time-to-review"] = round(statistics.mean(all_reviews), 2)
 
     write_json_data(data)
 

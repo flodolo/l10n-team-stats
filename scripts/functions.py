@@ -331,8 +331,7 @@ def get_phab_review_groups(group_names):
         group_info = group_response["results"][0]
         group_phid = group_info["phid"]
         group_member_phids = [
-            member["phid"]
-            for member in group_info["attachments"]["members"]["members"]
+            member["phid"] for member in group_info["attachments"]["members"]["members"]
         ]
 
         user_query = {"phids": group_member_phids}
