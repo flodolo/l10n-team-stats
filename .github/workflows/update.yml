@@ -57,7 +57,7 @@ jobs:
         run: |
           ./weekly_report.sh
       - name: git config, commit and push any changes
-        if: steps.guard.outputs.skip != 'true'
+        if: always() && steps.guard.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

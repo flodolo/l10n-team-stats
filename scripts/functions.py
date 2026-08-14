@@ -151,14 +151,36 @@ def get_github_object():
     )
 
 
-def github_api_request(query):
+def github_api_request(query, _retries=3, _backoff=0.8):
     url = "https://api.github.com/graphql"
     github_token = read_config(key="github")
     json_query = {"query": query}
     headers = {"Authorization": f"token {github_token}"}
-    r = requests.post(url=url, json=json_query, headers=headers)
 
-    return r
+    attempt = 0
+    while True:
+        r = requests.post(url=url, json=json_query, headers=headers)
+        try:
+            data = r.json()
+        except ValueError:
+            data = None
+
+        if data is not None and r.status_code == 200 and "errors" not in data:
+            return r
+
+        if attempt >= _retries:
+            reason = (
+                f"HTTP {r.status_code}, body: {r.text[:500]!r}"
+                if data is None
+                else f"GraphQL errors: {data.get('errors')}"
+            )
+            raise RuntimeError(
+                f"GitHub GraphQL request failed after {_retries} retries: {reason}"
+            )
+
+        sleep_s = _backoff * (2**attempt) + random.uniform(0, 0.5)
+        time.sleep(sleep_s)
+        attempt += 1
 
 
 def get_jira_object():
