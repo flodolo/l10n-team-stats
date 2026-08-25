@@ -34,6 +34,9 @@ run_py "github_prs_stats.py" --repo mozilla/pontoon
 section "Pontoon issues stats"
 run_py "github_pontoon_issues_stats.py"
 
+section "Pontoon release stats"
+run_py "github_pontoon_releases_stats.py"
+
 section "Jira stats"
 run_py "jira_l10n_stats.py"
 

@@ -58,7 +58,11 @@ def get_group_value(day_data, group, key, old_key=None):
 
 def update_sheet(sh, sheet_name, export):
     num_columns = len(export[0])
-    wks = sh.worksheet(sheet_name)
+    try:
+        wks = sh.worksheet(sheet_name)
+    except gspread.exceptions.WorksheetNotFound:
+        print(f"Creating missing sheet: {sheet_name}")
+        wks = sh.add_worksheet(title=sheet_name, rows=len(export), cols=num_columns)
 
     print(f"Updating sheet: {sheet_name}")
 
@@ -355,6 +359,26 @@ def main():
         ]
         export.append(_row)
     update_sheet(sh, "raw_pontoon_issues", export)
+
+    # Export Pontoon releases
+    export = []
+    export.append(
+        [
+            "Date",
+            "Published",
+            "Tags",
+            "Total\nPublished",
+        ]
+    )
+    for day, day_data in data.get("pontoon-releases", {}).items():
+        _row = [
+            day,
+            day_data["published"],
+            day_data["tags"],
+            day_data["total"],
+        ]
+        export.append(_row)
+    update_sheet(sh, "raw_pontoon_releases", export)
 
     # Export Jira issues
     export = []
