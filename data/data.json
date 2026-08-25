@@ -11497,5 +11497,12 @@
       "open": 8,
       "opened": 12
     }
+  },
+  "pontoon-releases": {
+    "2026-08-21": {
+      "published": 1,
+      "tags": "v2026.08.19",
+      "total": 30
+    }
   }
 }
