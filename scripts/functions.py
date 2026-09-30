@@ -258,7 +258,7 @@ def get_gh_usernames():
         "bcolsson": "Bryan",
         "camilapedraza": "Camila",
         "flodolo": "Flod",
-        "peiying2": "Peiying",
+        "eergunbinen": "Eda",
     }
 
 
