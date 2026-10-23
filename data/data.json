@@ -3775,6 +3775,13 @@
       "closed": 7,
       "created": 7,
       "in-progress": 1
+    },
+    "2026-10-23": {
+      "backlog": 4,
+      "blocked": 0,
+      "closed": 7,
+      "created": 7,
+      "in-progress": 0
     }
   },
   "jira-request-stats": {
@@ -11304,6 +11311,20 @@
       "closed": 3,
       "new-regressions": 1,
       "opened": 2
+    },
+    "2026-10-23": {
+      "P1": 0,
+      "P2": 21,
+      "P3": 220,
+      "P4": 44,
+      "P5": 20,
+      "Regressions": 1,
+      "Total": 305,
+      "Untriaged": 0,
+      "avg-time-to-close": 11261.6,
+      "closed": 4,
+      "new-regressions": 0,
+      "opened": 2
     }
   },
   "pontoon-prs": {
@@ -12293,6 +12314,13 @@
       "closed": 10,
       "open": 7,
       "opened": 19
+    },
+    "2026-10-23": {
+      "avg-age-open": 577.2,
+      "avg-time-to-close": 54.5,
+      "closed": 6,
+      "open": 6,
+      "opened": 5
     }
   },
   "pontoon-releases": {
@@ -12340,6 +12368,11 @@
       "published": 0,
       "tags": "",
       "total": 47
+    },
+    "2026-10-23": {
+      "published": 1,
+      "tags": "v2026.10.20",
+      "total": 48
     }
   }
 }
